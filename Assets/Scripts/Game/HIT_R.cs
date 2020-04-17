@@ -17,14 +17,14 @@ public class HIT_R : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other)             //他のオブジェクトとの接触時の処理
+    void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("HOT"))     //加熱属性に当たった時
+        if (other.gameObject.CompareTag("Hot"))     //加熱属性に当たった時
         {
             PLAYER.SET_stayHOT_R();
         }
 
-        if (other.gameObject.CompareTag("COLD"))    //冷却属性に当たった時
+        if (other.gameObject.CompareTag("Cold"))    //冷却属性に当たった時
         {
             PLAYER.SET_stayCOLD_R();
         }
@@ -32,12 +32,12 @@ public class HIT_R : MonoBehaviour
 
     void OnTriggerExit(Collider other)              //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("HOT"))     //加熱属性から離れた時
+        if (other.gameObject.CompareTag("Hot"))     //加熱属性から離れた時
         {
             PLAYER.CLEAR_stayHOT();
         }
 
-        if (other.gameObject.CompareTag("COLD"))    //冷却属性から離れた時
+        if (other.gameObject.CompareTag("Cold"))    //冷却属性から離れた時
         {
             PLAYER.CLEAR_stayCOLD();
         }
