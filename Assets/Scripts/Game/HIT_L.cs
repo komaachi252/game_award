@@ -17,7 +17,7 @@ public class HIT_L : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other)             //他のオブジェクトとの接触時の処理
+    void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
         if (other.gameObject.CompareTag("HOT"))     //加熱属性に当たった時
         {
