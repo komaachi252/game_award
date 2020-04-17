@@ -37,11 +37,13 @@ public class PLAYER : MonoBehaviour
                 {
                     Debug.Log("加熱");
                     TYPE++;
-
+                    this.gameObject.tag = "AQUA";
                     if(TYPE==2)
                     {
                         Debug.Log("浮上");
                         Physics.gravity = new Vector3(0, 9.8f, 0);
+
+                        this.gameObject.tag = "CLOUD";
                     }
                 }
             }
@@ -52,10 +54,14 @@ public class PLAYER : MonoBehaviour
                 {
                     Debug.Log("冷却");
                     TYPE--;
+
+                    this.gameObject.tag = "AQUA";
                     if (TYPE == 0)
                     {
                         Debug.Log("降下");
                         Physics.gravity = new Vector3(0, -9.8f, 0);
+
+                        this.gameObject.tag = "ICE";
                     }
                 }
             }

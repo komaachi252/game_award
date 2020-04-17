@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1019610706781539330
+--- !u!1 &3540551235311108038
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1019610706781539336}
-  - component: {fileID: 1019610706781539343}
-  - component: {fileID: 1019610706781539342}
-  - component: {fileID: 1019610706781539341}
-  - component: {fileID: 1019610706781539340}
-  - component: {fileID: 1019610706781539331}
+  - component: {fileID: 7697656050857561136}
+  - component: {fileID: 6270097959140605494}
+  - component: {fileID: 8058282016405578954}
+  - component: {fileID: 6262596994257795500}
+  - component: {fileID: 6601593975477891339}
   m_Layer: 0
-  m_Name: PhaseHot
-  m_TagString: HOT
+  m_Name: Light_Block
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1019610706781539336
+--- !u!4 &7697656050857561136
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019610706781539330}
+  m_GameObject: {fileID: 3540551235311108038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4065487, y: 0.037780836, z: 1.845366}
+  m_LocalPosition: {x: -5.2196035, y: 1.0538244, z: 3.4310675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1019610706781539343
+--- !u!33 &6270097959140605494
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019610706781539330}
+  m_GameObject: {fileID: 3540551235311108038}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1019610706781539342
+--- !u!23 &8058282016405578954
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019610706781539330}
+  m_GameObject: {fileID: 3540551235311108038}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7e54bb214fca8504f9f453a497059a7e, type: 2}
+  - {fileID: 2100000, guid: 1757818a1431d0f43920d8c569ba65c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,44 +81,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1019610706781539341
+--- !u!65 &6262596994257795500
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019610706781539330}
+  m_GameObject: {fileID: 3540551235311108038}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1019610706781539340
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019610706781539330}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!114 &1019610706781539331
+--- !u!114 &6601593975477891339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019610706781539330}
+  m_GameObject: {fileID: 3540551235311108038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3a398e6c1997f4192f93cd1d15507f, type: 3}
+  m_Script: {fileID: 11500000, guid: edad9737529ad7e44afd5c8b7e9cb237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_is_right: 0
+  m_is_colli: 0
+  m_is_cloud: 0

@@ -4,10 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hot
-  - Cold
-  - Block
-  - Goal
+  - ICE
+  - AQUA
+  - CLOUD
+  - GOAL
+  - WINDMILL
+  - HOT
+  - COLD
+  - WATERMILL
   layers:
   - Default
   - TransparentFX
