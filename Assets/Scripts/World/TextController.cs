@@ -5,31 +5,26 @@ using UnityEngine.UI;
 
 public class TextController : MonoBehaviour
 {
-    public GameObject World_Text_obj;//現在のワールドを表示するやつ
-    private Text world_text;//ワールドのテキスト
 
-    public GameObject Stage_text_obj;//現在のステージを表示するやつ
-    private Text Stage_text;//ステージのテキスト
+    public GameObject camera_obj;//現在のワールドが入っているやつ
+    public GameObject Text_obj;//現在のワールドを表示するやつ
+    private CameraController camecon;//カメラコントローラー
+    private Text world_tex;//ワールドのテキスト
 
 
     // Start is called before the first frame update
     void Start()
     {
         //現在のワールド表示するための準備
-        world_text = World_Text_obj.GetComponent<Text>();//現在のワールド表示するテキスト貰う
-
-        Stage_text = Stage_text_obj.GetComponent<Text>();//現在のステージ表示するテキスト貰う
+        camecon = camera_obj.GetComponent<CameraController>();//今のワールド情報をもらう
+        world_tex = Text_obj.GetComponent<Text>();//ワールド表示するテキストをもらう
     }
 
     // Update is called once per frame
     void Update()
     {
         //現在のワールド表示
-        int world = StageController.Get_world() + 1;
-        world_text.text = "World" + world;
-
-        //現在のステージ表示
-        int stage = StageController.Get_stage() + 1;
-        Stage_text.text = "Stage" + stage;
+        int world_number = camecon.Get_NowWorld + 1;
+        world_tex.text = "World" + world_number;
     }
 }

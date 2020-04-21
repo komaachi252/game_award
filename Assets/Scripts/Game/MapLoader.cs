@@ -11,17 +11,11 @@ public class MapLoader : MonoBehaviour
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
-    public int m_map_index;
+    public GameObject m_player;
+
+    private int m_map_index;
 
     private const string FILE_PATH = "/Resources/Game/";
-
-    private bool m_is_create = false;  //  マップ生成判定
-    public bool Is_Create
-    {
-        get { return m_is_create; }
-    }
-
-
     void Start()
     {
         m_map_datas = new List<Map_Data>();
@@ -29,9 +23,6 @@ public class MapLoader : MonoBehaviour
         //  全てのマップファイルのパスを追加する
         m_file_paths.Add(FILE_PATH + "Map1.csv");
         m_file_paths.Add(FILE_PATH + "Map2.csv");
-        m_file_paths.Add(FILE_PATH + "test1.csv");
-        m_file_paths.Add(FILE_PATH + "test2.csv");
-        m_file_paths.Add(FILE_PATH + "test3.csv");
 
         //  追加されたパス分マップ情報を読み込む
         foreach (var path in m_file_paths){
@@ -41,6 +32,7 @@ public class MapLoader : MonoBehaviour
         }
 
         //  指定したインデックスのマップを生成する
+        m_map_index = 0;
         Map_Create(m_map_datas[m_map_index]);
     }
     void Update()
@@ -86,6 +78,8 @@ public class MapLoader : MonoBehaviour
             }
         }
 
-        m_is_create = true;
+        //
+        Instantiate(m_player, new Vector3(3.5f, 2.0f, 0.0f), Quaternion.identity);
+        //
     }
 }
