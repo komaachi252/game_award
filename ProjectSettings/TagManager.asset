@@ -12,6 +12,8 @@ TagManager:
   - HOT
   - COLD
   - WATERMILL
+  - Goal
+  - SOLID
   layers:
   - Default
   - TransparentFX
