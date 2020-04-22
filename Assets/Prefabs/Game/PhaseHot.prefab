@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1019610706781539331}
   m_Layer: 0
   m_Name: PhaseHot
-  m_TagString: HOT
+  m_TagString: Hot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

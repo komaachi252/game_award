@@ -11,7 +11,7 @@ public class MapLoader : MonoBehaviour
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
-    public int m_map_index;
+    public int m_map_index;  //  読み込むマップのインデックス
 
     private const string FILE_PATH = "/Resources/Game/";
 
@@ -82,6 +82,7 @@ public class MapLoader : MonoBehaviour
 
         for(int i = 0; i < map_data.Height; i++){
             for(int j = 0; j < map_data.Width; j++){
+                if (map_data.Map_data[i, j] == 0) continue;
                 Instantiate(m_objects[map_data.Map_data[i,j]], new Vector3(x + j, y - i, 0.0f), Quaternion.identity);
             }
         }
