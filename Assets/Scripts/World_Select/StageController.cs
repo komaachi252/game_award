@@ -14,6 +14,7 @@ public class StageController : MonoBehaviour
     private static int now_stage;//現在選択してるステージ
 
     private int world_marking_num;//ワールド数
+    private int[] stage_marking_num;//ステージ数
 
     private int one_read;//最初に一回だけ呼ばれるようにするフラグ
 
@@ -42,12 +43,27 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //================================
 
         //ワールド数をカウントする
         GameObject WorldMarking = GameObject.Find("WorldMarking");
         foreach (Transform child in WorldMarking.transform)
         {
             world_marking_num++;
+        }
+
+        //================================
+
+        stage_marking_num = new int[world_marking_num];//ステージメモリ確保
+
+        GameObject StageMarking = GameObject.Find("StageMarking");
+        for (int i = 0; i < world_marking_num; i++)
+        {
+            GameObject world = StageMarking.transform.GetChild(i).gameObject;//子供
+            foreach (Transform transform in world.transform)//子供の数カウント
+            {
+                stage_marking_num[i]++;
+            }
         }
 
         select_flag = 0;//ワールド選択から始める
@@ -62,6 +78,16 @@ public class StageController : MonoBehaviour
             {
                 next_world++;
             }
+            else if (select_flag == 1)//ステージ選択
+            {
+                next_stage++;
+
+                if (next_stage > stage_marking_num[now_world] - 1)//次のステージがステージ数を超えていたら
+                {
+                    next_stage = 0;//ループするようにする
+                }
+            }
+
         }
 
         if (Input.GetKeyDown(KeyCode.A))//戻る
@@ -70,7 +96,18 @@ public class StageController : MonoBehaviour
             {
                 next_world--;
             }
+            else if (select_flag == 1)//ステージ選択
+            {
+                next_stage--;
+
+                if (next_stage < 0)//次のステージがステージ数を超えていたら
+                {
+                    next_stage = stage_marking_num[now_world] - 1;//ループするようにする
+                }
+            }
         }
+
+        now_stage = next_stage;
 
         if (Input.GetKeyDown(KeyCode.Space))//決定
         {
