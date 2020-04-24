@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ICE
   - AQUA
   - CLOUD
   - GOAL
@@ -25,7 +24,7 @@ TagManager:
   - LIFT
   - HAMMER
   - GEAR
-  - Thorn
+  - LEAF
   layers:
   - Default
   - TransparentFX

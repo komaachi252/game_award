@@ -21,7 +21,7 @@ public class Leaf_Colli_Ride : MonoBehaviour
     {
         if (!col.gameObject.GetComponent<BoxCollider>().isTrigger)
         {
-            if (col.gameObject.CompareTag("ICE"))
+            if (col.gameObject.CompareTag("SOLID"))
             {
                 Debug.Log("OnTriggerEnter_Ride_Ice");
                 m_controller.GetComponent<Leaf_Controller>().Set_Colli_Type(Leaf.Colli_Type.ICE);

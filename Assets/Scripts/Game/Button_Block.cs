@@ -37,7 +37,7 @@ public class Button_Block : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("ICE") && !m_is_exit && !m_is_push)
+        if (col.gameObject.CompareTag("SOLID") && !m_is_exit && !m_is_push)
         {
             m_is_move = true;
             m_dist = 0.0f;
@@ -46,7 +46,7 @@ public class Button_Block : MonoBehaviour
     }
     private void OnCollisionExit(Collision col)
     {
-        if (col.gameObject.CompareTag("ICE"))
+        if (col.gameObject.CompareTag("SOLID"))
         {
             m_is_exit = true;
         }
