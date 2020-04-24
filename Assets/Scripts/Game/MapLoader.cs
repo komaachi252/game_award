@@ -15,6 +15,8 @@ public class MapLoader : MonoBehaviour
 
     private const string FILE_PATH = "/Resources/Game/";
 
+    public Map_Data m_map_data;
+
     private bool m_is_create = false;  //  マップ生成判定
     public bool Is_Create
     {
@@ -74,8 +76,10 @@ public class MapLoader : MonoBehaviour
         }
     }
 
-    void Map_Create(in Map_Data map_data)
+    bool Map_Create(in Map_Data map_data)
     {
+        m_map_data = map_data;
+
         //  座標初期値
         var x = 0.5f;
         var y = (map_data.Height - 1) * 1.0f;
@@ -83,10 +87,16 @@ public class MapLoader : MonoBehaviour
         for(int i = 0; i < map_data.Height; i++){
             for(int j = 0; j < map_data.Width; j++){
                 if (map_data.Map_data[i, j] == 0) continue;
-                Instantiate(m_objects[map_data.Map_data[i,j]], new Vector3(x + j, y - i, 0.0f), Quaternion.identity);
+                var obj = Instantiate(m_objects[map_data.Map_data[i,j]], new Vector3(x + j, y - i, 0.0f), Quaternion.identity);
+                if(map_data.Map_data[i, j].Equals(25))
+                {
+                    obj.gameObject.GetComponent<Lift_Block>().Set_Map_Data_Index(i, j);
+                }
             }
         }
 
         m_is_create = true;
+
+        return true;
     }
 }

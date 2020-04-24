@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController: MonoBehaviour
+public class CameraController : MonoBehaviour
 {
 
     private const float EARTH_RANGE = 6.0f;//地球とカメラの距離

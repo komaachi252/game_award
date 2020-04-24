@@ -14,6 +14,18 @@ TagManager:
   - WATERMILL
   - Goal
   - SOLID
+  - BLOCK
+  - WATER
+  - FIRE
+  - SLIME
+  - THORN
+  - THORN_BLOCK
+  - GAP
+  - SPONGE
+  - LIFT
+  - HAMMER
+  - GEAR
+  - Thorn
   layers:
   - Default
   - TransparentFX
