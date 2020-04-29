@@ -5,7 +5,9 @@ using UnityEngine;
 public class Phase : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject m_effect;
 
+    public bool m_is_hot;
     //public GameObject instance;
     void Start()
     {
@@ -18,14 +20,26 @@ public class Phase : MonoBehaviour
         
     }
 
-    private void OnCollisionStay(Collision collision)
+    void Create_Effect()
     {
-        //this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(1, 1, 1);
-
+        var pos = this.transform.position;
+        if (m_is_hot)
+        {
+            pos.y += 0.3f;
+        }
+        else
+        {
+            pos.y -= 0.5f;
+        }
+        pos.z -= 0.5f;
+        Instantiate(m_effect, pos, Quaternion.identity);
     }
-    private void Change_Object()
+
+    private void OnTriggerEnter(Collider col)
     {
-        //Instantiate(instance);
-        //Destroy(this.gameObject);
+        if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
+        {
+            Create_Effect();
+        }
     }
 }

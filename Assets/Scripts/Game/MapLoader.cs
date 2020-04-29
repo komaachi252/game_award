@@ -35,6 +35,7 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "test2.csv");
         m_file_paths.Add(FILE_PATH + "test3.csv");
         m_file_paths.Add(FILE_PATH + "test4.csv");
+        m_file_paths.Add(FILE_PATH + "water1.csv");
 
         //  追加されたパス分マップ情報を読み込む
         foreach (var path in m_file_paths){
@@ -92,6 +93,10 @@ public class MapLoader : MonoBehaviour
                 if(map_data.Map_data[i, j].Equals(25))
                 {
                     obj.gameObject.GetComponent<Lift_Block>().Set_Map_Data_Index(i, j);
+                }
+                if (obj.gameObject.GetComponent<Map_Data_Seeker>())
+                {
+                    obj.gameObject.GetComponent<Map_Data_Seeker>().Set_Index(i, j);
                 }
             }
         }
