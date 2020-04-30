@@ -74,6 +74,7 @@ public class StageController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))//進む
         {
+            
             if (select_flag == 0 && next_world < world_marking_num - 1)//ワールド選択画面
             {
                 next_world++;

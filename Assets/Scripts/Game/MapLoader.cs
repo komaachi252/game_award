@@ -17,6 +17,8 @@ public class MapLoader : MonoBehaviour
 
     public Map_Data m_map_data;
 
+    public GameObject m_back_ground;
+
     private bool m_is_create = false;  //  マップ生成判定
     public bool Is_Create
     {
@@ -100,6 +102,8 @@ public class MapLoader : MonoBehaviour
                 }
             }
         }
+
+        Instantiate(m_back_ground, new Vector3(0,-4,-7), Quaternion.identity);
 
         m_is_create = true;
 
