@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Map_Data
+public class Map_Data
 {
     private int[,] m_map_data;
     private int m_height;

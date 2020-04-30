@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ICE
   - AQUA
   - CLOUD
   - GOAL
@@ -12,6 +11,20 @@ TagManager:
   - HOT
   - COLD
   - WATERMILL
+  - Goal
+  - SOLID
+  - BLOCK
+  - WATER
+  - FIRE
+  - SLIME
+  - THORN
+  - THORN_BLOCK
+  - GAP
+  - SPONGE
+  - LIFT
+  - HAMMER
+  - GEAR
+  - LEAF
   layers:
   - Default
   - TransparentFX

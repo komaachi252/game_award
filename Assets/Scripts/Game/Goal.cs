@@ -20,9 +20,8 @@ public class Goal : MonoBehaviour
     private void OnCollisionEnter(Collision col)
     {
         //!  プレイヤーだった場合ゲームクリア呼び出し
-        if(col.gameObject.CompareTag("ICE") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
+        if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
         {
-            Debug.Log("オブジェクト");
             GameObject.Find(GAME_MANAGER).GetComponent<Game_Manager>().Game_Clear();
         }
     }

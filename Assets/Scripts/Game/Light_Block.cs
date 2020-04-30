@@ -56,7 +56,7 @@ public class Light_Block : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.CompareTag("ICE"))
+        if(col.gameObject.CompareTag("SOLID"))
         {
             if(col.gameObject.transform.position.x < this.transform.position.x)
             {
@@ -88,7 +88,7 @@ public class Light_Block : MonoBehaviour
 
     private void OnCollisionExit(Collision col)
     {
-        if(col.gameObject.CompareTag("ICE") || col.gameObject.CompareTag("CLOUD"))
+        if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("CLOUD"))
         {
             Parent_Reset();
         }
