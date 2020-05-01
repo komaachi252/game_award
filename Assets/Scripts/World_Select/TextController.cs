@@ -6,9 +6,8 @@ using UnityEngine.UI;
 public class TextController : MonoBehaviour
 {
 
-    public GameObject camera_obj;//現在のワールドが入っているやつ
     public GameObject Text_obj;//現在のワールドを表示するやつ
-    private CameraController camecon;//カメラコントローラー
+
     private Text world_tex;//ワールドのテキスト
 
 
@@ -16,7 +15,6 @@ public class TextController : MonoBehaviour
     void Start()
     {
         //現在のワールド表示するための準備
-        camecon = camera_obj.GetComponent<CameraController>();//今のワールド情報をもらう
         world_tex = Text_obj.GetComponent<Text>();//ワールド表示するテキストをもらう
     }
 
@@ -24,7 +22,9 @@ public class TextController : MonoBehaviour
     void Update()
     {
         //現在のワールド表示
-        int world_number = camecon.Get_NowWorld + 1;
-        world_tex.text = "World" + world_number;
+        int world_number = StageController.Get_world() + 1;
+        int stage_number = StageController.Get_stage() + 1;
+
+        world_tex.text = "World" + world_number + "\nStage" + stage_number;
     }
 }

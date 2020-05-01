@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController2: MonoBehaviour
+public class CameraController: MonoBehaviour
 {
 
     private const float WORLD_EARTH_RANGE = 6.0f;//地球とカメラの距離　ワールドバージョン
@@ -178,15 +178,19 @@ public class CameraController2: MonoBehaviour
             {
                 flag = 3;
             }
-
-            if (earth_range > STAGE_EARTH_RANGE)//ステージ距離より大きかったら
+            else
             {
-                flag = 3;
+                ChangeWorld(world_marking[next_world].position, move_flame);//ワールド移動
             }
 
-            
+            //if (earth_range > STAGE_EARTH_RANGE)//ステージ距離より大きかったら
+            //{
+            //    flag = 3;
+            //}
 
-            
+
+
+
 
         }
 
