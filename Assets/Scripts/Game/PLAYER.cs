@@ -8,6 +8,8 @@ public class PLAYER : MonoBehaviour
     public AQUA AQUA;
     public CLOUD CLOUD;
     PhysicMaterial PM;
+    Collider boxcollider;
+    Collider capcollider;
     public int TYPE = 0;
     public int MOVE_D = 1;
     float STARTPOINT = 0;
@@ -33,28 +35,31 @@ public class PLAYER : MonoBehaviour
     {
         //GetComponent<Renderer>().material.color = colors[TYPE];
         PM = this.gameObject.GetComponent<PhysicMaterial>();
+        boxcollider = this.gameObject.GetComponent<BoxCollider>();
+        capcollider = this.gameObject.GetComponent<CapsuleCollider>();
+        tag = "SOLID";
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0)
+        if (Input.GetKeyDown(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0)
         {
             Debug.Log("入力");
-            if(stay_HOT==1)
+            if (stay_HOT == 1)
             {
                 exchangecount = 61;
                 if (TYPE < 2)
                 {
                     Debug.Log("加熱");
                     TYPE++;
-                    if(TYPE==1)
+                    if (TYPE == 1)
                     {
                         SOLID.exchange_s();
                         AQUA.exchange_b();
                         tag = "AQUA";
                     }
-                    if(TYPE==2)
+                    if (TYPE == 2)
                     {
                         AQUA.exchange_s();
                         CLOUD.exchange_b();
@@ -88,7 +93,7 @@ public class PLAYER : MonoBehaviour
                     {
                         CLOUD.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";                        
+                        tag = "AQUA";
                     }
                 }
             }
@@ -98,7 +103,7 @@ public class PLAYER : MonoBehaviour
 
         if (Input.GetKey(KeyCode.RightArrow) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1)      //移動中でなく右キーが押されたら
         {
-            MOVE_NOW = 25;
+            MOVE_NOW = 1;
             MOVE_D = 1;
             STARTPOINT = transform.position.x;                      //誤差修正の為移動開始地点を記録
             STAND = 0;
@@ -108,7 +113,7 @@ public class PLAYER : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1)      //移動中でなく左キーが押されたら
         {
-            MOVE_NOW = 25;
+            MOVE_NOW = 1;
             MOVE_D = -1;
             STARTPOINT = transform.position.x;                      //誤差修正の為移動開始地点を記録
             STAND = 0;
@@ -120,21 +125,26 @@ public class PLAYER : MonoBehaviour
         {
             MOVE_NOW--;
 
+            Rigidbody rb = this.GetComponent<Rigidbody>();
+            Vector3 FORCE = new Vector3(10.0f * MOVE_D, 0.0f, 0.0f);
+            //rb.AddForce(FORCE);
+
             Vector3 pos = transform.position;
-            pos.x += 0.04f * MOVE_D;
+            pos.x += 0.1f * MOVE_D;
             transform.position = pos;
-            if(MOVE_NOW==0)                                         //移動完了なら
+            if (MOVE_NOW == 0)                                         //移動完了なら
             {
-                pos.x = STARTPOINT +1 * MOVE_D;
-                transform.position = pos;                           //誤差を整数加算により補正
+                //pos.x = STARTPOINT +1 * MOVE_D;
+                //transform.position = pos;                           //誤差を整数加算により補正
             }
+
         }
 
-        if(exchangecount>0)
+        if (exchangecount > 0)
         {
             exchangecount--;
 
-            if(exchangecount==0)
+            if (exchangecount == 0)
             {
                 if (TYPE == 0)
                 {
@@ -144,7 +154,7 @@ public class PLAYER : MonoBehaviour
                     STAND = 0;
                 }
 
-                if (TYPE==2)
+                if (TYPE == 2)
                 {
                     tag = "CLOUD";
                     Debug.Log("浮上");
@@ -154,11 +164,23 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if((TYPE == 0 || TYPE == 1) && MOVE_NOW == 0)
+        if (TYPE == 0 && MOVE_NOW == 0)
         {
-            if(STAND_U==1)
+            if (STAND_U == 1)
             {
                 STAND = 1;
+                boxcollider.enabled = true;
+                capcollider.enabled = false;
+            }
+        }
+
+        if (TYPE == 1 && MOVE_NOW == 0)
+        {
+            if (STAND_U == 1 || STAND_T == 1)
+            {
+                STAND = 1;
+                boxcollider.enabled = true;
+                capcollider.enabled = false;
             }
         }
 
@@ -167,6 +189,8 @@ public class PLAYER : MonoBehaviour
             if (STAND_T == 1)
             {
                 STAND = 1;
+                boxcollider.enabled = true;
+                capcollider.enabled = false;
             }
         }
     }
@@ -240,14 +264,17 @@ public class PLAYER : MonoBehaviour
 
     public void SET_STAND_U()
     {
-        if(MOVE_NOW == 0)
+        if (MOVE_NOW == 0)
         {
             STAND_U = 1;
-        }       
+        }
     }
 
     public void CLARE_STAND()
     {
         STAND = 0;
+        boxcollider.enabled = false;
+        capcollider.enabled = true;
     }
 }
+
