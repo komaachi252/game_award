@@ -84,8 +84,7 @@ public class CameraController: MonoBehaviour
         int now_world = StageController.Get_world();//現在選択してるワールド
         int next_world = stagecontroller.Get_nextworld();//次に選択されるワールド
         int select_flag = stagecontroller.Get_SelectFlag();//ワールド選択かステージ選択かフラグ
-        float angle = Vector3.Angle(Front_vec, this.transform.position - world_marking[StageController.Get_world()].position);//ワールド目標までの角度
-
+        float angle = Vector3.Angle(Front_vec, world_marking[StageController.Get_world()].position - this.transform.position);//ワールド目標までの角度
         //=========================
 
         if (select_flag == 0)//ワールド選択の時
@@ -111,7 +110,7 @@ public class CameraController: MonoBehaviour
 
             }
 
-            if (angle == 0.0f)//目標までの角度が0になったら回転しない
+            if (angle == 0.0f && flag == 1)//目標までの角度が0になったら回転しない
             {
                 flag = 0;
             }
@@ -163,30 +162,37 @@ public class CameraController: MonoBehaviour
             if (flag == 4)//移動中
             {
 
-                if (earth_range < STAGE_EARTH_RANGE)//一定より近づいたら
+                if (earth_range <= STAGE_EARTH_RANGE)//一定より近づいたら
                 {
                     earth_range = STAGE_EARTH_RANGE;
                     flag = 2;//移動を止める
                 }
 
-                this.transform.position = -Front_vec * earth_range;//移動
-
                 earth_range = earth_range - move_flame;//移動
+
+                this.transform.position = -Front_vec * earth_range;//移動
             }
 
-            if (angle == 0.0f)//カメラと目標ワールドの角度が近かったら
-            {
-                flag = 3;
-            }
-            else
+            if (angle != 0.0f)
             {
                 ChangeWorld(world_marking[next_world].position, move_flame);//ワールド移動
             }
+           
 
-            //if (earth_range > STAGE_EARTH_RANGE)//ステージ距離より大きかったら
-            //{
-            //    flag = 3;
-            //}
+            if (flag != 3 && flag != 4 && flag != 2)//ステージにカメラ移動する前の処理
+            {
+                if (angle == 0.0f)//カメラと目標ワールドの角度が近かったら
+                {
+                    flag = 3;
+                }
+
+                if (earth_range > STAGE_EARTH_RANGE && flag != 2)//ステージ距離より大きかったら
+                {
+                    flag = 3;
+                }
+            }
+
+            
 
 
 
