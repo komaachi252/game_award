@@ -38,6 +38,7 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "test3.csv");
         m_file_paths.Add(FILE_PATH + "test4.csv");
         m_file_paths.Add(FILE_PATH + "water1.csv");
+        m_file_paths.Add(FILE_PATH + "test5.csv");
 
         //  追加されたパス分マップ情報を読み込む
         foreach (var path in m_file_paths){

@@ -40,6 +40,15 @@ public class Phase : MonoBehaviour
         if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
         {
             Create_Effect();
+            if (m_is_hot)
+            {
+                FindObjectOfType<Audio_Manager>().Play("heat1");
+            }
+            else
+            {
+                FindObjectOfType<Audio_Manager>().Play("frozen");
+            }
+
         }
     }
 }

@@ -17,7 +17,6 @@ public class Effect_Object : MonoBehaviour
         m_life_frame--;
         if(m_life_frame <= 0)
         {
-            Debug.Log("dds");
             Destroy(this.gameObject);
         }
     }
