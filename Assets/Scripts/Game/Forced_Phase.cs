@@ -10,7 +10,7 @@ public class Forced_Phase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_spawn_frame = Random.Range(0, 240);
+        m_spawn_frame = Random.Range(0, 120);
     }
 
     // Update is called once per frame
@@ -20,9 +20,11 @@ public class Forced_Phase : MonoBehaviour
         if (m_spawn_frame > 0) return;
         
         var pos = transform.position;
-        pos.y += 0.5f;
+        pos.y += 0.3f;
+        pos.z -= 0.5f;
+
         Instantiate(m_effect, pos, Quaternion.identity);
-        m_spawn_frame = Random.Range(120, 360);
+        m_spawn_frame = Random.Range(30, 120);
     
     }
 }

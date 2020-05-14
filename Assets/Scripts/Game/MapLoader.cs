@@ -31,6 +31,7 @@ public class MapLoader : MonoBehaviour
         m_map_datas = new List<Map_Data>();
 
         //  全てのマップファイルのパスを追加する
+        m_file_paths.Add(FILE_PATH + "world1-1.csv");
         m_file_paths.Add(FILE_PATH + "Map1.csv");
         m_file_paths.Add(FILE_PATH + "Map2.csv");
         m_file_paths.Add(FILE_PATH + "test1.csv");

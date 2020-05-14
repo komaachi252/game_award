@@ -8,7 +8,7 @@ public class Goal : MonoBehaviour
     public const string GAME_MANAGER = "Game_Manager";
     void Start()
     {
-        
+        this.transform.Rotate(0, 90, 0);
     }
 
     // Update is called once per frame
