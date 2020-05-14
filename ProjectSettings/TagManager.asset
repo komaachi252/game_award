@@ -25,6 +25,9 @@ TagManager:
   - HAMMER
   - GEAR
   - LEAF
+  - HARD_HOT
+  - HARD_COLD
+  - Help
   layers:
   - Default
   - TransparentFX
