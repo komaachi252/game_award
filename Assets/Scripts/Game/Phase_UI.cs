@@ -24,10 +24,10 @@ public class Phase_UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameObject.Find("PLAYER_MASTER(Clone)")) return;
-        if (!GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag.Equals(m_player_tag))
+        if (!GameObject.Find("PLAYER_MASTER")) return;
+        if (!GameObject.Find("PLAYER_MASTER").gameObject.tag.Equals(m_player_tag))
         {
-            m_player_tag = GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag;
+            m_player_tag = GameObject.Find("PLAYER_MASTER").gameObject.tag;
             if(m_player_tag == "SOLID")
             {
                 m_sprite_index = (int)Phase_Index.Solid;

@@ -19,11 +19,59 @@ public class HIT_T : MonoBehaviour
 
     void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
-        PLAYER.SET_STAND_T();
+        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER"))
+        {
+            Debug.Log("上");
+            PLAYER.SET_STAND_T();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("GAP"))
+        {
+            PLAYER.SET_stay_GAP();
+        }
+
+        if (other.gameObject.CompareTag("HOT"))
+        {
+            PLAYER.SET_stay_HOT();
+        }
+
+        if (other.gameObject.CompareTag("COLD"))
+        {
+            PLAYER.SET_stay_COLD();
+        }
+
+        if (other.gameObject.CompareTag("HARD_HOT"))
+        {
+            PLAYER.HARDHOT();
+        }
+
+        if (other.gameObject.CompareTag("HARD_COLD"))
+        {
+            PLAYER.HARDCOLD();
+        }
     }
 
     void OnTriggerExit(Collider other)              //他のオブジェクトとの接触時の処理
     {
-        PLAYER.CLARE_STAND();
+        PLAYER.CLEAR_STAND();
+
+        //Debug.Log("はなれた" + other.name);
+        if (other.gameObject.CompareTag("GAP"))
+        {
+            PLAYER.CLEAR_stay_GAP();
+        }
+
+        if (other.gameObject.CompareTag("HOT"))
+        {
+            PLAYER.CLEAR_stay_HOT();
+        }
+
+        if (other.gameObject.CompareTag("COLD"))
+        {
+            PLAYER.CLEAR_stay_COLD();
+        }
     }
 }

@@ -16,7 +16,7 @@ public class HIT_R : MonoBehaviour
     {
 
     }
-
+    /*
     void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
         if (other.gameObject.CompareTag("HOT"))     //加熱属性に当たった時
@@ -42,4 +42,5 @@ public class HIT_R : MonoBehaviour
             PLAYER.CLEAR_stayCOLD();
         }
     }
+    */
 }
