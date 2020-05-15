@@ -28,6 +28,9 @@ public class MapLoader : MonoBehaviour
 
     void Start()
     {
+       
+
+
         m_map_datas = new List<Map_Data>();
 
         //  全てのマップファイルのパスを追加する
@@ -90,9 +93,18 @@ public class MapLoader : MonoBehaviour
         var x = 0.5f;
         var y = (map_data.Height - 1) * 1.0f;
 
+        float p_x = 0.0f;
+        float p_y = 0.0f;
+
         for(int i = 0; i < map_data.Height; i++){
             for(int j = 0; j < map_data.Width; j++){
                 if (map_data.Map_data[i, j] == 0) continue;
+                if(map_data.Map_data[i, j] == 9)
+                {
+                    p_x = x + j;
+                    p_y = y - i;
+                    continue;
+                }
                 var obj = Instantiate(m_objects[map_data.Map_data[i,j]], new Vector3(x + j, y - i, 0.0f), Quaternion.identity);
                 if(map_data.Map_data[i, j].Equals(25))
                 {
@@ -102,8 +114,11 @@ public class MapLoader : MonoBehaviour
                 {
                     obj.gameObject.GetComponent<Map_Data_Seeker>().Set_Index(i, j);
                 }
+                
             }
         }
+
+        Instantiate(m_objects[9], new Vector3(p_x, p_y, 0.0f), Quaternion.identity);
 
         Instantiate(m_back_ground, new Vector3(0,-4,-7), Quaternion.identity);
 
