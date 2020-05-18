@@ -16,9 +16,11 @@ public class Phase_UI : MonoBehaviour
     int m_sprite_index = (int)Phase_Index.Solid;
     string m_player_tag = "SOLID";
     int m_phase_cnt = 0;
-    void Awake()
+    void Start()
     {
         this.gameObject.GetComponent<Image>().sprite = m_sprites[m_sprite_index];
+        m_phase_cnt = 0;
+        m_player_tag = "SOLID";
     }
 
     // Update is called once per frame

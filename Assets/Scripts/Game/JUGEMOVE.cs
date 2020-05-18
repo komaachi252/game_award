@@ -84,7 +84,7 @@ public class JUGEMOVE : MonoBehaviour
 
         if (Physics.CheckBox(POS, new Vector3(0.45f, 0.05f, 0.45f), transform.rotation))
         {
-            Debug.Log("ある");
+           // Debug.Log("ある");
             return 0;
         }
 

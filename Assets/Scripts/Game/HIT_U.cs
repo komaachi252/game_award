@@ -21,7 +21,7 @@ public class HIT_U : MonoBehaviour
     {
         if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER"))
         {
-            Debug.Log("下");
+            //Debug.Log("下");
             PLAYER.SET_STAND_U();
         }
     }

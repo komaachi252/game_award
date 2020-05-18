@@ -64,6 +64,7 @@ public class Phase : MonoBehaviour
             {
                 m_is_stay = true;
                 m_tag_name = col.gameObject.tag;
+            
             }
             /*
             if (m_tag_name != col.gameObject.tag && !m_is_stay)
@@ -78,8 +79,8 @@ public class Phase : MonoBehaviour
 
     void Trans_Check()
     {
-        if (!GameObject.Find("PLAYER_MASTER(Clone)")) return;
-        if (GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag != m_tag_name)
+        if (!GameObject.Find("PLAYER_MASTER")) return;
+        if (GameObject.Find("PLAYER_MASTER").gameObject.tag != m_tag_name)
         {
             Create_Effect();
             if (m_is_hot)
@@ -90,7 +91,7 @@ public class Phase : MonoBehaviour
             {
                 FindObjectOfType<Audio_Manager>().Play("frozen");
             }
-            m_tag_name = GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag;
+            m_tag_name = GameObject.Find("PLAYER_MASTER").gameObject.tag;
             Debug.Log(m_tag_name + "がでる");
             //m_is_stay = false;
         }
@@ -104,6 +105,7 @@ public class Phase : MonoBehaviour
             if (m_is_stay)
             {
                 m_is_stay = false;
+                
                 //m_tag_name = col.gameObject.tag;
             }
             /*

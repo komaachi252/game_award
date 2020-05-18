@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class MapLoader : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class MapLoader : MonoBehaviour
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
-    public int m_map_index;  //  読み込むマップのインデックス
+    static int m_map_index = 1;  //  読み込むマップのインデックス
 
     private const string FILE_PATH = "/Resources/Game/";
 
@@ -35,6 +36,14 @@ public class MapLoader : MonoBehaviour
 
         //  全てのマップファイルのパスを追加する
         m_file_paths.Add(FILE_PATH + "world1-1.csv");
+        m_file_paths.Add(FILE_PATH + "world1-2.csv");
+        m_file_paths.Add(FILE_PATH + "world1-3.csv");
+        m_file_paths.Add(FILE_PATH + "world1-4.csv");
+        m_file_paths.Add(FILE_PATH + "world1-5.csv");
+        m_file_paths.Add(FILE_PATH + "world1-6.csv");
+        m_file_paths.Add(FILE_PATH + "world1-7.csv");
+        m_file_paths.Add(FILE_PATH + "world1-8.csv");
+        m_file_paths.Add(FILE_PATH + "world1-9.csv");
         m_file_paths.Add(FILE_PATH + "Map1.csv");
         m_file_paths.Add(FILE_PATH + "Map2.csv");
         m_file_paths.Add(FILE_PATH + "test1.csv");
@@ -51,13 +60,30 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
+        //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
     }
     void Update()
     {
-        
-        
+        if(Input.GetKeyDown("1"))
+        {
+            m_map_index = 0;
+            SceneManager.LoadScene("GameScene");
+            
+        }
+        if(Input.GetKeyDown("2"))
+        {
+            m_map_index = 4;
+            SceneManager.LoadScene("GameScene");
+        }
+        if(Input.GetKeyDown("3"))
+        {
+            m_map_index = 8;
+            SceneManager.LoadScene("GameScene");
+        }
+
+
     }
 
     void Map_Load(string file_path, ref Map_Data map_data)

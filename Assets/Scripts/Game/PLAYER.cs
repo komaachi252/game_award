@@ -61,6 +61,7 @@ public class PLAYER : MonoBehaviour
         boxcollider = this.gameObject.GetComponent<BoxCollider>();
         capcollider = this.gameObject.GetComponent<CapsuleCollider>();
         tag = "SOLID";
+        Physics.gravity = new Vector3(0, -9.8f, 0);
     }
 
     // Update is called once per frame

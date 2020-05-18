@@ -21,7 +21,7 @@ public class HIT_T : MonoBehaviour
     {
         if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER"))
         {
-            Debug.Log("上");
+            //Debug.Log("上");
             PLAYER.SET_STAND_T();
         }
     }
@@ -50,6 +50,8 @@ public class HIT_T : MonoBehaviour
 
         if (other.gameObject.CompareTag("HARD_COLD"))
         {
+            Debug.Log("jhgvkgbhjvkh,ljhv");
+
             PLAYER.HARDCOLD();
         }
     }

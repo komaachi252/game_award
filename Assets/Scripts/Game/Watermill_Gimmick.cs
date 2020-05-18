@@ -5,7 +5,7 @@ using UnityEngine;
 public class Watermill_Gimmick : MonoBehaviour
 {
     // Start is called before the first frame update
-    GameObject m_watermill = null;
+    GameObject[] m_watermill = null;
 
     const float MAX_DISTANCE = 4.0f;
     float m_total_dist = 0.0f;
@@ -35,8 +35,12 @@ public class Watermill_Gimmick : MonoBehaviour
     {
         if (m_is_max_dist) return;
 
-        var move_dist = m_watermill.GetComponent<Watermill>().Rotate_Speed * 0.01f;
-        
+        float move_dist = 0.0f;
+        foreach(var watermill in m_watermill)
+        {
+            move_dist += watermill.GetComponent<Watermill>().Rotate_Speed * 0.01f;
+        }
+
         if(m_total_dist + move_dist > MAX_DISTANCE)
         {
             move_dist = MAX_DISTANCE - m_total_dist;
@@ -48,6 +52,6 @@ public class Watermill_Gimmick : MonoBehaviour
 
     void Set_Watermill()
     {
-        m_watermill = GameObject.FindGameObjectWithTag("WATERMILL");
+        m_watermill = GameObject.FindGameObjectsWithTag("WATERMILL");
     }
 }
