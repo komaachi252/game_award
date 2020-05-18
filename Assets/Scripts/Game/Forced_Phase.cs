@@ -14,12 +14,22 @@ public class Forced_Phase : MonoBehaviour
     Color m_break_color = new Color(0.9f, 0.9f, 0.9f);
     Material m_material;
     float m_t = 0.0f;
+    bool m_is_stay = false;
+    string m_tag_name;
     // Start is called before the first frame update
     void Start()
     {
         m_spawn_frame = Random.Range(0, 120);
     }
 
+
+    private void Update()
+    {
+        if (m_is_stay)
+        {
+            Trans_Check();
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -61,7 +71,8 @@ public class Forced_Phase : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
+        /*
+        if (col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
         {
             if (gameObject.tag != "BLOCK")
             {
@@ -80,10 +91,31 @@ public class Forced_Phase : MonoBehaviour
                 }
                 gameObject.GetComponent<Renderer>().material = m_material;
                 m_current_color = m_material.color;
-                gameObject.tag = "BLOCK";
+                //gameObject.tag = "BLOCK";
                 Create_Effect();
             }
         }
+        
+        if (gameObject.tag != "BLOCK")
+        {
+            m_is_trriger = true;
+            if (m_is_hot)
+            {
+                Material mat = Resources.Load<Material>("Game/Material/hot_2");
+                m_material = new Material(mat);
+                FindObjectOfType<Audio_Manager>().Play("heat1");
+            }
+            else
+            {
+                Material mat = Resources.Load<Material>("Game/Material/cold_2");
+                m_material = new Material(mat);
+                FindObjectOfType<Audio_Manager>().Play("frozen");
+            }
+            gameObject.GetComponent<Renderer>().material = m_material;
+            m_current_color = m_material.color;
+            //gameObject.tag = "BLOCK";
+            Create_Effect();
+        }*/
     }
 
     void Color_Change()
@@ -95,4 +127,57 @@ public class Forced_Phase : MonoBehaviour
             m_is_trriger = false;
         }
     }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
+        {
+            if (!m_is_stay)
+            {
+                m_tag_name = col.gameObject.tag;
+                m_is_stay = true;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
+        {
+            if (m_is_stay)
+            {
+                m_is_stay = false;
+            }
+        }
+    }
+
+    void Trans_Check()
+    {
+        if (!GameObject.Find("PLAYER_MASTER")) return;
+        if (GameObject.Find("PLAYER_MASTER").gameObject.tag != m_tag_name)
+        {
+            m_is_trriger = true;
+            if (m_is_hot)
+            {
+                Material mat = Resources.Load<Material>("Game/Material/hot_2");
+                m_material = new Material(mat);
+                FindObjectOfType<Audio_Manager>().Play("heat1");
+            }
+            else
+            {
+                Material mat = Resources.Load<Material>("Game/Material/cold_2");
+                m_material = new Material(mat);
+                FindObjectOfType<Audio_Manager>().Play("frozen");
+            }
+            gameObject.GetComponent<Renderer>().material = m_material;
+            m_current_color = m_material.color;
+            gameObject.tag = "BLOCK";
+            Create_Effect();
+
+            m_tag_name = GameObject.Find("PLAYER_MASTER").gameObject.tag;
+            Debug.Log(m_tag_name + "がでる");
+            m_is_stay = false;
+        }
+    }
 }
+

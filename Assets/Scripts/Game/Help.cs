@@ -21,6 +21,7 @@ public class Help : MonoBehaviour
     {
         if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
         {
+            FindObjectOfType<Audio_Manager>().Play("help1");
             GameObject.Find("Helpme").GetComponent<Helpme>().Help();
             Destroy(this.gameObject);
         }

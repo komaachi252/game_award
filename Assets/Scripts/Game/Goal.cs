@@ -22,6 +22,7 @@ public class Goal : MonoBehaviour
         //!  プレイヤーだった場合ゲームクリア呼び出し
         if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
         {
+            FindObjectOfType<Audio_Manager>().Play("game_clear");
             GameObject.Find(GAME_MANAGER).GetComponent<Game_Manager>().Game_Clear();
         }
     }
