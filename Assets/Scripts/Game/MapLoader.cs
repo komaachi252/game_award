@@ -31,6 +31,10 @@ public class MapLoader : MonoBehaviour
         get { return m_is_create; }
     }
 
+    private void Awake()
+    {
+        Map_Index = DontDestroyManager.Map_Index;
+    }
 
     void Start()
     {
