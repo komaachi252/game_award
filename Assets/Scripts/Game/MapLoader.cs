@@ -7,12 +7,17 @@ using UnityEngine.SceneManagement;
 public class MapLoader : MonoBehaviour
 {
     public List<string> m_file_paths;  //  マップファイルパス
-    
+
     List<Map_Data> m_map_datas;  //  マップリスト
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
     static int m_map_index = 1;  //  読み込むマップのインデックス
+    public static int Map_Index
+    {
+        get { return m_map_index; }
+        set { m_map_index = value; }
+    }
 
     private const string FILE_PATH = "/Resources/Game/";
 
@@ -29,7 +34,7 @@ public class MapLoader : MonoBehaviour
 
     void Start()
     {
-       
+
 
 
         m_map_datas = new List<Map_Data>();
@@ -54,7 +59,7 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "test5.csv");
 
         //  追加されたパス分マップ情報を読み込む
-        foreach (var path in m_file_paths){
+        foreach (var path in m_file_paths) {
             Map_Data data = new Map_Data();
             Map_Load(path, ref data);
             m_map_datas.Add(data);
@@ -66,18 +71,18 @@ public class MapLoader : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("1"))
         {
             m_map_index = 0;
             SceneManager.LoadScene("GameScene");
-            
+
         }
-        if(Input.GetKeyDown("2"))
+        if (Input.GetKeyDown("2"))
         {
             m_map_index = 4;
             SceneManager.LoadScene("GameScene");
         }
-        if(Input.GetKeyDown("3"))
+        if (Input.GetKeyDown("3"))
         {
             m_map_index = 8;
             SceneManager.LoadScene("GameScene");
@@ -99,8 +104,8 @@ public class MapLoader : MonoBehaviour
         map_data.Width = lines[0].Split(spliter, option).Length;
         map_data.Map_data = new int[map_data.Height, map_data.Width];
 
-        for(int i = 0; i < map_data.Height; i++){
-            for(int j = 0; j < map_data.Width; j++){
+        for (int i = 0; i < map_data.Height; i++) {
+            for (int j = 0; j < map_data.Width; j++) {
                 string[] read_str_data = lines[i].Split(spliter, option);
 
                 map_data.Map_data[i, j] = int.Parse(read_str_data[j]);
@@ -122,17 +127,17 @@ public class MapLoader : MonoBehaviour
         float p_x = 0.0f;
         float p_y = 0.0f;
 
-        for(int i = 0; i < map_data.Height; i++){
-            for(int j = 0; j < map_data.Width; j++){
+        for (int i = 0; i < map_data.Height; i++) {
+            for (int j = 0; j < map_data.Width; j++) {
                 if (map_data.Map_data[i, j] == 0) continue;
-                if(map_data.Map_data[i, j] == 9)
+                if (map_data.Map_data[i, j] == 9)
                 {
                     p_x = x + j;
                     p_y = y - i;
                     continue;
                 }
-                var obj = Instantiate(m_objects[map_data.Map_data[i,j]], new Vector3(x + j, y - i, 0.0f), Quaternion.identity);
-                if(map_data.Map_data[i, j].Equals(25))
+                var obj = Instantiate(m_objects[map_data.Map_data[i, j]], new Vector3(x + j, y - i, 0.0f), Quaternion.identity);
+                if (map_data.Map_data[i, j].Equals(25))
                 {
                     obj.gameObject.GetComponent<Lift_Block>().Set_Map_Data_Index(i, j);
                 }
@@ -140,16 +145,21 @@ public class MapLoader : MonoBehaviour
                 {
                     obj.gameObject.GetComponent<Map_Data_Seeker>().Set_Index(i, j);
                 }
-                
+
             }
         }
 
         Instantiate(m_objects[9], new Vector3(p_x, p_y, 0.0f), Quaternion.identity);
 
-        Instantiate(m_back_ground, new Vector3(0,-4,-7), Quaternion.identity);
+        Instantiate(m_back_ground, new Vector3(0, -4, -7), Quaternion.identity);
 
         m_is_create = true;
 
         return true;
+    }
+
+    static public void Set_Map_index(int index)
+    {
+        m_map_index = index;
     }
 }

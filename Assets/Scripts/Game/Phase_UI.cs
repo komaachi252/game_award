@@ -6,16 +6,24 @@ using UnityEngine.UI;
 public class Phase_UI : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Sprite[] m_sprites;
+    public Sprite[] m_sprites; // 各状態のUI
     enum Phase_Index : int
     {
         Solid = 0,
         Aqua,
         Cloud
     };
-    int m_sprite_index = (int)Phase_Index.Solid;
-    string m_player_tag = "SOLID";
+    int m_sprite_index = (int)Phase_Index.Solid;  //  インデックスによってUIを変える
+
+    string m_player_tag = "SOLID"; //  タグ変化判定用
+
+    //   変化回数
     int m_phase_cnt = 0;
+    public int Phase_Cnt
+    {
+        get { return m_phase_cnt; }
+        set { m_phase_cnt = value; }
+    }
     void Start()
     {
         this.gameObject.GetComponent<Image>().sprite = m_sprites[m_sprite_index];
@@ -27,6 +35,7 @@ public class Phase_UI : MonoBehaviour
     void Update()
     {
         if (!GameObject.Find("PLAYER_MASTER")) return;
+        // プレイヤーのタグを監視
         if (!GameObject.Find("PLAYER_MASTER").gameObject.tag.Equals(m_player_tag))
         {
             m_player_tag = GameObject.Find("PLAYER_MASTER").gameObject.tag;
@@ -42,8 +51,11 @@ public class Phase_UI : MonoBehaviour
             {
                 m_sprite_index = (int)Phase_Index.Cloud;
             }
+            //  Spriteを変更
             this.gameObject.GetComponent<Image>().sprite = m_sprites[m_sprite_index];
+            //  状態変化カウント
             m_phase_cnt++;
+            //  回数をカウントUIに設定
             GameObject.Find("Phase_Count").gameObject.GetComponent<Phase_Count>().Set_Phase_Count(m_phase_cnt);
         }
     }
