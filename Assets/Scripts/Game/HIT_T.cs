@@ -30,7 +30,7 @@ public class HIT_T : MonoBehaviour
     {
         if (other.gameObject.CompareTag("GAP"))
         {
-            PLAYER.SET_stay_GAP();
+            PLAYER.SET_stay_GAP_T();
         }
 
         if (other.gameObject.CompareTag("HOT"))
@@ -63,7 +63,7 @@ public class HIT_T : MonoBehaviour
         //Debug.Log("はなれた" + other.name);
         if (other.gameObject.CompareTag("GAP"))
         {
-            PLAYER.CLEAR_stay_GAP();
+            PLAYER.CLEAR_stay_GAP_T();
         }
 
         if (other.gameObject.CompareTag("HOT"))

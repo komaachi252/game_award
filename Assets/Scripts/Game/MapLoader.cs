@@ -34,6 +34,7 @@ public class MapLoader : MonoBehaviour
     private void Awake()
     {
         Map_Index = DontDestroyManager.Map_Index;
+        //Map_Index = 12;
     }
 
     void Start()

@@ -24,12 +24,14 @@ public class PLAYER : MonoBehaviour
     public int VMOVEflag = 0;   //縦移動予約フラグ
     public int AUTOMOVEflag = 0;    //強制移動フラグ
     public int AUTOMOVEflag2 = 0;   //強制移動フラグ２
+    public int AUTOMOVEflag3 = 0;   //強制移動フラグ３
     public float VMOVEPOS = 0;
-    public float MOVEPOS = 0;        //強制移動目標地点
+    public float MOVEPOS = 0;       //強制移動目標地点
     public int MOVEFinish = 0;      //強制移動完了フラグ
-    public int TIME_T = 0;          //GAP通過用カウンタ
-    public int GAPMOVE = 0;         //GAP通過フラグ
-    public float TARGETV = 0;         //
+    public int GAPMOVE_U = 0;       //GAP通過フラグ下
+    public int GAPMOVE_T = 0;       //GAP通過フラグ上
+    public float TARGETV = 0;       //
+    public float DOWNPOS = 0;       //水滴落下準備位置
 
     //float STARTPOINT = 0;
     public int MOVE_NOW = 0;
@@ -42,9 +44,12 @@ public class PLAYER : MonoBehaviour
     public int stay_COLD_R = 0; //仮COKD接触フラグ右側
     public int stay_COLD_L = 0; //仮COLD接触フラグ左側
     public int stay_COLD = 0;   //COLD完全接触フラグ
-    public int stay_GAP = 0;    //GAP接触フラグ
+    public int stay_GAP_U = 0;  //GAP接触フラグ
+    public int stay_GAP_T = 0;  //GAP接触フラグ
     public int stay_HARDHOT = 0;//HARDHOTフラグ
     public int stay_HARDCOLD = 0;//HARDCOLDフラグ
+    public int stay_WALL_R = 0; //壁（移動不能マス）接触フラグ右
+    public int stay_WALL_L = 0; //壁（移動不能マス）接触フラグ左
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -61,7 +66,6 @@ public class PLAYER : MonoBehaviour
         boxcollider = this.gameObject.GetComponent<BoxCollider>();
         capcollider = this.gameObject.GetComponent<CapsuleCollider>();
         tag = "SOLID";
-        Physics.gravity = new Vector3(0, -9.8f, 0);
     }
 
     // Update is called once per frame
@@ -73,60 +77,39 @@ public class PLAYER : MonoBehaviour
             if (stay_HOT == 1)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-                exchangecount = 61;
-                if (TYPE < 2)
+                MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+                if (transform.position.x > MOVEPOS)
                 {
-                    Debug.Log("加熱");
-                    TYPE++;
-                    if (TYPE == 1)
-                    {
-                        SOLID.exchange_s();
-                        AQUA.exchange_b();
-                        tag = "AQUA";
-                    }
-                    if (TYPE == 2)
-                    {
-                        AQUA.exchange_s();
-                        CLOUD.exchange_b();
-                        /*
-                        tag = "CLOUD";
-                        Debug.Log("浮上");
-                        Physics.gravity = new Vector3(0, 9.8f, 0);
-                        */
-                    }
+                    MOVE_D = -1;
                 }
+                else
+                {
+                    MOVE_D = 1;
+                }
+
+                AUTOMOVEflag2 = 1;
             }
 
             if (stay_COLD == 1)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-                exchangecount = 61;
-                if (TYPE > 0)
+                MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+                if (transform.position.x > MOVEPOS)
                 {
-                    Debug.Log("冷却");
-                    TYPE--;
-                    if (TYPE == 0)
-                    {
-                        AQUA.exchange_s();
-                        SOLID.exchange_b();
-                        /*
-                        tag = "SOLID";
-                        Debug.Log("降下");
-                        Physics.gravity = new Vector3(0, -9.8f, 0);
-                        */
-                    }
-                    if (TYPE == 1)
-                    {
-                        CLOUD.exchange_s();
-                        AQUA.exchange_b();
-                        tag = "AQUA";
-                    }
+                    MOVE_D = -1;
                 }
+                else
+                {
+                    MOVE_D = 1;
+                }
+
+                AUTOMOVEflag2 = 1;
             }
 
-            if (stay_GAP == 1 && TYPE == 1 && MOVE_V == 1) //水でGAPの上にいるとき
+            if ((stay_GAP_U == 1 && TYPE == 1) || (stay_GAP_T == 1 && TYPE == 2)) //水でGAPの上にいるとき
             {
-                //capcollider.enabled = false;
                 Debug.Log(transform.position);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
 
@@ -143,11 +126,9 @@ public class PLAYER : MonoBehaviour
                 Debug.Log(transform.position.x);
                 Debug.Log(MOVEPOS);
             }
-
-            //GetComponent<Renderer>().material.color = colors[TYPE];
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
@@ -157,7 +138,7 @@ public class PLAYER : MonoBehaviour
             //STAND_U = 0;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
@@ -176,15 +157,47 @@ public class PLAYER : MonoBehaviour
             {
                 rb.AddForce(FORCE);
             }
-            //rb.velocity = new Vector3(15.0f * MOVE_D, 0.0f, 0.0f);
+        }
 
-            //Vector3 pos = transform.position;
-            //pos.x += 0.1f * MOVE_D;
-            //transform.position = pos;
-            if (MOVE_NOW == 0)                                         //移動完了なら
+        //水滴落下検出
+
+        if (stay_WALL_R == 1 && TYPE == 1 && MOVE_V == -1)
+        {
+            if (transform.position.x > DOWNPOS)
             {
-                //pos.x = STARTPOINT +1 * MOVE_D;
-                //transform.position = pos;                           //誤差を整数加算により補正
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+                if (transform.position.x > MOVEPOS)
+                {
+                    MOVE_D = -1;
+                }
+                else
+                {
+                    MOVE_D = 1;
+                }
+
+                AUTOMOVEflag2 = 1;
+            }
+        }
+
+        if (stay_WALL_L == 1 && TYPE == 1 && MOVE_V == -1)
+        {
+            if (transform.position.x < DOWNPOS)
+            {
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+                if (transform.position.x > MOVEPOS)
+                {
+                    MOVE_D = -1;
+                }
+                else
+                {
+                    MOVE_D = 1;
+                }
+
+                AUTOMOVEflag2 = 1;
             }
         }
 
@@ -230,11 +243,14 @@ public class PLAYER : MonoBehaviour
 
         if (TYPE == 1 && MOVE_NOW == 0)
         {
-            if (STAND_U == 1 || STAND_T == 1)
+            if (STAND_U == 1 && MOVE_V == 1)
             {
                 STAND = 1;
-                //boxcollider.enabled = true;
-                //capcollider.enabled = false;
+            }
+
+            if (STAND_T == 1 && MOVE_V == -1)
+            {
+                STAND = 1;
             }
         }
 
@@ -243,11 +259,10 @@ public class PLAYER : MonoBehaviour
             if (STAND_T == 1)
             {
                 STAND = 1;
-                //boxcollider.enabled = true;
-                //capcollider.enabled = false;
             }
         }
 
+        //判定マスの制御
         if (transform.position.x > 0)
         {
             posx = (int)transform.position.x;
@@ -269,12 +284,10 @@ public class PLAYER : MonoBehaviour
 
         if (posx != B_posx)
         {
-            if (MOVE_D == 1 && VMOVEflag == 1)  //縦移動予約が入っていて同じ方向に進んでいたら
+            if (MOVE_D == 1 && VMOVEflag == 1 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
             {
                 if (transform.position.x > VMOVEPOS && AUTOMOVEflag == 0)
                 {
-                    //Debug.Log("おちる");
-                    //rb.velocity = new Vector3(2.0f, 0.0f, 0.0f);
                     STAND = 0;
                     STAND_T = 0;
                     STAND_U = 0;
@@ -282,18 +295,44 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-            if (MOVE_D == -1 && VMOVEflag == 1)  //縦移動予約が入っていて同じ方向に進んでいたら
+            if (MOVE_D == 1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
+            {
+                if (transform.position.x > VMOVEPOS && AUTOMOVEflag3 == 0)
+                {
+                    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    STAND = 0;
+                    STAND_T = 0;
+                    STAND_U = 0;
+                    MOVE_D = -1;
+                    AUTOMOVEflag3 = 1;
+                }
+            }
+
+            if (MOVE_D == -1 && VMOVEflag == 1 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
             {
                 if (transform.position.x < VMOVEPOS && AUTOMOVEflag == 0)
                 {
-                    Debug.Log("おちる");
-                    //rb.velocity = new Vector3(2.0f, 0.0f, 0.0f);
                     STAND = 0;
                     STAND_T = 0;
                     STAND_U = 0;
                     AUTOMOVEflag = 1;
                 }
             }
+
+            if (MOVE_D == -1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
+            {
+                if (transform.position.x < VMOVEPOS && AUTOMOVEflag3 == 0)
+                {
+                    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    STAND = 0;
+                    STAND_T = 0;
+                    STAND_U = 0;
+                    MOVE_D = 1;
+                    AUTOMOVEflag3 = 1;
+                }
+            }
+
+
             JUGEMOVE.SETposx(posx);
             VMOVEflag = JUGEMOVE.root(MOVE_D, MOVE_V);
             B_MOVE_D = MOVE_D;
@@ -346,6 +385,57 @@ public class PLAYER : MonoBehaviour
             }
         }
 
+        //水滴落下補正用強制移動
+
+        if (AUTOMOVEflag3 == 1)
+        {
+            if (MOVE_D == 1)
+            {
+                if (transform.position.x < VMOVEPOS + 0.5f)
+                {
+                    rb.velocity = new Vector3(2.0f, 0.0f, 0.0f);
+                }
+
+                if (transform.position.x >= VMOVEPOS + 0.5f)
+                {
+                    Vector3 T_pos = transform.position;
+                    T_pos.x = VMOVEPOS + 0.5f;
+                    transform.position = T_pos;
+                    AUTOMOVEflag3 = 0;
+                    VMOVEflag = 0;
+                    MOVE_V = 1;
+                    STAND = 0;
+                    STAND_T = 0;
+                    STAND_U = 0;
+                    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    Physics.gravity = new Vector3(0, -9.8f, 0);
+                }
+            }
+
+            if (MOVE_D == -1)
+            {
+                if (transform.position.x > VMOVEPOS - 0.5f)
+                {
+                    rb.velocity = new Vector3(-2.0f, 0.0f, 0.0f);
+                }
+
+                if (transform.position.x <= VMOVEPOS - 0.5f)
+                {
+                    Vector3 T_pos = transform.position;
+                    T_pos.x = VMOVEPOS - 0.5f;
+                    transform.position = T_pos;
+                    AUTOMOVEflag3 = 0;
+                    VMOVEflag = 0;
+                    MOVE_V = 1;
+                    STAND = 0;
+                    STAND_T = 0;
+                    STAND_U = 0;
+                    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    Physics.gravity = new Vector3(0, -9.8f, 0);
+                }
+            }
+        }
+
         //ギミック利用よう強制移動
 
         if (AUTOMOVEflag2 == 1)
@@ -357,7 +447,7 @@ public class PLAYER : MonoBehaviour
                     rb.velocity = new Vector3(1.0f, 0.0f, 0.0f);
                 }
 
-                if (transform.position.x > MOVEPOS)
+                if (transform.position.x >= MOVEPOS)
                 {
                     Vector3 T_pos = transform.position;
                     T_pos.x = MOVEPOS;
@@ -375,7 +465,7 @@ public class PLAYER : MonoBehaviour
                     rb.velocity = new Vector3(-1.0f, 0.0f, 0.0f);
                 }
 
-                if (transform.position.x < MOVEPOS)
+                if (transform.position.x <= MOVEPOS)
                 {
                     Vector3 T_pos = transform.position;
                     T_pos.x = MOVEPOS;
@@ -393,15 +483,67 @@ public class PLAYER : MonoBehaviour
 
             //各利用ギミックに対応する処理
 
-            //GAPを使用する場合
-            if (stay_GAP == 1)
+            //加熱ブロックを使用
+            if (stay_HOT == 1)
+            {
+                exchangecount = 61;
+                if (TYPE < 2)
+                {
+                    Debug.Log("加熱");
+                    TYPE++;
+                    if (TYPE == 1)
+                    {
+                        SOLID.exchange_s();
+                        AQUA.exchange_b();
+                        tag = "AQUA";
+                    }
+                    if (TYPE == 2)
+                    {
+                        AQUA.exchange_s();
+                        CLOUD.exchange_b();
+                    }
+                }
+            }
+
+            //冷却ブロックを使用
+            if (stay_COLD == 1)
+            {
+                exchangecount = 61;
+                if (TYPE > 0)
+                {
+                    Debug.Log("冷却");
+                    TYPE--;
+                    if (TYPE == 0)
+                    {
+                        AQUA.exchange_s();
+                        SOLID.exchange_b();
+                    }
+                    if (TYPE == 1)
+                    {
+                        CLOUD.exchange_s();
+                        AQUA.exchange_b();
+                        tag = "AQUA";
+                    }
+                }
+            }
+
+            //GAPを使用する場合（水）
+            if (stay_GAP_U == 1)
             {
                 capcollider.enabled = false;
                 TARGETV = transform.position.y - 2.1f;
-                GAPMOVE = 1;
+                GAPMOVE_U = 1;
                 MOVE_V = -1;
-                //TIME_T = 47;
             }
+
+            if (stay_GAP_T == 1)
+            {
+                capcollider.enabled = false;
+                TARGETV = transform.position.y + 2.1f;
+                GAPMOVE_T = 1;
+            }
+
+            //強制加熱
 
             if (stay_HARDHOT == 1)
             {
@@ -431,6 +573,8 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
+            //強制冷却
+
             if (stay_HARDCOLD == 1)
             {
                 stay_HARDCOLD = 0;
@@ -458,18 +602,51 @@ public class PLAYER : MonoBehaviour
                     }
                 }
             }
+
+            if (stay_WALL_R == 1)
+            {
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+                Physics.gravity = new Vector3(0, -9.8f, 0);
+                MOVE_V = 1;
+            }
+
+            if (stay_WALL_L == 1)
+            {
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+                Physics.gravity = new Vector3(0, -9.8f, 0);
+                MOVE_V = 1;
+            }
         }
 
-        if (GAPMOVE == 1)
+        if (GAPMOVE_U == 1)
         {
-            //TIME_T--;
             if (transform.position.y < TARGETV)
             {
+                GAPMOVE_U = 0;
                 capcollider.enabled = true;
-
                 Debug.Log("浮上");
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 Physics.gravity = new Vector3(0, 9.8f, 0);
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+            }
+        }
+
+        if (GAPMOVE_T == 1)
+        {
+            if (transform.position.y > TARGETV)
+            {
+                GAPMOVE_T = 0;
+                capcollider.enabled = true;
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
             }
         }
 
@@ -584,19 +761,27 @@ public class PLAYER : MonoBehaviour
         if (VMOVEflag == 0)
         {
             VMOVEPOS = x - 0.5f * MOVE_D;
-            //VMOVEPOS = x;
         }
-        //Debug.Log(transform.position);
     }
 
-    public void SET_stay_GAP()
+    public void SET_stay_GAP_U()
     {
-        stay_GAP = 1;
+        stay_GAP_U = 1;
     }
 
-    public void CLEAR_stay_GAP()
+    public void SET_stay_GAP_T()
     {
-        stay_GAP = 0;
+        stay_GAP_T = 1;
+    }
+
+    public void CLEAR_stay_GAP_U()
+    {
+        stay_GAP_U = 0;
+    }
+
+    public void CLEAR_stay_GAP_T()
+    {
+        stay_GAP_T = 0;
     }
 
     public void SET_stay_HOT()
@@ -604,9 +789,30 @@ public class PLAYER : MonoBehaviour
         stay_HOT = 1;
     }
 
+    public void SET_stay_WALL_R()
+    {
+        stay_WALL_R = 1;
+        DOWNPOS = JUGEMOVE.GET_JUGEPOS();
+    }
+
+    public void CLEAR_stay_WALL_R()
+    {
+        stay_WALL_R = 0;
+    }
+
+    public void SET_stay_WALL_L()
+    {
+        stay_WALL_L = 1;
+        DOWNPOS = JUGEMOVE.GET_JUGEPOS();
+    }
+
+    public void CLEAR_stay_WALL_L()
+    {
+        stay_WALL_L = 0;
+    }
+
     public void HARDHOT()
     {
-        //capcollider.enabled = false;
         Debug.Log(transform.position);
         MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
 
@@ -625,7 +831,6 @@ public class PLAYER : MonoBehaviour
 
     public void HARDCOLD()
     {
-        //capcollider.enabled = false;
         Debug.Log(transform.position);
         MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
 

@@ -16,31 +16,20 @@ public class HIT_L : MonoBehaviour
     {
 
     }
-    /*
-    void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
-    {
-        if (other.gameObject.CompareTag("HOT"))     //加熱属性に当たった時
-        {
-            PLAYER.SET_stayHOT_L();
-        }
 
-        if (other.gameObject.CompareTag("COLD"))     //冷却属性に当たった時
+    void OnTriggerEnter(Collider other)             //他のオブジェクトとの接触時の処理
+    {
+        if (other.gameObject.CompareTag("BLOCK"))     //加熱属性に当たった時
         {
-            PLAYER.SET_stayCOLD_L();
+            PLAYER.SET_stay_WALL_L();
         }
     }
 
     void OnTriggerExit(Collider other)              //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("HOT"))     //加熱属性から離れたとき
+        if (other.gameObject.CompareTag("BLOCK"))     //加熱属性から離れた時
         {
-            PLAYER.CLEAR_stayHOT();
-        }
-
-        if (other.gameObject.CompareTag("COLD"))    //冷却属性から離れたとき
-        {
-            PLAYER.CLEAR_stayCOLD();
+            PLAYER.CLEAR_stay_WALL_L();
         }
     }
-    */
 }
