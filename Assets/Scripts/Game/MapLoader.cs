@@ -40,8 +40,6 @@ public class MapLoader : MonoBehaviour
     void Start()
     {
 
-
-
         m_map_datas = new List<Map_Data>();
 
         //  全てのマップファイルのパスを追加する
@@ -70,9 +68,11 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
+        m_map_index = 5;
         //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
+        Debug.Log(m_file_paths[m_map_index] + "を読み込みました");
     }
     void Update()
     {
@@ -166,5 +166,6 @@ public class MapLoader : MonoBehaviour
     static public void Set_Map_index(int index)
     {
         m_map_index = index;
+
     }
 }

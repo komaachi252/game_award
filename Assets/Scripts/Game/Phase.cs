@@ -93,7 +93,7 @@ public class Phase : MonoBehaviour
             }
             m_tag_name = GameObject.Find("PLAYER_MASTER").gameObject.tag;
             Debug.Log(m_tag_name + "がでる");
-            //m_is_stay = false;
+            m_is_stay = false;
         }
 
     }

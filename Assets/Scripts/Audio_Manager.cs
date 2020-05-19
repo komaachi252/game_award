@@ -34,7 +34,7 @@ public class Audio_Manager : MonoBehaviour
 
     void Start()
     {
-        Play("rain1");  
+     
     }
 
     public void Play(string name)
@@ -47,5 +47,17 @@ public class Audio_Manager : MonoBehaviour
         }
         s.source.Play();
         Debug.Log(name + "は再生中");
+    }
+
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning(name + "はありません");
+            return;
+        }
+        s.source.Stop();
+
     }
 }

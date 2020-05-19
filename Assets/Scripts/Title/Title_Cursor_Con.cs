@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Title_Cursor_Con : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Title_Cursor_Con : MonoBehaviour
     float m_pos_y;
     void Start()
     {
+        FindObjectOfType<Audio_Manager>().Play("rain1");
+        FindObjectOfType<Audio_Manager>().Play("Title");
         //  NewGameから、セーブデータがあれば1からでもよい
         m_current_cursor_idx = 0;
         //  初期Ｙ座標を保持しておく
@@ -27,7 +30,7 @@ public class Title_Cursor_Con : MonoBehaviour
     private void FixedUpdate()
     {
         //  常に回転する
-        this.transform.Rotate(0,0,1);
+        this.transform.Rotate(0,0,-1);
     }
 
 
@@ -76,6 +79,7 @@ public class Title_Cursor_Con : MonoBehaviour
             {
                 idx = 3;
             }
+            FindObjectOfType<Audio_Manager>().Play("select");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -84,7 +88,15 @@ public class Title_Cursor_Con : MonoBehaviour
             {
                 idx = 0;
             }
+            FindObjectOfType<Audio_Manager>().Play("select");
         }
+        if(Input.GetKeyDown(KeyCode.Return) && idx == 0)
+        {
+            FindObjectOfType<Audio_Manager>().Play("enter");
+            SceneManager.LoadScene("WorldScene");
+
+        }
+
 
         Cursor_Move(idx);
 

@@ -13,7 +13,7 @@ public class Flash : MonoBehaviour
     {
         m_img = GetComponent<Image>();
         m_img.color = Color.clear;
-        m_rand_frame = Random.Range(240, 360);
+        m_rand_frame = Random.Range(120, 240);
 
     }
 
@@ -30,6 +30,7 @@ public class Flash : MonoBehaviour
     }
     void Set_Flash()
     {
+        FindObjectOfType<Audio_Manager>().Play("thunder");
         this.m_img.color = new Color(1.0f, 1.0f, 0.9f, 1.0f);
     }
 
