@@ -30,7 +30,7 @@ public class HIT_U : MonoBehaviour
     {
         if (other.gameObject.CompareTag("GAP"))
         {
-            PLAYER.SET_stay_GAP();
+            PLAYER.SET_stay_GAP_U();
         }
 
         if (other.gameObject.CompareTag("HOT"))
@@ -61,7 +61,7 @@ public class HIT_U : MonoBehaviour
         //Debug.Log("はなれた" + other.name);
         if (other.gameObject.CompareTag("GAP"))
         {
-            PLAYER.CLEAR_stay_GAP();
+            PLAYER.CLEAR_stay_GAP_U();
         }
 
         if (other.gameObject.CompareTag("HOT"))

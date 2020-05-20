@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3296974325362241795}
   - component: {fileID: 4292281826238392544}
   - component: {fileID: 4801299556701164278}
+  - component: {fileID: 1453439787006298851}
   m_Layer: 0
   m_Name: gap
   m_TagString: GAP
@@ -120,3 +121,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4081688528a0b4fbcb9a46f804acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1453439787006298851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8459271407663342081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da248f93a9d754408808b393bd50f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_materials:
+  - {fileID: 2100000, guid: ef40f44d759596f46922cdef987839c2, type: 2}

@@ -10,6 +10,8 @@ public class Watermill_Gimmick : MonoBehaviour
     const float MAX_DISTANCE = 4.0f;
     float m_total_dist = 0.0f;
     bool m_is_max_dist = false;
+
+    public bool m_is_up;
     void Start()
     {
         //m_watermill = GameObject.FindGameObjectWithTag("Watermill");
@@ -46,12 +48,23 @@ public class Watermill_Gimmick : MonoBehaviour
             move_dist = MAX_DISTANCE - m_total_dist;
             m_is_max_dist = true;
         }
-        m_total_dist += move_dist; 
+        m_total_dist += move_dist;
+        if (!m_is_up) move_dist *= -1.0f;
         this.transform.Translate(0.0f, move_dist, 0.0f);
     }
 
     void Set_Watermill()
     {
         m_watermill = GameObject.FindGameObjectsWithTag("WATERMILL");
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        Debug.Log(col);
+        if (col.gameObject.CompareTag("BLOCK"))
+        {
+            m_is_max_dist = true;
+        }
+
     }
 }
