@@ -50,8 +50,7 @@ public class HIT_T : MonoBehaviour
 
         if (other.gameObject.CompareTag("HARD_COLD"))
         {
-            Debug.Log("jhgvkgbhjvkh,ljhv");
-
+         
             PLAYER.HARDCOLD();
         }
     }

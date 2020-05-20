@@ -52,6 +52,7 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "world1-7.csv");
         m_file_paths.Add(FILE_PATH + "world1-8.csv");
         m_file_paths.Add(FILE_PATH + "world1-9.csv");
+        m_file_paths.Add(FILE_PATH + "world1-10.csv");
         m_file_paths.Add(FILE_PATH + "Map1.csv");
         m_file_paths.Add(FILE_PATH + "Map2.csv");
         m_file_paths.Add(FILE_PATH + "test1.csv");
@@ -68,7 +69,7 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
-        m_map_index = 5;
+        m_map_index = 1;
         //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
