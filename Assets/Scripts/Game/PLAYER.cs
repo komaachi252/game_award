@@ -33,7 +33,6 @@ public class PLAYER : MonoBehaviour
     public float TARGETV = 0;       //
     public float DOWNPOS = 0;       //水滴落下準備位置
 
-    //float STARTPOINT = 0;
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
     public int STAND_T = 0;     //頭上接触フラグ
@@ -107,53 +106,26 @@ public class PLAYER : MonoBehaviour
 
                 AUTOMOVEflag2 = 1;
             }
-
-            if ((stay_GAP_U == 1 && TYPE == 1) || (stay_GAP_T == 1 && TYPE == 2)) //水でGAPの上にいるとき
-            {
-                Debug.Log(transform.position);
-                MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
-
-                if (transform.position.x > MOVEPOS)
-                {
-                    MOVE_D = -1;
-                }
-                else
-                {
-                    MOVE_D = 1;
-                }
-
-                AUTOMOVEflag2 = 1;
-                Debug.Log(transform.position.x);
-                Debug.Log(MOVEPOS);
-            }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
-            //STARTPOINT = transform.position.x;                      //誤差修正の為移動開始地点を記録
-            //STAND = 0;
-            //STAND_T = 0;
-            //STAND_U = 0;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
-            //STARTPOINT = transform.position.x;                      //誤差修正の為移動開始地点を記録
-            //STAND = 0;
-            //STAND_T = 0;
-            //STAND_U = 0;
         }
 
         if (MOVE_NOW > 0)
         {
             MOVE_NOW--;
 
-            Vector3 FORCE = new Vector3(20.0f * MOVE_D, 2.0f * MOVE_V, 0.0f);
-            if (rb.velocity.magnitude < 4.0f)
+            Vector3 FORCE = new Vector3(20.0f * MOVE_D, 1.0f * MOVE_V, 0.0f);
+            if (rb.velocity.magnitude < 3.0f)
             {
                 rb.AddForce(FORCE);
             }
@@ -177,6 +149,9 @@ public class PLAYER : MonoBehaviour
                     MOVE_D = 1;
                 }
 
+                stay_HOT = 0;
+                stay_COLD = 0;
+
                 AUTOMOVEflag2 = 1;
             }
         }
@@ -196,6 +171,9 @@ public class PLAYER : MonoBehaviour
                 {
                     MOVE_D = 1;
                 }
+
+                stay_HOT = 0;
+                stay_COLD = 0;
 
                 AUTOMOVEflag2 = 1;
             }
@@ -503,6 +481,9 @@ public class PLAYER : MonoBehaviour
                         CLOUD.exchange_b();
                     }
                 }
+
+                stay_WALL_L = 0;
+                stay_WALL_R = 0;
             }
 
             //冷却ブロックを使用
@@ -525,6 +506,9 @@ public class PLAYER : MonoBehaviour
                         tag = "AQUA";
                     }
                 }
+
+                stay_WALL_L = 0;
+                stay_WALL_R = 0;
             }
 
             //GAPを使用する場合（水）
@@ -534,6 +518,9 @@ public class PLAYER : MonoBehaviour
                 TARGETV = transform.position.y - 2.1f;
                 GAPMOVE_U = 1;
                 MOVE_V = -1;
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
             }
 
             if (stay_GAP_T == 1)
@@ -541,6 +528,9 @@ public class PLAYER : MonoBehaviour
                 capcollider.enabled = false;
                 TARGETV = transform.position.y + 2.1f;
                 GAPMOVE_T = 1;
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
             }
 
             //強制加熱
@@ -564,11 +554,6 @@ public class PLAYER : MonoBehaviour
                     {
                         AQUA.exchange_s();
                         CLOUD.exchange_b();
-                        /*
-                        tag = "CLOUD";
-                        Debug.Log("浮上");
-                        Physics.gravity = new Vector3(0, 9.8f, 0);
-                        */
                     }
                 }
             }
@@ -659,8 +644,6 @@ public class PLAYER : MonoBehaviour
 
         B_posx = posx;
         B_posy = posy;
-        //Vector3 pos_p = transform.position;
-        //PLAYERCAMERA.SETPOS(pos_p);
     }
 
     //接地（面）関係　（追加予定）
@@ -766,12 +749,42 @@ public class PLAYER : MonoBehaviour
 
     public void SET_stay_GAP_U()
     {
-        stay_GAP_U = 1;
+        if (TYPE == 1)
+        {
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            AUTOMOVEflag2 = 1;
+            stay_GAP_U = 1;
+        }
     }
 
     public void SET_stay_GAP_T()
     {
-        stay_GAP_T = 1;
+        if (TYPE == 2)
+        {
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            AUTOMOVEflag2 = 1;
+            stay_GAP_T = 1;
+        }
     }
 
     public void CLEAR_stay_GAP_U()
@@ -845,5 +858,33 @@ public class PLAYER : MonoBehaviour
 
         AUTOMOVEflag2 = 1;
         stay_HARDCOLD = 1;
+    }
+
+
+    void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.CompareTag("LEAF"))
+        {
+            Vector3 FORCE = new Vector3(-3.0f, 0.0f, 0.0f);
+            rb.AddForce(FORCE);            
+        }
+
+        if (other.gameObject.CompareTag("LEAF_INV"))
+        {
+            Vector3 FORCE = new Vector3(3.0f, 0.0f, 0.0f);
+            rb.AddForce(FORCE);
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        //Debug.Log("何か");
+        if (other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("LEAF"))
+        {
+            //Debug.Log("葉っぱ");
+            STAND = 0;
+            STAND_T = 0;
+            STAND_U = 0;
+        }
     }
 }

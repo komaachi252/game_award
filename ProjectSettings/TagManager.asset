@@ -28,6 +28,8 @@ TagManager:
   - HARD_HOT
   - HARD_COLD
   - Help
+  - DRAIN
+  - LEAF_INV
   layers:
   - Default
   - TransparentFX
