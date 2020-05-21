@@ -53,15 +53,8 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "world1-8.csv");
         m_file_paths.Add(FILE_PATH + "world1-9.csv");
         m_file_paths.Add(FILE_PATH + "world1-10.csv");
-        m_file_paths.Add(FILE_PATH + "Map1.csv");
-        m_file_paths.Add(FILE_PATH + "Map2.csv");
-        m_file_paths.Add(FILE_PATH + "test1.csv");
-        m_file_paths.Add(FILE_PATH + "test2.csv");
-        m_file_paths.Add(FILE_PATH + "test3.csv");
-        m_file_paths.Add(FILE_PATH + "test4.csv");
-        m_file_paths.Add(FILE_PATH + "water1.csv");
-        m_file_paths.Add(FILE_PATH + "test5.csv");
-
+        m_file_paths.Add(FILE_PATH + "dojo1.csv");
+        
         //  追加されたパス分マップ情報を読み込む
         foreach (var path in m_file_paths) {
             Map_Data data = new Map_Data();
@@ -69,7 +62,7 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
-        m_map_index = 5;
+        m_map_index = 10;
         //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
@@ -168,5 +161,14 @@ public class MapLoader : MonoBehaviour
     {
         m_map_index = index;
 
+    }
+
+    public int Get_Map_Width()
+    {
+        return m_map_data.Width;
+    }
+    public int Get_Map_Height()
+    {
+        return m_map_data.Height;
     }
 }

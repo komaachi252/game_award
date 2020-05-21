@@ -1,4 +1,4 @@
-﻿Shader "Custom/Sk2"
+﻿Shader "Custom/Sk3"
 {
 	Properties
 	{
@@ -8,14 +8,14 @@
 		CGINCLUDE
 #include "UnityCG.cginc"
 
-	float wave(float2 st, float n)
+		float wave(float2 st, float n)
 	{
 		st = (floor(st * n) + 0.5) / n;
 		float d = distance(0.5, st);
 		return (1 + sin(d * 5 - _Time.y * 2)) * 0.5;
 	}
 
-		float box(float2 st, float size)
+	float box(float2 st, float size)
 	{
 		size = 0.5 + size * 0.5;
 		st = step(st, size) * step(1.0 - st, size);
@@ -36,9 +36,9 @@
 
 		float size = wave(i.uv, n);
 
-	return float4 (0,
-		box_wave(st, size),
-					1,
+	return float4 (1,
+		box_wave(st, size)-0.5,
+					0,
 					1);
 	}
 
