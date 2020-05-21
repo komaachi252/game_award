@@ -69,7 +69,7 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
-        m_map_index = 1;
+        m_map_index = 5;
         //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
