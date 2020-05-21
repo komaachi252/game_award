@@ -14,7 +14,7 @@ public class Back_Ground : MonoBehaviour
         m_image_num = DontDestroyManager.Map_Index / 10;
 
         this.GetComponentInChildren<Image>().sprite = m_images[m_image_num];
-        this.GetComponentInChildren<Image>().color = new Color(0.8f, 0.8f, 0.8f);
+        this.GetComponentInChildren<Image>().color = new Color(0.6f, 0.6f, 0.6f);
 
         this.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
