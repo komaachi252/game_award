@@ -240,6 +240,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: leaf
       objectReference: {fileID: 0}
+    - target: {fileID: 6380086373037236208, guid: c03ba49808fda604e81a9a3d7a03f072,
+        type: 3}
+      propertyPath: m_TagString
+      value: LEAF_INV
+      objectReference: {fileID: 0}
     - target: {fileID: 7985382520779124195, guid: c03ba49808fda604e81a9a3d7a03f072,
         type: 3}
       propertyPath: m_LocalPosition.x
