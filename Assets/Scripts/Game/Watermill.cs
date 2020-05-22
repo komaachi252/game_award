@@ -5,6 +5,9 @@ using UnityEngine;
 public class Watermill : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject m_trigger_right;
+    public GameObject m_trigger_left;
+
     bool m_is_aqua_colli = false;
     float m_rotate_speed = 0.0f;
     public float ADD_ROTATE_SPEED = 0.01f;
@@ -15,22 +18,30 @@ public class Watermill : MonoBehaviour
     public const float MAX_SPEED = 3.0f;
     void Start()
     {
-        
+        transform.Rotate(0, 180, 0);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (m_is_aqua_colli)
+        if (m_trigger_right.GetComponent<WatermillTrigger>().Is_Colli)
         {
-            if(m_rotate_speed < MAX_SPEED)
+            Debug.Log("Right");
+            if (m_rotate_speed < MAX_SPEED)
             {
                 m_rotate_speed += ADD_ROTATE_SPEED;
             }
-            
         }
+        else if (m_trigger_left.GetComponent<WatermillTrigger>().Is_Colli)
+        {
 
-        if(!m_is_aqua_colli && m_rotate_speed > 0.0f)
+            Debug.Log("Left");
+            if (m_rotate_speed > -MAX_SPEED)
+            {
+                m_rotate_speed -= ADD_ROTATE_SPEED;
+            }
+        }
+        else if(Mathf.Abs(m_rotate_speed) > 0.0f)
         {
             m_rotate_speed *= 0.98f;
         }
@@ -40,20 +51,5 @@ public class Watermill : MonoBehaviour
     void Rotate()
     {
         this.transform.Rotate(new Vector3(0, 0, m_rotate_speed));
-    }
-
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.CompareTag("AQUA"))
-        {
-            m_is_aqua_colli = true;
-        }
-    }
-    private void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.CompareTag("AQUA"))
-        {
-            m_is_aqua_colli = false;
-        }
     }
 }

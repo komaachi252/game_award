@@ -5,6 +5,7 @@ using UnityEngine;
 public class HIT_U : MonoBehaviour
 {
     public PLAYER PLAYER;
+    Collider Collider;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,14 @@ public class HIT_U : MonoBehaviour
     {
 
     }
+
+    public void SETWATERTrigger()
+    {
+        Debug.Log("着地");
+        Collider.isTrigger = false;
+    }
+
+
 
     void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
@@ -41,6 +50,13 @@ public class HIT_U : MonoBehaviour
         if (other.gameObject.CompareTag("COLD"))
         {
             PLAYER.SET_stay_COLD();
+        }
+
+        if (other.gameObject.CompareTag("WATER"))
+        {
+            Debug.Log("水の位置"+other.transform.position.y);
+            Collider = other.gameObject.GetComponent<BoxCollider>();
+            PLAYER.WATER(other.transform.position.y);
         }
 
         if (other.gameObject.CompareTag("HARD_HOT"))
@@ -72,6 +88,22 @@ public class HIT_U : MonoBehaviour
         if (other.gameObject.CompareTag("COLD"))
         {
             PLAYER.CLEAR_stay_COLD();
+        }
+        
+        if (other.gameObject.CompareTag("WATER"))
+        {
+            PLAYER.CLEAR_stay_WATER();
+            Collider.isTrigger = true;
+            /*
+            int flag = PLAYER.GETFLOATflag();
+            if (flag ==  1)
+            {
+                Debug.Log("着地");
+                Collider collider = other.gameObject.GetComponent<BoxCollider>();
+                collider.isTrigger = false;
+
+            }
+            */
         }
     }
 }

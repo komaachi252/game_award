@@ -247,6 +247,7 @@ MonoBehaviour:
   AQUA: {fileID: 9172549343834206305}
   CLOUD: {fileID: 4404143065126251588}
   JUGEMOVE: {fileID: 1607154312596780857}
+  HIT_U: {fileID: 75336900194950187}
   posx: 0
   posy: 0
   B_posx: 0
@@ -258,12 +259,15 @@ MonoBehaviour:
   VMOVEflag: 0
   AUTOMOVEflag: 0
   AUTOMOVEflag2: 0
+  AUTOMOVEflag3: 0
   VMOVEPOS: 0
   MOVEPOS: 0
   MOVEFinish: 0
-  TIME_T: 0
-  GAPMOVE: 0
+  GAPMOVE_U: 0
+  GAPMOVE_T: 0
   TARGETV: 0
+  DOWNPOS: 0
+  FLOATflag: 0
   MOVE_NOW: 0
   STAND: 0
   STAND_T: 0
@@ -274,9 +278,13 @@ MonoBehaviour:
   stay_COLD_R: 0
   stay_COLD_L: 0
   stay_COLD: 0
-  stay_GAP: 0
+  stay_GAP_U: 0
+  stay_GAP_T: 0
   stay_HARDHOT: 0
   stay_HARDCOLD: 0
+  stay_WALL_R: 0
+  stay_WALL_L: 0
+  stay_WATER: 0
 --- !u!65 &8249742290531316596
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -316,7 +324,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: e5e0f338a0f41884191ca74c35c8b3ea, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

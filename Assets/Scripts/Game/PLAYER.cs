@@ -9,6 +9,7 @@ public class PLAYER : MonoBehaviour
     public AQUA AQUA;
     public CLOUD CLOUD;
     public JUGEMOVE JUGEMOVE;
+    public HIT_U HIT_U;
     PhysicMaterial PM;
     Rigidbody rb;
     Collider boxcollider;
@@ -32,6 +33,7 @@ public class PLAYER : MonoBehaviour
     public int GAPMOVE_T = 0;       //GAP通過フラグ上
     public float TARGETV = 0;       //
     public float DOWNPOS = 0;       //水滴落下準備位置
+    public int FLOATflag = 0;       //水上移動フラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -49,6 +51,7 @@ public class PLAYER : MonoBehaviour
     public int stay_HARDCOLD = 0;//HARDCOLDフラグ
     public int stay_WALL_R = 0; //壁（移動不能マス）接触フラグ右
     public int stay_WALL_L = 0; //壁（移動不能マス）接触フラグ左
+    public int stay_WATER = 0;  //水接触フラグ
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -588,6 +591,8 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
+            //水滴壁落下
+
             if (stay_WALL_R == 1)
             {
                 STAND = 0;
@@ -605,6 +610,19 @@ public class PLAYER : MonoBehaviour
                 Physics.gravity = new Vector3(0, -9.8f, 0);
                 MOVE_V = 1;
             }
+
+            //水ギミック利用
+            if(stay_WATER == 1)
+            {
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+
+                Physics.gravity = new Vector3(0, 5.0f, 0);
+                MOVE_V = -1;
+                FLOATflag = 1;
+            }
+
         }
 
         if (GAPMOVE_U == 1)
@@ -629,6 +647,22 @@ public class PLAYER : MonoBehaviour
                 GAPMOVE_T = 0;
                 capcollider.enabled = true;
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+            }
+        }
+
+        if(FLOATflag == 1)
+        {
+            if (transform.position.y > TARGETV)
+            {
+                FLOATflag = 0;
+                //capcollider.enabled = true;
+                //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                HIT_U.SETWATERTrigger();
+                Physics.gravity = new Vector3(0, -9.8f, 0);
+                MOVE_V = 1;
                 STAND = 0;
                 STAND_T = 0;
                 STAND_U = 0;
@@ -824,6 +858,11 @@ public class PLAYER : MonoBehaviour
         stay_WALL_L = 0;
     }
 
+    public void CLEAR_stay_WATER()
+    {
+        stay_WATER = 0;
+    }
+
     public void HARDHOT()
     {
         Debug.Log(transform.position);
@@ -858,6 +897,33 @@ public class PLAYER : MonoBehaviour
 
         AUTOMOVEflag2 = 1;
         stay_HARDCOLD = 1;
+    }
+
+    public void WATER(float TARGET_V)
+    {
+        if (TYPE == 0)
+        {
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            TARGETV = TARGET_V + 1.1f;
+
+            AUTOMOVEflag2 = 1;
+            stay_WATER = 1;
+        }
+    }
+
+    public int GETFLOATflag()
+    {
+        return FLOATflag;
     }
 
 
