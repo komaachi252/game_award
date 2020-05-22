@@ -8,6 +8,8 @@ public class StageController : MonoBehaviour
     public static readonly int START_WORLD = 0;//初期ワールド　0スタート
     public static readonly int START_STAGE = 0;//初期ステージ　0スタート
 
+    private const float INPUT_COOLTIME = 0.15f;
+
     public GameObject obje_feed;
     Feed script_feed;//フェード
 
@@ -20,6 +22,8 @@ public class StageController : MonoBehaviour
     private int one_read;//最初に一回だけ呼ばれるようにするフラグ
 
     private int select_flag;//今ステージ選択中かワールド選択中か
+
+    private float input_cooltime;//入力クールタイム
 
     //スタートより早く呼ばれるらしい
     void Awake()
@@ -56,28 +60,34 @@ public class StageController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))//下
+        input_cooltime += Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.S))//下
         {
-            if (select_flag == 0 && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
+            if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
             {
                 next_world++;
+                input_cooltime = 0;
             }
-            else if (select_flag == 1 && next_stage < World_Stage_Nm.GET_STAGE_NUM(now_world) - 1)//ステージ選択
+            else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage < World_Stage_Nm.GET_STAGE_NUM(now_world) - 1)//ステージ選択
             {
                 next_stage++;
+                input_cooltime = 0;
             }
 
         }
 
-        if (Input.GetKeyDown(KeyCode.W))//上
+        if (Input.GetKey(KeyCode.W))//上
         {
-            if (select_flag == 0 && next_world > 0)//ワールド選択画面
+            if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world > 0)//ワールド選択画面
             {
                 next_world--;
+                input_cooltime = 0;
             }
-            else if (select_flag == 1 && next_stage > 0)//ステージ選択
+            else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage > 0)//ステージ選択
             {
                 next_stage--;
+                input_cooltime = 0;
             }
         }
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    private const float SPEED = 360.0f;//移動速度
+    private const float SPEED = 240.0f;//移動速度
     private const float LEFT_MAX = -40.0f;//左方向の移動限界(ローカル)
     private const float RIGHT_MAX = 43.0f;//右方向の移動限界(ローカル)
     private const float OUT_MAX = 451.0f;//表示エリアの外の移動限界(ローカル&右側)
