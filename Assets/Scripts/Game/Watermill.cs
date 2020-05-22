@@ -18,7 +18,7 @@ public class Watermill : MonoBehaviour
     public const float MAX_SPEED = 3.0f;
     void Start()
     {
-        transform.Rotate(0, 180, 0);
+
     }
 
     // Update is called once per frame

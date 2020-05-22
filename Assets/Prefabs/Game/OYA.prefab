@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 7383721371000035073}
   m_Layer: 0
   m_Name: PLAYER_MASTER
-  m_TagString: Player
+  m_TagString: SOLID
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,6 +268,7 @@ MonoBehaviour:
   TARGETV: 0
   DOWNPOS: 0
   FLOATflag: 0
+  MUTEKI: 0
   MOVE_NOW: 0
   STAND: 0
   STAND_T: 0

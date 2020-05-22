@@ -302,6 +302,48 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: world5
+    clip: {fileID: 8300000, guid: e659b4dbd47ac4c479a2b6da0cd8861c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: world1
+    clip: {fileID: 8300000, guid: 8a3edf89674b9d04eaf924209d23a4ec, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: world2
+    clip: {fileID: 8300000, guid: 78a52240395ad90498a84de8a5b63f83, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: world3
+    clip: {fileID: 8300000, guid: 143b96d66fc887c43baf32724ce02f69, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: world4
+    clip: {fileID: 8300000, guid: 16232152aab32e843adb9bc843a37807, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: select
+    clip: {fileID: 8300000, guid: 445dd454ef3dc08489c263492c8cd33a, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: ' typhoon'
+    clip: {fileID: 8300000, guid: 89b943bcbcf75464587c1ed51e233357, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
   - name: ' typhoon'
     clip: {fileID: 8300000, guid: 89b943bcbcf75464587c1ed51e233357, type: 3}
     volume: 1

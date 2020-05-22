@@ -39,6 +39,7 @@ public class Phase_UI : MonoBehaviour
         if (!GameObject.Find("PLAYER_MASTER").gameObject.tag.Equals(m_player_tag))
         {
             m_player_tag = GameObject.Find("PLAYER_MASTER").gameObject.tag;
+            Debug.Log(m_player_tag);
             if(m_player_tag == "SOLID")
             {
                 m_sprite_index = (int)Phase_Index.Solid;

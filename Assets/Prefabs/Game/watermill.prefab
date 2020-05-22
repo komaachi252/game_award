@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3944248462790241169}
   - component: {fileID: 7829373375629980871}
   m_Layer: 0
-  m_Name: TriggerLeft
+  m_Name: TriggerRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 997095229244012030}
   - component: {fileID: 3312348781854324908}
   m_Layer: 0
-  m_Name: TriggerRight
+  m_Name: TriggerLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
