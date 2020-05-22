@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PLAYER : MonoBehaviour
 {
@@ -34,6 +36,7 @@ public class PLAYER : MonoBehaviour
     public float TARGETV = 0;       //
     public float DOWNPOS = 0;       //水滴落下準備位置
     public int FLOATflag = 0;       //水上移動フラグ
+    public int MUTEKI = 0;          //無敵フラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -67,7 +70,9 @@ public class PLAYER : MonoBehaviour
         PM = this.gameObject.GetComponent<PhysicMaterial>();
         boxcollider = this.gameObject.GetComponent<BoxCollider>();
         capcollider = this.gameObject.GetComponent<CapsuleCollider>();
-        tag = "SOLID";
+        Physics.gravity = new Vector3(0, -9.8f, 0);
+        //tag = "SOLID";
+        MUTEKI = 6;
     }
 
     // Update is called once per frame
@@ -612,7 +617,7 @@ public class PLAYER : MonoBehaviour
             }
 
             //水ギミック利用
-            if(stay_WATER == 1)
+            if (stay_WATER == 1)
             {
                 STAND = 0;
                 STAND_T = 0;
@@ -653,7 +658,7 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if(FLOATflag == 1)
+        if (FLOATflag == 1)
         {
             if (transform.position.y > TARGETV)
             {
@@ -667,6 +672,11 @@ public class PLAYER : MonoBehaviour
                 STAND_T = 0;
                 STAND_U = 0;
             }
+        }
+
+        if (MUTEKI > 0)
+        {
+            MUTEKI--;
         }
 
         if (posy != B_posy)
@@ -921,6 +931,14 @@ public class PLAYER : MonoBehaviour
         }
     }
 
+    public void WIND()
+    {
+        if (TYPE == 2)
+        {
+            SceneManager.LoadScene("CLEAR"); //移動先のシーン名
+        }
+    }
+
     public int GETFLOATflag()
     {
         return FLOATflag;
@@ -932,7 +950,7 @@ public class PLAYER : MonoBehaviour
         if (other.gameObject.CompareTag("LEAF"))
         {
             Vector3 FORCE = new Vector3(-3.0f, 0.0f, 0.0f);
-            rb.AddForce(FORCE);            
+            rb.AddForce(FORCE);
         }
 
         if (other.gameObject.CompareTag("LEAF_INV"))
@@ -944,13 +962,46 @@ public class PLAYER : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        //Debug.Log("何か");
-        if (other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("LEAF"))
+        if (MUTEKI == 0)
         {
-            //Debug.Log("葉っぱ");
-            STAND = 0;
-            STAND_T = 0;
-            STAND_U = 0;
+            //Debug.Log("何か");
+            if (other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("LEAF"))
+            {
+                //Debug.Log("葉っぱ");
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+            }
+
+            if (other.gameObject.CompareTag("DRAIN"))
+            {
+                if (TYPE == 1)
+                {
+                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                }
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (MUTEKI == 0)
+        {
+            if (other.gameObject.CompareTag("WINDMILL"))
+            {
+                if (TYPE == 2)
+                {
+                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                }
+            }
+
+            if (other.gameObject.CompareTag("HAMMER"))
+            {
+                if (TYPE == 0)
+                {
+                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                }
+            }
         }
     }
 }
