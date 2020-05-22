@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageController : MonoBehaviour
 {
     public static readonly int START_WORLD = 0;//初期ワールド　0スタート
     public static readonly int START_STAGE = 0;//初期ステージ　0スタート
 
+    public GameObject obje_feed;
+    Feed script_feed;//フェード
+
     public int next_world;//次に選択されてるワールド
     private static int now_world;//現在選択してるワールド
 
     public int next_stage;//次に選択されているワールド
     private static int now_stage;//現在選択してるステージ
-
-    private int[] stage_marking_num;//ステージ数
 
     private int one_read;//最初に一回だけ呼ばれるようにするフラグ
 
@@ -46,15 +48,9 @@ public class StageController : MonoBehaviour
     void Start()
     {
 
-        stage_marking_num = new int[World_Stage_Nm.GET_WORLD_NUM()];//ステージメモリ確保
-
-        GameObject StageMarking = GameObject.Find("StageMarking");
-        for (int i = 0; i < World_Stage_Nm.GET_WORLD_NUM(); i++)
-        {
-            stage_marking_num[i] = World_Stage_Nm.GET_STAGE_NUM(i);
-        }
-
         select_flag = 0;//ワールド選択から始める
+
+        script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
     }
 
     // Update is called once per frame
@@ -94,6 +90,10 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 1;
             }
+            else if (select_flag == 1)//ステージ選択の時
+            {
+                SceneManager.LoadScene("GameScene");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Z))//決定してたら一個前に戻る
@@ -103,6 +103,11 @@ public class StageController : MonoBehaviour
                 select_flag = 0;
                 next_stage = 0;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            script_feed.Start_Feed(1, 10.0f);
         }
     }
 
