@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     private const float SPEED = 240.0f;//移動速度
+    private const float CHANGE_SPEED = 500.0f;//ステージとワールド入れ替わる速度
     private const float LEFT_MAX = -40.0f;//左方向の移動限界(ローカル)
     private const float RIGHT_MAX = 43.0f;//右方向の移動限界(ローカル)
     private const float OUT_MAX = 451.0f;//表示エリアの外の移動限界(ローカル&右側)
@@ -147,8 +148,8 @@ public class UIController : MonoBehaviour
                 {
 
                     //移動の計算
-                    CreateUI[i].transform.localPosition = CreateUI[i].transform.localPosition + new Vector3((SPEED * 2) * Time.deltaTime, 0.0f, 0.0f);
-                    Select.transform.localPosition = Select.transform.localPosition + new Vector3((SPEED / 5) * Time.deltaTime, 0.0f, 0.0f);
+                    CreateUI[i].transform.localPosition = CreateUI[i].transform.localPosition + new Vector3((CHANGE_SPEED * 2) * Time.deltaTime, 0.0f, 0.0f);
+                    Select.transform.localPosition = Select.transform.localPosition + new Vector3((CHANGE_SPEED / 5) * Time.deltaTime, 0.0f, 0.0f);
 
                     //一定の場所に行ったら
                     if (CreateUI[i].transform.localPosition.x >= OUT_MAX && Select.transform.localPosition.x >= 841.0f)
@@ -203,8 +204,8 @@ public class UIController : MonoBehaviour
                 {
 
                     //移動
-                    CreateUI[i].transform.localPosition = CreateUI[i].transform.localPosition - new Vector3((SPEED * 2) * Time.deltaTime, 0.0f, 0.0f);
-                    Select.transform.localPosition = Select.transform.localPosition - new Vector3((SPEED / 5) * Time.deltaTime, 0.0f, 0.0f);
+                    CreateUI[i].transform.localPosition = CreateUI[i].transform.localPosition - new Vector3((CHANGE_SPEED * 2) * Time.deltaTime, 0.0f, 0.0f);
+                    Select.transform.localPosition = Select.transform.localPosition - new Vector3((CHANGE_SPEED / 5) * Time.deltaTime, 0.0f, 0.0f);
 
 
                     //一定の場所にたどり着いたら
@@ -364,7 +365,7 @@ public class UIController : MonoBehaviour
                         up++;
 
 
-                        for (int j = up; j < CreateUI.Length; j++)
+                        for (int j = up; j < down; j++)
                         {
                             CreateUI[j].transform.localPosition = new Vector3(CreateUI[j].transform.localPosition.x, 217.0f - ((75.0f + 20.0f) * (j - up)), 0.0f);
                         }

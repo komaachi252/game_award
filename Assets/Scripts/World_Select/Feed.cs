@@ -17,7 +17,7 @@ public class Feed : MonoBehaviour
     //0 = フェード待ち
     //1 = フェード中　イン
     //2 = フェード中　アウト
-    int flag;
+    public int flag;
 
 
     // Start is called before the first frame update
@@ -35,7 +35,7 @@ public class Feed : MonoBehaviour
             image.color = new Color(0.0f, 0.0f, 0.0f, alfa);
             alfa -= speed;
 
-            if (alfa <= 0)
+            if (alfa <= 0.0f)
             {
                 flag = 0;
             }
@@ -46,7 +46,7 @@ public class Feed : MonoBehaviour
             image.color = new Color(0.0f, 0.0f, 0.0f, alfa);
             alfa += speed;
 
-            if (alfa >= 255)//真っ暗になったら
+            if (alfa >= 1.0f)//真っ暗になったら
             {
                 flag = 0;//フェードを止める
             }
@@ -83,9 +83,7 @@ public class Feed : MonoBehaviour
         {
             return false;
         }
-        else
-        {
-            return true;
-        }
+
+        return true;
     }
 }

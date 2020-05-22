@@ -62,6 +62,8 @@ public class StageController : MonoBehaviour
     {
         input_cooltime += Time.deltaTime;
 
+        
+
         if (Input.GetKey(KeyCode.S))//下
         {
             if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
@@ -102,7 +104,9 @@ public class StageController : MonoBehaviour
             }
             else if (select_flag == 1)//ステージ選択の時
             {
-                SceneManager.LoadScene("GameScene");
+                select_flag = 2;
+                script_feed.Start_Feed(1, 270.0f);//フェード開始
+                
             }
         }
 
@@ -113,6 +117,11 @@ public class StageController : MonoBehaviour
                 select_flag = 0;
                 next_stage = 0;
             }
+        }
+
+        if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
+        {
+            SceneManager.LoadScene("GameScene");
         }
 
         if (Input.GetKeyDown(KeyCode.P))
