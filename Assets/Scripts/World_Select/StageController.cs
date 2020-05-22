@@ -10,7 +10,7 @@ public class StageController : MonoBehaviour
 
     public GameObject obje_feed;
     //Feed script_feed;//フェード
-    
+
     public int next_world;//次に選択されてるワールド
     private static int now_world;//現在選択してるワールド
 
@@ -107,7 +107,7 @@ public class StageController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-          //  script_feed.Start_Feed(1, 10.0f);
+            //script_feed.Start_Feed(1, 10.0f);
         }
     }
 
