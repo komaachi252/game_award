@@ -33,7 +33,7 @@ public class MapLoader : MonoBehaviour
 
     private void Awake()
     {
-        Map_Index = DontDestroyManager.Map_Index;
+        //Map_Index = DontDestroyManager.Map_Index;
         //Map_Index = 12;
     }
 
@@ -62,7 +62,7 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
-        m_map_index = 0;
+       //m_map_index = 0;
         //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
@@ -78,15 +78,44 @@ public class MapLoader : MonoBehaviour
         }
         if (Input.GetKeyDown("2"))
         {
-            m_map_index = 4;
+            m_map_index = 1;
             SceneManager.LoadScene("GameScene");
         }
         if (Input.GetKeyDown("3"))
         {
+            m_map_index = 2;
+            SceneManager.LoadScene("GameScene");
+        }
+        if (Input.GetKeyDown("4"))
+        {
+            m_map_index = 3;
+            SceneManager.LoadScene("GameScene");
+        }
+        if (Input.GetKeyDown("5"))
+        {
+            m_map_index = 4;
+            SceneManager.LoadScene("GameScene");
+        }
+        if (Input.GetKeyDown("6"))
+        {
+            m_map_index = 6;
+            SceneManager.LoadScene("GameScene");
+        }
+        if (Input.GetKeyDown("7"))
+        {
+            m_map_index = 7;
+            SceneManager.LoadScene("GameScene");
+        }
+        if (Input.GetKeyDown("8"))
+        {
             m_map_index = 8;
             SceneManager.LoadScene("GameScene");
         }
-
+        if (Input.GetKeyDown("9"))
+        {
+            m_map_index = 9;
+            SceneManager.LoadScene("GameScene");
+        }
 
     }
 

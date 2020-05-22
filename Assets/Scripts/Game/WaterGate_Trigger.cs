@@ -25,13 +25,13 @@ public class WaterGate_Trigger : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.CompareTag("BLOCK") && col.gameObject.transform != this.gameObject.transform.parent)
-        Debug.Log("塩田");
+        //Debug.Log("塩田");
         m_is_colli = true;
     }
     private void OnTriggerExit(Collider col)
     {
         if (col.gameObject.CompareTag("BLOCK") && col.gameObject.transform != this.gameObject.transform.parent)
-        Debug.Log("絵杭");
+        //Debug.Log("絵杭");
         m_is_colli = false;
     }
 

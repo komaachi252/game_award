@@ -11,7 +11,7 @@ public class Watermill_Gimmick : MonoBehaviour
 
     const float MAX_DISTANCE = 4.0f;
     float m_total_dist = 0.0f;
-    bool m_is_max_dist = false;
+    //bool m_is_max_dist = false;
     enum Gate_Phase
     {
         Default,
@@ -58,6 +58,7 @@ public class Watermill_Gimmick : MonoBehaviour
         }
 
 
+        /*
         if(Mathf.Abs(m_total_dist) + Mathf.Abs(move_dist) > MAX_DISTANCE)
         {
             if(m_total_dist > 0.0f) {
@@ -69,7 +70,9 @@ public class Watermill_Gimmick : MonoBehaviour
             }
 
             m_is_max_dist = true;
+
         }
+        */
         m_total_dist += move_dist;
         this.transform.Translate(0.0f, move_dist, 0.0f);
     }

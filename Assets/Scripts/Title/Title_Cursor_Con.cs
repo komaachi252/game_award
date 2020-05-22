@@ -11,6 +11,7 @@ public class Title_Cursor_Con : MonoBehaviour
     //  ボタン長押し用
     int m_press_key_time = 0;
     float m_pos_y;
+    public GameObject m_fade;
     void Start()
     {
         FindObjectOfType<Audio_Manager>().Play("rain1");
@@ -93,8 +94,7 @@ public class Title_Cursor_Con : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return) && idx == 0)
         {
             FindObjectOfType<Audio_Manager>().Play("enter");
-            SceneManager.LoadScene("WorldScene");
-
+            m_fade.GetComponent<Simple_Fade>().Start_Fade("WorldScene");
         }
 
 
