@@ -23,20 +23,34 @@ public class Feed : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        image = this.GetComponent<Image>();//イメージ貰う
+        image = this.gameObject.GetComponent<Image>();//イメージ貰う
         alfa = image.color.a;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (flag == 2)//フェードアウト
+        if (flag == 1)
         {
-            image.color = image.color + new Color(0.0f, 0.0f, 0.0f, alfa);
+            image.color = new Color(0.0f, 0.0f, 0.0f, alfa);
+            alfa -= speed;
+
+            if (alfa <= 0)
+            {
+                flag = 0;
+            }
         }
 
-        
+        if (flag == 2)//フェードアウト
+        {
+            image.color = new Color(0.0f, 0.0f, 0.0f, alfa);
+            alfa += speed;
 
+            if (alfa >= 255)//真っ暗になったら
+            {
+                flag = 0;//フェードを止める
+            }
+        }
     }
 
     //フェードをスタートさせる関数
@@ -46,16 +60,18 @@ public class Feed : MonoBehaviour
     {
         if (feed_mode == 0)//フェードイン
         {
-
+            flag = 1;
+            alfa = 255;
         }
         else if (feed_mode == 1)//フェードアウト
         {
             flag = 2;//フラグをセット
-            speed = (255 / feed_speed) * Time.deltaTime;//フェード速度をセット
-            image.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+            alfa = 0;
         }
 
-        
+        speed = (255 / feed_speed) * Time.deltaTime;//フェード速度をセット
+
+
     }
 
     //現在のフェード状態

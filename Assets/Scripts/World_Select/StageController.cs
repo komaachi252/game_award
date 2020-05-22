@@ -9,7 +9,7 @@ public class StageController : MonoBehaviour
     public static readonly int START_STAGE = 0;//初期ステージ　0スタート
 
     public GameObject obje_feed;
-    //Feed script_feed;//フェード
+    Feed script_feed;//フェード
 
     public int next_world;//次に選択されてるワールド
     private static int now_world;//現在選択してるワールド
@@ -50,13 +50,13 @@ public class StageController : MonoBehaviour
 
         select_flag = 0;//ワールド選択から始める
 
-        //script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
+        script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))//進む
+        if (Input.GetKeyDown(KeyCode.S))//下
         {
             if (select_flag == 0 && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
             {
@@ -69,7 +69,7 @@ public class StageController : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))//戻る
+        if (Input.GetKeyDown(KeyCode.W))//上
         {
             if (select_flag == 0 && next_world > 0)//ワールド選択画面
             {
@@ -107,7 +107,7 @@ public class StageController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            //script_feed.Start_Feed(1, 10.0f);
+            script_feed.Start_Feed(1, 100.0f);
         }
     }
 

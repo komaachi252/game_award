@@ -362,6 +362,12 @@ public class UIController : MonoBehaviour
                         scroll_flag = 0;
                         down++;//一番下をずらす
                         up++;
+
+
+                        for (int j = up; j < CreateUI.Length; j++)
+                        {
+                            CreateUI[j].transform.localPosition = new Vector3(CreateUI[j].transform.localPosition.x, 217.0f - ((75.0f + 20.0f) * (j - up)), 0.0f);
+                        }
                     }
                 }
 
@@ -379,10 +385,12 @@ public class UIController : MonoBehaviour
 
                     if (move_max >= 75.0f + 20.0f)
                     {
-                        
                         scroll_flag = 0;
 
-                        
+                        for (int j = up; j < CreateUI.Length; j++)
+                        {
+                            CreateUI[j].transform.localPosition = new Vector3(CreateUI[j].transform.localPosition.x, 217.0f - ((75.0f + 20.0f) * (j - up)), 0.0f);
+                        }
                     }
                 }
             }

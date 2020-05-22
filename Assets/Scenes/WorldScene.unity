@@ -201,7 +201,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3e-45, y: 2.7105054e-20, z: 2.3509887e-38, w: -9.476173}
+  m_BoundingSphereOverride: {x: 4.7019774e-38, y: 0, z: 0, w: NaN}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -720,7 +720,8 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: -2.3404263e-24, y: 2.3937171e-21, z: -3.0590932e+31,
+    w: NaN}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2122,7 +2123,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E0B\u3000\u3000Q\n\u4E0A\u3000\u3000A\n\u6C7A\u5B9A\u3000Space\n\u30AD\u30E3\u30F3\u30BB\u30EB\u3000Z"
+  m_Text: "\u4E0B\u3000\u3000W\n\u4E0A\u3000\u3000S\n\u6C7A\u5B9A\u3000Space\n\u30AD\u30E3\u30F3\u30BB\u30EB\u3000Z"
 --- !u!222 &2032868277
 CanvasRenderer:
   m_ObjectHideFlags: 0
