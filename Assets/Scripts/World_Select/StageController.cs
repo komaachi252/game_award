@@ -8,7 +8,7 @@ public class StageController : MonoBehaviour
     public static readonly int START_WORLD = 0;//初期ワールド　0スタート
     public static readonly int START_STAGE = 0;//初期ステージ　0スタート
 
-    private const float INPUT_COOLTIME = 0.25f;
+    private const float INPUT_COOLTIME = 0.3f;
 
     public GameObject obje_feed;
     Feed script_feed;//フェード
