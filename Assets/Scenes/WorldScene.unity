@@ -201,7 +201,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.7019774e-38, y: 0, z: 0, w: NaN}
+  m_BoundingSphereOverride: {x: 44.65129, y: -1.0582126, z: -9.772435e-23, w: 4e-45}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a10375c5be461a847a7f2e83b647e2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: 0
 --- !u!114 &208822954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,8 +721,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: -2.3404263e-24, y: 2.3937171e-21, z: -3.0590932e+31,
-    w: NaN}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2089,8 +2089,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -362.9, y: -35.6}
-  m_SizeDelta: {x: 461.1, y: 292.3}
+  m_AnchoredPosition: {x: -379, y: 6.3}
+  m_SizeDelta: {x: 461.1, y: 621.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2032868276
 MonoBehaviour:
@@ -2123,7 +2123,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E0B\u3000\u3000W\n\u4E0A\u3000\u3000S\n\u6C7A\u5B9A\u3000Space\n\u30AD\u30E3\u30F3\u30BB\u30EB\u3000Z"
+  m_Text: "\u30AD\u30FC\u30DC\u30FC\u30C9\n\u4E0B\u3000\u3000W\n\u4E0A\u3000\u3000S\n\u6C7A\u5B9A\u3000Space\n\u30AD\u30E3\u30F3\u30BB\u30EB\u3000Z\n\n\u30D1\u30C3\u30C9\n\u4E0A\u4E0B\u3000\u30B9\u30C6\u30A3\u30C3\u30AF\n\u3000\u3000\u3000\u5341\u5B57\u30AD\u30FC\n\u6C7A\u5B9A\u3000A\n\u30AD\u30E3\u30F3\u30BB\u30EB\u3000X"
 --- !u!222 &2032868277
 CanvasRenderer:
   m_ObjectHideFlags: 0

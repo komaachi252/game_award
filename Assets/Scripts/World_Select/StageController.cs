@@ -21,6 +21,11 @@ public class StageController : MonoBehaviour
 
     private int one_read;//最初に一回だけ呼ばれるようにするフラグ
 
+    //フラグ
+    //0 = ワールド
+    //1 = ステージ
+    //2 = ゲームシーンに移動
+    //3 = タイトルに戻る
     private int select_flag;//今ステージ選択中かワールド選択中か
 
     private float input_cooltime;//入力クールタイム
@@ -60,10 +65,113 @@ public class StageController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        input_cooltime += Time.deltaTime;
+        input_cooltime += Time.deltaTime;//クールタイムカウント
 
         
 
+
+        //===============================================
+        //キーボード入力処理
+        //===============================================
+        Key_input();
+
+
+        //===============================================
+        //パッド入力処理
+        //===============================================
+        pad_input();
+
+
+        //===============================================
+        //その他いろいろ
+        //===============================================
+        now_world = next_world;
+        now_stage = next_stage;
+
+        if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+
+        if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
+
+    }
+
+    //=========================================================
+    //パッド入力処理
+    //=========================================================
+    private void pad_input()
+    {
+        //float x_axis = Input.GetAxis("Horizontal");//右プラス　左マイナス
+        float y_axis = Input.GetAxis("Vertical");//上プラス　下マイナス
+        float arrow_axis = Input.GetAxis("Vertical_Arrow");
+
+        if (y_axis > 0.0f || arrow_axis < 0)//スティックを上に傾けたら
+        {
+            if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world > 0)//ワールド選択画面
+            {
+                next_world--;
+                input_cooltime = 0;
+            }
+            else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage > 0)//ステージ選択
+            {
+                next_stage--;
+                input_cooltime = 0;
+            }
+        }
+
+        if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
+        {
+            if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
+            {
+                next_world++;
+                input_cooltime = 0;
+            }
+            else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage < World_Stage_Nm.GET_STAGE_NUM(now_world) - 1)//ステージ選択
+            {
+                next_stage++;
+                input_cooltime = 0;
+            }
+        }
+
+        if (Input.GetKeyDown("joystick button 0"))//決定A
+        {
+            if (select_flag == 0)//ワールド選択の時
+            {
+                select_flag = 1;
+            }
+            else if (select_flag == 1)//ステージ選択の時
+            {
+                select_flag = 2;
+                script_feed.Start_Feed(1, 270.0f);//フェード開始
+            }
+        }
+
+        if (Input.GetKeyDown("joystick button 2"))//決定X
+        {
+            if (select_flag == 1)//ステージ選択の時
+            {
+                select_flag = 0;
+                next_stage = 0;
+            }
+            else if (select_flag == 0)//ワールド選択の時
+            {
+                select_flag = 3;
+                script_feed.Start_Feed(1, 270.0f);//フェード開始
+            }
+        }
+
+        
+    }
+
+    //=========================================================
+    //キーボード入力
+    //=========================================================
+    private void Key_input()
+    {
         if (Input.GetKey(KeyCode.S))//下
         {
             if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
@@ -93,9 +201,6 @@ public class StageController : MonoBehaviour
             }
         }
 
-        now_world = next_world;
-        now_stage = next_stage;
-
         if (Input.GetKeyDown(KeyCode.Space))//決定
         {
             if (select_flag == 0)//ワールド選択の時
@@ -106,7 +211,7 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 2;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
-                
+
             }
         }
 
@@ -117,16 +222,11 @@ public class StageController : MonoBehaviour
                 select_flag = 0;
                 next_stage = 0;
             }
-        }
-
-        if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
-        {
-            SceneManager.LoadScene("GameScene");
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            script_feed.Start_Feed(1, 100.0f);
+            else if (select_flag == 0)
+            {
+                select_flag = 3;
+                script_feed.Start_Feed(1, 270.0f);//フェード開始
+            }
         }
     }
 
@@ -170,4 +270,9 @@ public class StageController : MonoBehaviour
     }
 
 
+    //現在選択してるステージの値を変更する関数
+    public void Set_stage(int set)
+    {
+        now_stage = set;
+    }
 }

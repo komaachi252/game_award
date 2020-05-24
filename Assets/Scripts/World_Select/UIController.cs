@@ -162,7 +162,11 @@ public class UIController : MonoBehaviour
                         }
                         Select.transform.localPosition = new Vector3(841.0f, Select.transform.localPosition.y, 0.0f);
 
-                        change_flag = 3;//画面内に移動
+                        if (now_select == 0 || now_select == 1)
+                        {
+                            change_flag = 3;//画面内に移動
+                        }
+                        
 
                         if (now_select == 0)//ワールド選択
                         {
