@@ -241,7 +241,12 @@ public class StageController : MonoBehaviour
     //現在選択してるステージをあげる関数
     public static int Get_stage()
     {
-        return now_stage;
+        int stage = 0;
+        for (int i = 0; i < now_world - 1; i++)
+        {
+            stage += World_Stage_Nm.GET_STAGE_NUM(i);
+        }
+        return now_stage + stage;//全部繋げたやぁつ
     }
 
 

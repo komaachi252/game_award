@@ -115,11 +115,17 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int stage = 0;
+        for (int i = 0; i < StageController.Get_world() - 1; i++)
+        {
+            stage += World_Stage_Nm.GET_STAGE_NUM(i);
+        }
+
         //=====================================================
         //変数
         //=====================================================
         int now_world = StageController.Get_world();//現在のワールド取得
-        int now_stage = StageController.Get_stage();//現在のステージ取得
+        int now_stage = StageController.Get_stage() - stage;//現在のステージ取得
         int now_select = stagecon.Get_SelectFlag();//現在の選択
 
 
