@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EmitterScale: 0
-  effectAsset: {fileID: 11400000, guid: c7fb99e59e7d7754f8936971e4cca222, type: 2}
+  effectAsset: {fileID: 11400000, guid: 912af86ca7f22174e8c64b364e393e51, type: 2}
   playOnStart: 1
   isLooping: 0
 --- !u!114 &5572924022330982859
