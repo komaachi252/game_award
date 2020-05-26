@@ -35,6 +35,7 @@ public class Game_Manager : MonoBehaviour
 
     public void Game_Clear()
     {
-        Instantiate(m_game_flag_logo, new Vector3(1,1,1), Quaternion.identity);
+        //Instantiate(m_game_flag_logo, new Vector3(1,1,1), Quaternion.identity);
+        Is_Clear_Flag = true;
     }
 }

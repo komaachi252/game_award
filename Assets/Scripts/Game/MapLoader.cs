@@ -12,9 +12,7 @@ public class MapLoader : MonoBehaviour
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
-    static int m_map_index = 0;  //  読み込むマップのインデックス
-
-    public GameObject m_fade; //  フェード用オブジェクト参照
+    static int m_map_index = 1;  //  読み込むマップのインデックス
     public static int Map_Index
     {
         get { return m_map_index; }
@@ -35,7 +33,8 @@ public class MapLoader : MonoBehaviour
 
     private void Awake()
     {
-        Map_Index = DontDestroyManager.Map_Index;
+        //Map_Index = DontDestroyManager.Map_Index;
+        //Map_Index = 12;
     }
 
     void Start()
@@ -54,36 +53,6 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "world1-8.csv");
         m_file_paths.Add(FILE_PATH + "world1-9.csv");
         m_file_paths.Add(FILE_PATH + "world1-10.csv");
-        m_file_paths.Add(FILE_PATH + "world2-1.csv");
-        m_file_paths.Add(FILE_PATH + "world2-2.csv");
-        m_file_paths.Add(FILE_PATH + "world2-3.csv");
-        m_file_paths.Add(FILE_PATH + "world2-4.csv");
-        m_file_paths.Add(FILE_PATH + "world2-5.csv");
-        m_file_paths.Add(FILE_PATH + "world2-6.csv");
-        m_file_paths.Add(FILE_PATH + "world2-7.csv");
-        m_file_paths.Add(FILE_PATH + "world2-8.csv");
-        m_file_paths.Add(FILE_PATH + "world2-9.csv");
-        m_file_paths.Add(FILE_PATH + "world2-10.csv");
-        m_file_paths.Add(FILE_PATH + "world3-1.csv");
-        m_file_paths.Add(FILE_PATH + "world3-2.csv");
-        m_file_paths.Add(FILE_PATH + "world3-3.csv");
-        m_file_paths.Add(FILE_PATH + "world3-4.csv");
-        m_file_paths.Add(FILE_PATH + "world3-5.csv");
-        m_file_paths.Add(FILE_PATH + "world3-6.csv");
-        m_file_paths.Add(FILE_PATH + "world3-7.csv");
-        m_file_paths.Add(FILE_PATH + "world3-8.csv");
-        m_file_paths.Add(FILE_PATH + "world3-9.csv");
-        m_file_paths.Add(FILE_PATH + "world3-10.csv");
-        m_file_paths.Add(FILE_PATH + "world4-1.csv");
-        m_file_paths.Add(FILE_PATH + "world4-2.csv");
-        m_file_paths.Add(FILE_PATH + "world4-3.csv");
-        m_file_paths.Add(FILE_PATH + "world4-4.csv");
-        m_file_paths.Add(FILE_PATH + "world4-5.csv");
-        m_file_paths.Add(FILE_PATH + "world4-6.csv");
-        m_file_paths.Add(FILE_PATH + "world4-7.csv");
-        m_file_paths.Add(FILE_PATH + "world4-8.csv");
-        m_file_paths.Add(FILE_PATH + "world4-9.csv");
-        m_file_paths.Add(FILE_PATH + "world4-10.csv");
         m_file_paths.Add(FILE_PATH + "dojo1.csv");
         
         //  追加されたパス分マップ情報を読み込む
@@ -162,16 +131,11 @@ public class MapLoader : MonoBehaviour
             }
         }
 
-        //  プレイヤーを最後に生成
         Instantiate(m_objects[9], new Vector3(p_x, p_y, 0.0f), Quaternion.identity);
 
-        //  背景生成
         Instantiate(m_back_ground, new Vector3(0, -4, -7), Quaternion.identity);
 
         m_is_create = true;
-
-        //  フェードイン開始
-        m_fade.GetComponent<Game_Fade>().Fade_Start();
 
         return true;
     }

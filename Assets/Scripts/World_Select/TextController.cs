@@ -21,9 +21,15 @@ public class TextController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int stage = 0;
+        for (int i = 0; i < StageController.Get_world() - 1; i++)
+        {
+            stage += World_Stage_Nm.GET_STAGE_NUM(i);
+        }
+
         //現在のワールド表示
         int world_number = StageController.Get_world() + 1;
-        int stage_number = StageController.Get_stage() + 1;
+        int stage_number = StageController.Get_stage() + 1 - stage;
 
         world_tex.text = "World" + world_number + "\nStage" + stage_number;
     }

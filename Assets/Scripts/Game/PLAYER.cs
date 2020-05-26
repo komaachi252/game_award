@@ -977,7 +977,6 @@ public class PLAYER : MonoBehaviour
             {
                 if (TYPE == 1)
                 {
-                    Debug.Log("drain");
                     SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
@@ -992,8 +991,6 @@ public class PLAYER : MonoBehaviour
             {
                 if (TYPE == 2)
                 {
-                    Debug.Log("windmill");
-
                     SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
@@ -1002,8 +999,6 @@ public class PLAYER : MonoBehaviour
             {
                 if (TYPE == 0)
                 {
-                    Debug.Log("hammer");
-
                     SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
