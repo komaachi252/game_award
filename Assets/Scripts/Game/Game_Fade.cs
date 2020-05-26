@@ -9,7 +9,7 @@ public class Game_Fade : MonoBehaviour
     bool m_is_fade_out = false; // フェードアウトか？
     int m_frame_cnt = 0;  // 現在のフレーム
     int m_fade_frame = 0; // フェードフレーム
-    void Start()
+    void Awake()
     {
         m_is_fade = false;
         m_is_fade_out = false;
@@ -50,6 +50,7 @@ public class Game_Fade : MonoBehaviour
 
     public void Fade_Start(int fade_frame = 20, bool fade_out = false)
     {
+        Debug.Log("フェードスタート");
         m_is_fade = true;
         m_is_fade_out = fade_out;
         m_fade_frame = fade_frame;
