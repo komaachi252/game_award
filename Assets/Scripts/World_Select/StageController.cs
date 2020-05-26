@@ -249,6 +249,21 @@ public class StageController : MonoBehaviour
         return now_stage + stage;//全部繋げたやぁつ
     }
 
+    //次のステージに進む
+    public static void Set_nextstage()
+    {
+        now_stage++;
+
+        if (World_Stage_Nm.GET_STAGE_NUM(now_world) < now_stage)//ワールドのステージ数より増えていたら
+        {
+            now_stage = 0;//ステージを0にする
+            now_world++;//ワールドを次に進める
+        }
+
+        Debug.Log("今のステージ " + now_stage + "\n今のワールド " + now_world);
+
+    }
+
 
     //次に選択されるワールドをあげる関数
     public int Get_nextworld()
