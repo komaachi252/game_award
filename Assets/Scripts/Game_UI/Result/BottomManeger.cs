@@ -29,9 +29,12 @@ public class BottomManeger : MonoBehaviour
     //0　＝　ワールド選択画面に移動
     //1　＝　同じステージをもう一度やる
     //2　＝　次のステージにすすむ
-    private int now_bottom;
+    private int now_bottom = 0;
 
-    
+    public Sprite Bottom_up;//ボタン押してない
+    public Sprite Bottom_down;//ボタン押してる
+
+    private int stick_flag = 0;//スティックフラグ
     
 
     // Start is called before the first frame update
@@ -75,7 +78,12 @@ public class BottomManeger : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Dicision2();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             Dicision();
         }
@@ -136,6 +144,36 @@ public class BottomManeger : MonoBehaviour
         {
             StageController.Set_nextstage();
             SceneManager.LoadScene("GameScene");
+        }
+    }
+
+    private void Dicision2()
+    {
+        if ((int)BOTTOM_ID.SELECT == now_bottom)
+        {
+            image_Select[0].sprite = Bottom_down;
+        }
+        else
+        {
+            image_Select[0].sprite = Bottom_up;
+        }
+
+        if ((int)BOTTOM_ID.RETURN == now_bottom)
+        {
+            image_Return[0].sprite = Bottom_down;
+        }
+        else
+        {
+            image_Return[0].sprite = Bottom_up;
+        }
+
+        if ((int)BOTTOM_ID.NEXT == now_bottom)
+        {
+            image_Next[0].sprite = Bottom_down;
+        }
+        else
+        {
+            image_Next[0].sprite = Bottom_up;
         }
     }
 }
