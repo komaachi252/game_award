@@ -23,5 +23,10 @@ public class Clear_Flag : MonoBehaviour
         {
             Result.SetActive(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.L))//Lでクリアにする
+        {
+            GameManeger.GetComponent<Game_Manager>().Is_Clear_Flag = true;
+        }
     }
 }
