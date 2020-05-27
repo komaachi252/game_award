@@ -12,7 +12,9 @@ public class MapLoader : MonoBehaviour
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
-    static int m_map_index = 1;  //  読み込むマップのインデックス
+    static int m_map_index = 0;  //  読み込むマップのインデックス
+
+    public GameObject m_fade; //  フェード用オブジェクト参照
     public static int Map_Index
     {
         get { return m_map_index; }
@@ -33,8 +35,7 @@ public class MapLoader : MonoBehaviour
 
     private void Awake()
     {
-        //Map_Index = DontDestroyManager.Map_Index;
-        //Map_Index = 12;
+        Map_Index = DontDestroyManager.Map_Index;
     }
 
     void Start()
@@ -53,10 +54,41 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "world1-8.csv");
         m_file_paths.Add(FILE_PATH + "world1-9.csv");
         m_file_paths.Add(FILE_PATH + "world1-10.csv");
+        m_file_paths.Add(FILE_PATH + "world2-1.csv");
+        m_file_paths.Add(FILE_PATH + "world2-2.csv");
+        m_file_paths.Add(FILE_PATH + "world2-3.csv");
+        m_file_paths.Add(FILE_PATH + "world2-4.csv");
+        m_file_paths.Add(FILE_PATH + "world2-5.csv");
+        m_file_paths.Add(FILE_PATH + "world2-6.csv");
+        m_file_paths.Add(FILE_PATH + "world2-7.csv");
+        m_file_paths.Add(FILE_PATH + "world2-8.csv");
+        m_file_paths.Add(FILE_PATH + "world2-9.csv");
+        m_file_paths.Add(FILE_PATH + "world2-10.csv");
+        m_file_paths.Add(FILE_PATH + "world3-1.csv");
+        m_file_paths.Add(FILE_PATH + "world3-2.csv");
+        m_file_paths.Add(FILE_PATH + "world3-3.csv");
+        m_file_paths.Add(FILE_PATH + "world3-4.csv");
+        m_file_paths.Add(FILE_PATH + "world3-5.csv");
+        m_file_paths.Add(FILE_PATH + "world3-6.csv");
+        m_file_paths.Add(FILE_PATH + "world3-7.csv");
+        m_file_paths.Add(FILE_PATH + "world3-8.csv");
+        m_file_paths.Add(FILE_PATH + "world3-9.csv");
+        m_file_paths.Add(FILE_PATH + "world3-10.csv");
+        m_file_paths.Add(FILE_PATH + "world4-1.csv");
+        m_file_paths.Add(FILE_PATH + "world4-2.csv");
+        m_file_paths.Add(FILE_PATH + "world4-3.csv");
+        m_file_paths.Add(FILE_PATH + "world4-4.csv");
+        m_file_paths.Add(FILE_PATH + "world4-5.csv");
+        m_file_paths.Add(FILE_PATH + "world4-6.csv");
+        m_file_paths.Add(FILE_PATH + "world4-7.csv");
+        m_file_paths.Add(FILE_PATH + "world4-8.csv");
+        m_file_paths.Add(FILE_PATH + "world4-9.csv");
+        m_file_paths.Add(FILE_PATH + "world4-10.csv");
         m_file_paths.Add(FILE_PATH + "dojo1.csv");
-        
+
         //  追加されたパス分マップ情報を読み込む
-        foreach (var path in m_file_paths) {
+        foreach (var path in m_file_paths)
+        {
             Map_Data data = new Map_Data();
             Map_Load(path, ref data);
             m_map_datas.Add(data);
@@ -86,8 +118,10 @@ public class MapLoader : MonoBehaviour
         map_data.Width = lines[0].Split(spliter, option).Length;
         map_data.Map_data = new int[map_data.Height, map_data.Width];
 
-        for (int i = 0; i < map_data.Height; i++) {
-            for (int j = 0; j < map_data.Width; j++) {
+        for (int i = 0; i < map_data.Height; i++)
+        {
+            for (int j = 0; j < map_data.Width; j++)
+            {
                 string[] read_str_data = lines[i].Split(spliter, option);
 
                 map_data.Map_data[i, j] = int.Parse(read_str_data[j]);
@@ -109,8 +143,10 @@ public class MapLoader : MonoBehaviour
         float p_x = 0.0f;
         float p_y = 0.0f;
 
-        for (int i = 0; i < map_data.Height; i++) {
-            for (int j = 0; j < map_data.Width; j++) {
+        for (int i = 0; i < map_data.Height; i++)
+        {
+            for (int j = 0; j < map_data.Width; j++)
+            {
                 if (map_data.Map_data[i, j] == 0) continue;
                 if (map_data.Map_data[i, j] == 9)
                 {
@@ -131,11 +167,16 @@ public class MapLoader : MonoBehaviour
             }
         }
 
+        //  プレイヤーを最後に生成
         Instantiate(m_objects[9], new Vector3(p_x, p_y, 0.0f), Quaternion.identity);
 
+        //  背景生成
         Instantiate(m_back_ground, new Vector3(0, -4, -7), Quaternion.identity);
 
         m_is_create = true;
+
+        //  フェードイン開始
+        m_fade.GetComponent<Game_Fade>().Fade_Start();
 
         return true;
     }
