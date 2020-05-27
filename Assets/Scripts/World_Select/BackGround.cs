@@ -17,6 +17,11 @@ public class BackGround : MonoBehaviour
         
     }
 
+    void OnDestroy()
+    {
+        image.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
+    }
+
     // Update is called once per frame
     void Update()
     {
