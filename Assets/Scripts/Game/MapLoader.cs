@@ -85,6 +85,7 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "world4-9.csv");
         m_file_paths.Add(FILE_PATH + "world4-10.csv");
         m_file_paths.Add(FILE_PATH + "dojo1.csv");
+        m_file_paths.Add(FILE_PATH + "dojo2.csv");
 
         //  追加されたパス分マップ情報を読み込む
         foreach (var path in m_file_paths)
