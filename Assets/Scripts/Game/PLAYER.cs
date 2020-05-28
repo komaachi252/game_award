@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PLAYER : MonoBehaviour
 {
     //public PLAYERCAMERA PLAYERCAMERA;
+    PLAYERCAMERA PLAYERCAMERA;
+    GameObject CAMERA;
     public SOLID SOLID;
     public AQUA AQUA;
     public CLOUD CLOUD;
@@ -37,6 +39,8 @@ public class PLAYER : MonoBehaviour
     public float DOWNPOS = 0;       //水滴落下準備位置
     public int FLOATflag = 0;       //水上移動フラグ
     public int MUTEKI = 0;          //無敵フラグ
+    public int VIEWflag = -1;       //見渡しフラグ
+    public int VIEWBACK = 0;        //見渡し復元カウント
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -66,6 +70,8 @@ public class PLAYER : MonoBehaviour
     void Start()
     {
         //GetComponent<Renderer>().material.color = colors[TYPE];
+        CAMERA = GameObject.Find("Main Camera");
+        PLAYERCAMERA = CAMERA.GetComponent<PLAYERCAMERA>();
         rb = this.GetComponent<Rigidbody>();
         PM = this.gameObject.GetComponent<PhysicMaterial>();
         boxcollider = this.gameObject.GetComponent<BoxCollider>();
@@ -78,7 +84,12 @@ public class PLAYER : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && MOVE_NOW == 0 && exchangecount == 0)
+        if (VIEWBACK > 0)
+        {
+            VIEWBACK--;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && MOVE_NOW == 0 && exchangecount == 0 && VIEWflag == -1)
         {
             Debug.Log("入力");
             if (stay_HOT == 1)
@@ -116,16 +127,25 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            VIEWflag *= -1;
+            if (VIEWflag == -1)
+            {
+                VIEWBACK = 30;
+            }
         }
 
         if (MOVE_NOW > 0)
@@ -1002,6 +1022,36 @@ public class PLAYER : MonoBehaviour
                     SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
+
+            if (other.gameObject.CompareTag("WATER"))
+            {
+                if (TYPE == 1)
+                {
+                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                }
+            }
+
+            if (other.gameObject.CompareTag("WATERMILL"))
+            {
+                if (TYPE == 1)
+                {
+                    PLAYERCAMERA.SETMILLFIND();
+                }
+            }
         }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("WATERMILL"))
+        {
+            PLAYERCAMERA.CLAREMILLFIND();
+        }
+    }
+
+
+    void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
+    {
+
     }
 }
