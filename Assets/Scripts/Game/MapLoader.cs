@@ -87,6 +87,7 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "world4-10.csv");
         m_file_paths.Add(FILE_PATH + "dojo1.csv");
         m_file_paths.Add(FILE_PATH + "dojo2.csv");
+        m_file_paths.Add(FILE_PATH + "dojo3.csv");
 
         //  追加されたパス分マップ情報を読み込む
         foreach (var path in m_file_paths)
@@ -96,7 +97,7 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
-        //m_map_index = 0;
+        m_map_index = 0;
         //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
