@@ -8,7 +8,6 @@ public class Watermill : MonoBehaviour
     public GameObject m_trigger_right;
     public GameObject m_trigger_left;
 
-    bool m_is_aqua_colli = false;
     float m_rotate_speed = 0.0f;
     public float ADD_ROTATE_SPEED = 0.01f;
     public float Rotate_Speed

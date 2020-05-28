@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Game_Fade : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Game_Fade : MonoBehaviour
     bool m_is_fade_out = false; // フェードアウトか？
     int m_frame_cnt = 0;  // 現在のフレーム
     int m_fade_frame = 0; // フェードフレーム
+    string m_next_scene; //  次のシーン名
+    
     void Awake()
     {
         m_is_fade = false;
@@ -20,8 +23,9 @@ public class Game_Fade : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        m_frame_cnt++;
         if (!m_is_fade) return;
+        m_frame_cnt++;
+
         var color = this.gameObject.GetComponent<Image>().color;
         var elapsed_frame = m_frame_cnt - m_fade_frame;
 
@@ -35,6 +39,10 @@ public class Game_Fade : MonoBehaviour
         {
             m_is_fade = false;
             e = 1.0f;
+            if (m_is_fade_out)
+            {
+                SceneManager.LoadScene(m_next_scene);
+            }
         }
         if (m_is_fade_out)
         {
@@ -48,11 +56,15 @@ public class Game_Fade : MonoBehaviour
         this.gameObject.GetComponent<Image>().color = color;
     }
 
-    public void Fade_Start(int fade_frame = 20, bool fade_out = false)
+    public void Fade_Start(int fade_frame = 20, bool fade_out = false, string next_scene = "NONE")
     {
+        if (m_is_fade) return;
+
         Debug.Log("フェードスタート");
         m_is_fade = true;
         m_is_fade_out = fade_out;
         m_fade_frame = fade_frame;
+        m_next_scene = next_scene;
+        m_frame_cnt = 0;
     }
 }

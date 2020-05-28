@@ -20,6 +20,7 @@ public class Title_Cursor_Con : MonoBehaviour
         m_current_cursor_idx = 0;
         //  初期Ｙ座標を保持しておく
         m_pos_y = this.transform.position.y;
+        m_fade.GetComponent<Game_Fade>().Fade_Start();
     }
 
     // Update is called once per frame
@@ -94,7 +95,7 @@ public class Title_Cursor_Con : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return) && idx == 0)
         {
             FindObjectOfType<Audio_Manager>().Play("enter");
-            m_fade.GetComponent<Simple_Fade>().Start_Fade("WorldScene");
+            m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
         }
 
 
