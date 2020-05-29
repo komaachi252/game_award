@@ -77,13 +77,13 @@ MonoBehaviour:
   - name: game_clear
     clip: {fileID: 8300000, guid: 72142775daaa6de46b49a28a97ead2c1, type: 3}
     volume: 1
-    pitch: 0
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: pose1
     clip: {fileID: 8300000, guid: 0e7647b4a4eb118409709c7e6140c74f, type: 3}
     volume: 1
-    pitch: 0
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: pose2
@@ -335,7 +335,7 @@ MonoBehaviour:
   - name: select
     clip: {fileID: 8300000, guid: 445dd454ef3dc08489c263492c8cd33a, type: 3}
     volume: 1
-    pitch: 0
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ' typhoon'
