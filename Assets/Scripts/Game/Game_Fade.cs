@@ -27,14 +27,16 @@ public class Game_Fade : MonoBehaviour
         m_frame_cnt++;
 
         var color = this.gameObject.GetComponent<Image>().color;
-        
-        var e = m_frame_cnt / (float)m_fade_frame;
+        //var elapsed_frame = m_frame_cnt - m_fade_frame;
+        var elapsed_frame = m_frame_cnt;
+
+        var e = elapsed_frame / (float)m_fade_frame;
 
         float alpha = 0.0f;
 
         alpha = m_is_fade_out ? e : 1.0f - e;
 
-        if (m_frame_cnt >= m_fade_frame)
+        if (elapsed_frame >= m_fade_frame)
         {
             m_is_fade = false;
             e = 1.0f;

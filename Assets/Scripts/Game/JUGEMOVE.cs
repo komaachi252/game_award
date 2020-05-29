@@ -6,11 +6,12 @@ using System;
 public class JUGEMOVE : MonoBehaviour
 {
     public PLAYER PLAYER;
+    //public HIT_RT HIT_RT;
     RaycastHit hit;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -46,9 +47,9 @@ public class JUGEMOVE : MonoBehaviour
     {
         Vector3 POS = transform.position;
 
-        POS.x = x+0.5f;
+        POS.x = x + 0.5f;
         transform.position = POS;
-        
+
     }
 
     public void SETposy(int y)
@@ -57,10 +58,10 @@ public class JUGEMOVE : MonoBehaviour
 
         POS.y = y;
         transform.position = POS;
-        
+
     }
 
-    public int root(int MOVE_D,int MOVE_V)
+    public int root(int MOVE_D, int MOVE_V)
     {
         Vector3 POS = transform.position;
 
@@ -84,11 +85,16 @@ public class JUGEMOVE : MonoBehaviour
 
         if (Physics.CheckBox(POS, new Vector3(0.45f, 0.05f, 0.45f), transform.rotation))
         {
-           // Debug.Log("ある");
-            return 0;
+            // Debug.Log("ある");
+            /*
+            if (HIT_RT.GETAIRFLAG() == 0)
+            {
+                return 0;
+            }
+            */
         }
 
-        Debug.Log("ない"+ transform.position + "POS" + POS);
+        //Debug.Log("ない"+ transform.position + "POS" + POS);
 
         PLAYER.SET_V_MOVEPOS(POS.x);
         return 1;       //移動予定地が空白の場合縦移動予約フラグをセット
@@ -109,3 +115,4 @@ public class JUGEMOVE : MonoBehaviour
     }
     */
 }
+
