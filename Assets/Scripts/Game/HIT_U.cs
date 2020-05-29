@@ -28,7 +28,7 @@ public class HIT_U : MonoBehaviour
 
     void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER") || other.gameObject.CompareTag("DRAIN"))
+        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER") || other.gameObject.CompareTag("DRAIN") || other.gameObject.CompareTag("LIFT"))
         {
             //Debug.Log("下");
             PLAYER.SET_STAND_U();
@@ -67,6 +67,11 @@ public class HIT_U : MonoBehaviour
         if (other.gameObject.CompareTag("HARD_COLD"))
         {
             PLAYER.HARDCOLD();
+        }
+
+        if (other.gameObject.CompareTag("SPONGE"))
+        {
+            PLAYER.SPONGE();
         }
     }
 

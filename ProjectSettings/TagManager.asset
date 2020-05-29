@@ -30,6 +30,7 @@ TagManager:
   - Help
   - DRAIN
   - LEAF_INV
+  - SKY
   layers:
   - Default
   - TransparentFX

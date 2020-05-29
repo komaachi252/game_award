@@ -19,7 +19,7 @@ public class HIT_T : MonoBehaviour
 
     void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER") || other.gameObject.CompareTag("DRAIN"))
+        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER") || other.gameObject.CompareTag("DRAIN") || other.gameObject.CompareTag("LIFT"))
         {
             //Debug.Log("上");
             PLAYER.SET_STAND_T();
@@ -53,6 +53,11 @@ public class HIT_T : MonoBehaviour
             Debug.Log("jhgvkgbhjvkh,ljhv");
 
             PLAYER.HARDCOLD();
+        }
+
+        if(other.gameObject.CompareTag("SPONGE"))
+        {
+            PLAYER.SPONGE();
         }
     }
 

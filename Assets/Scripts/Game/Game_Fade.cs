@@ -27,7 +27,8 @@ public class Game_Fade : MonoBehaviour
         m_frame_cnt++;
 
         var color = this.gameObject.GetComponent<Image>().color;
-        var elapsed_frame = m_frame_cnt - m_fade_frame;
+        //var elapsed_frame = m_frame_cnt - m_fade_frame;
+        var elapsed_frame = m_frame_cnt;
 
         var e = elapsed_frame / (float)m_fade_frame;
 

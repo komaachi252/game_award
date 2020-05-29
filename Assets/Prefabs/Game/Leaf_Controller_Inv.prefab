@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7284481729757815872}
   m_Layer: 0
   m_Name: Leaf_Colli_Ride
-  m_TagString: Untagged
+  m_TagString: SKY
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 2462638931227198209}
   m_Layer: 0
   m_Name: Leaf_Colli_Under
-  m_TagString: Untagged
+  m_TagString: SKY
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8048939344080989428}
   m_Layer: 0
   m_Name: Leaf_Colli
-  m_TagString: Untagged
+  m_TagString: SKY
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

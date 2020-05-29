@@ -8,12 +8,18 @@ public class PLAYER : MonoBehaviour
 {
     //public PLAYERCAMERA PLAYERCAMERA;
     PLAYERCAMERA PLAYERCAMERA;
+    Game_Fade Game_Fade;
     GameObject CAMERA;
+    GameObject FADE;
     public SOLID SOLID;
     public AQUA AQUA;
     public CLOUD CLOUD;
     public JUGEMOVE JUGEMOVE;
     public HIT_U HIT_U;
+    public HIT_RT HIT_RT;
+    public HIT_RU HIT_RU;
+    public HIT_LT HIT_LT;
+    public HIT_LU HIT_LU;
     PhysicMaterial PM;
     Rigidbody rb;
     Collider boxcollider;
@@ -31,6 +37,7 @@ public class PLAYER : MonoBehaviour
     public int AUTOMOVEflag2 = 0;   //強制移動フラグ２
     public int AUTOMOVEflag3 = 0;   //強制移動フラグ３
     public float VMOVEPOS = 0;
+    public float A_VMOVEPOS = 0;
     public float MOVEPOS = 0;       //強制移動目標地点
     public int MOVEFinish = 0;      //強制移動完了フラグ
     public int GAPMOVE_U = 0;       //GAP通過フラグ下
@@ -41,6 +48,10 @@ public class PLAYER : MonoBehaviour
     public int MUTEKI = 0;          //無敵フラグ
     public int VIEWflag = -1;       //見渡しフラグ
     public int VIEWBACK = 0;        //見渡し復元カウント
+    public int GAMEOVER = 0;        //ゲームオーバー判定フラグ
+    public int GOAL = 0;            //ゴールフラグ
+    public int FADEFLAg = 0;        //フェードフラグ
+    public int FADECONT = 0;        //フェードアウトカウント
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -72,6 +83,10 @@ public class PLAYER : MonoBehaviour
         //GetComponent<Renderer>().material.color = colors[TYPE];
         CAMERA = GameObject.Find("Main Camera");
         PLAYERCAMERA = CAMERA.GetComponent<PLAYERCAMERA>();
+
+        FADE = GameObject.Find("Fade");
+        Game_Fade = FADE.GetComponent<Game_Fade>();
+
         rb = this.GetComponent<Rigidbody>();
         PM = this.gameObject.GetComponent<PhysicMaterial>();
         boxcollider = this.gameObject.GetComponent<BoxCollider>();
@@ -124,16 +139,25 @@ public class PLAYER : MonoBehaviour
                 }
 
                 AUTOMOVEflag2 = 1;
+            }   
+        }
+
+        if(Input.GetKey(KeyCode.Return))
+        {
+            if (GOAL == 1 && FADEFLAg == 0)
+            {
+                Game_Fade.Fade_Start(90, true, "WorldScene");
+                FADEFLAg = 1;
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
@@ -287,6 +311,44 @@ public class PLAYER : MonoBehaviour
             posy = (int)(transform.position.y - 0.5f);
         }
 
+        //縦移動フラグが準備されている場合
+        if (VMOVEflag == 1)
+        {
+            //移動予定マスに物体が合ったら予約を削除
+
+            if (MOVE_D == 1 && MOVE_V == 1)
+            {
+                if (HIT_RU.GETAIRFLAG() == 1)
+                {
+                    VMOVEflag = 0;
+                }
+            }
+
+            if (MOVE_D == 1 && MOVE_V == -1)
+            {
+                if (HIT_RT.GETAIRFLAG() == 1)
+                {
+                    VMOVEflag = 0;
+                }
+            }
+
+            if (MOVE_D == -1 && MOVE_V == 1)
+            {
+                if (HIT_LU.GETAIRFLAG() == 1)
+                {
+                    VMOVEflag = 0;
+                }
+            }
+
+            if (MOVE_D == -1 && MOVE_V == -1)
+            {
+                if (HIT_LT.GETAIRFLAG() == 1)
+                {
+                    VMOVEflag = 0;
+                }
+            }
+        }
+
 
         if (posx != B_posx)
         {
@@ -311,6 +373,7 @@ public class PLAYER : MonoBehaviour
                     STAND_U = 0;
                     MOVE_D = -1;
                     AUTOMOVEflag3 = 1;
+                    A_VMOVEPOS = VMOVEPOS;
                 }
             }
 
@@ -335,6 +398,7 @@ public class PLAYER : MonoBehaviour
                     STAND_U = 0;
                     MOVE_D = 1;
                     AUTOMOVEflag3 = 1;
+                    A_VMOVEPOS = VMOVEPOS;
                 }
             }
 
@@ -397,15 +461,15 @@ public class PLAYER : MonoBehaviour
         {
             if (MOVE_D == 1)
             {
-                if (transform.position.x < VMOVEPOS + 0.5f)
+                if (transform.position.x < A_VMOVEPOS + 0.5f)
                 {
                     rb.velocity = new Vector3(2.0f, 0.0f, 0.0f);
                 }
 
-                if (transform.position.x >= VMOVEPOS + 0.5f)
+                if (transform.position.x >= A_VMOVEPOS + 0.5f)
                 {
                     Vector3 T_pos = transform.position;
-                    T_pos.x = VMOVEPOS + 0.5f;
+                    T_pos.x = A_VMOVEPOS + 0.5f;
                     transform.position = T_pos;
                     AUTOMOVEflag3 = 0;
                     VMOVEflag = 0;
@@ -420,15 +484,15 @@ public class PLAYER : MonoBehaviour
 
             if (MOVE_D == -1)
             {
-                if (transform.position.x > VMOVEPOS - 0.5f)
+                if (transform.position.x > A_VMOVEPOS - 0.5f)
                 {
                     rb.velocity = new Vector3(-2.0f, 0.0f, 0.0f);
                 }
 
-                if (transform.position.x <= VMOVEPOS - 0.5f)
+                if (transform.position.x <= A_VMOVEPOS - 0.5f)
                 {
                     Vector3 T_pos = transform.position;
-                    T_pos.x = VMOVEPOS - 0.5f;
+                    T_pos.x = A_VMOVEPOS - 0.5f;
                     transform.position = T_pos;
                     AUTOMOVEflag3 = 0;
                     VMOVEflag = 0;
@@ -584,6 +648,12 @@ public class PLAYER : MonoBehaviour
                         CLOUD.exchange_b();
                     }
                 }
+                else if(TYPE==2)
+                {
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
+                }
+                
             }
 
             //強制冷却
@@ -613,6 +683,11 @@ public class PLAYER : MonoBehaviour
                         AQUA.exchange_b();
                         tag = "AQUA";
                     }
+                }
+                else if (TYPE == 0)
+                {
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
                 }
             }
 
@@ -706,6 +781,18 @@ public class PLAYER : MonoBehaviour
             VMOVEflag = JUGEMOVE.root(MOVE_D, MOVE_V);
         }
 
+        /*
+        if (GAMEOVER == 1)
+        {
+            FADECONT++;
+
+            if (FADECONT == 91)
+            {
+                SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+            }
+        }
+        */
+
         B_posx = posx;
         B_posy = posy;
     }
@@ -793,8 +880,8 @@ public class PLAYER : MonoBehaviour
     public void CLEAR_STAND()
     {
         STAND = 0;
-        boxcollider.enabled = false;
-        capcollider.enabled = true;
+        //boxcollider.enabled = false;
+        //capcollider.enabled = true;
     }
 
     public Vector3 GETPLAYERPOS()
@@ -951,6 +1038,15 @@ public class PLAYER : MonoBehaviour
         }
     }
 
+    public void SPONGE()
+    {
+        if(TYPE == 1)
+        {
+            GAMEOVER = 1;
+            Game_Fade.Fade_Start(90, true, "GameScene");
+        }
+    }
+
     public void WIND()
     {
         if (TYPE == 2)
@@ -993,13 +1089,20 @@ public class PLAYER : MonoBehaviour
                 STAND_U = 0;
             }
 
-            if (other.gameObject.CompareTag("DRAIN"))
+            if (other.gameObject.CompareTag("DRAIN") && GAMEOVER == 0)
             {
                 if (TYPE == 1)
                 {
-                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
+        }
+
+        if (other.gameObject.CompareTag("GOAL") && GOAL == 0)
+        {
+            GOAL = 1;
         }
     }
 
@@ -1007,27 +1110,53 @@ public class PLAYER : MonoBehaviour
     {
         if (MUTEKI == 0)
         {
-            if (other.gameObject.CompareTag("WINDMILL"))
+            if (other.gameObject.CompareTag("WINDMILL") && GAMEOVER == 0)
             {
                 if (TYPE == 2)
                 {
-                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
-            if (other.gameObject.CompareTag("HAMMER"))
+            if (other.gameObject.CompareTag("HAMMER") && GAMEOVER == 0)
             {
                 if (TYPE == 0)
                 {
-                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    // SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
-            if (other.gameObject.CompareTag("WATER"))
+            if (other.gameObject.CompareTag("WATER") && GAMEOVER == 0)
             {
                 if (TYPE == 1)
                 {
-                    SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                }
+            }
+
+            if (other.gameObject.CompareTag("GEAR") && GAMEOVER == 0)
+            {
+                if (TYPE == 0)
+                {
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                }
+            }
+
+            if (other.gameObject.CompareTag("THORN") && GAMEOVER == 0)
+            {
+                if (TYPE == 0)
+                {
+                    GAMEOVER = 1;
+                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
