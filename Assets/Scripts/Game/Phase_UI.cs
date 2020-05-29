@@ -58,6 +58,7 @@ public class Phase_UI : MonoBehaviour
             m_phase_cnt++;
             //  回数をカウントUIに設定
             GameObject.Find("Phase_Count").gameObject.GetComponent<Phase_Count>().Set_Phase_Count(m_phase_cnt);
+           // GameObject.Find("Effect_Manager").gameObject.GetComponent<Effect_Manager>().Set_Player_Tag(m_player_tag);
         }
     }
 

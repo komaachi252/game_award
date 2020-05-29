@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1019610706781539342}
   - component: {fileID: 1019610706781539341}
   - component: {fileID: 1019610706781539331}
-  - component: {fileID: 64997956757917399}
   - component: {fileID: 8639561361322109556}
   m_Layer: 0
   m_Name: PhaseHot
@@ -112,19 +111,6 @@ MonoBehaviour:
     type: 3}
   m_is_hot: 1
   m_tag_name: 
---- !u!65 &64997956757917399
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019610706781539330}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.46330833, y: 0.24767011, z: 0.43484676}
-  m_Center: {x: -0.0019840002, y: 0.4243872, z: -0.0016204715}
 --- !u!114 &8639561361322109556
 MonoBehaviour:
   m_ObjectHideFlags: 0

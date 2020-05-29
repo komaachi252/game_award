@@ -99,6 +99,13 @@ public class Title_Cursor_Con : MonoBehaviour
         }
 
 
+
+        if (Input.GetKeyDown(KeyCode.Return) && idx == 3)
+        {
+            FindObjectOfType<Audio_Manager>().Play("enter");
+            UnityEngine.Application.Quit();
+        }
+
         Cursor_Move(idx);
 
     }

@@ -30,32 +30,16 @@ public class Phase : MonoBehaviour
         var pos = this.transform.position;
         if (m_is_hot)
         {
-            pos.y += 0.3f;
+            //pos.y += 0.3f;
         }
         else
         {
-            pos.y -= 0.5f;
+            //pos.y -= 0.5f;
         }
         pos.z -= 0.5f;
         Instantiate(m_effect, pos, Quaternion.identity);
     }
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
-        {
-            //Create_Effect();
-            if (m_is_hot)
-            {
-               // FindObjectOfType<Audio_Manager>().Play("heat1");
-            }
-            else
-            {
-                //FindObjectOfType<Audio_Manager>().Play("frozen");
-            }
-
-        }
-    }
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
@@ -117,30 +101,5 @@ public class Phase : MonoBehaviour
             }
             */
         }
-    }
-
-
-    private void OnCollisionStay(Collision col)
-    {
-        /*
-        if (col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
-        {
-            //Debug.Log("ステイ");
-            if (m_tag_name != col.gameObject.tag)
-            {
-                Create_Effect();
-                if (m_is_hot)
-                {
-                    FindObjectOfType<Audio_Manager>().Play("heat1");
-                }
-                else
-                {
-                    FindObjectOfType<Audio_Manager>().Play("frozen");
-                }
-                m_tag_name = col.gameObject.tag;
-                Debug.Log(m_tag_name + "がでる");
-                m_is_stay = false;
-            }
-        }*/
     }
 }

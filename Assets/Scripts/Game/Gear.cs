@@ -50,6 +50,7 @@ public class Gear : MonoBehaviour
         if (col.gameObject.CompareTag("AQUA"))
         {
             m_aqua_colli = true;
+            this.gameObject.tag = "Untagged";
         }
     }
 }
