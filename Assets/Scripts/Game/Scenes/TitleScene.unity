@@ -466,6 +466,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4010456725844759613, guid: b6fd10bb31bf9544586abc70c56e2ee2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4010456725844759614, guid: b6fd10bb31bf9544586abc70c56e2ee2,
         type: 3}
       propertyPath: sounds.Array.size
@@ -534,7 +539,7 @@ PrefabInstance:
     - target: {fileID: 4010456725844759614, guid: b6fd10bb31bf9544586abc70c56e2ee2,
         type: 3}
       propertyPath: sounds.Array.data[52].name
-      value: select_world
+      value: world_select
       objectReference: {fileID: 0}
     - target: {fileID: 4010456725844759614, guid: b6fd10bb31bf9544586abc70c56e2ee2,
         type: 3}

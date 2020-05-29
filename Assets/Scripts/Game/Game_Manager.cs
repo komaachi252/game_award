@@ -37,5 +37,7 @@ public class Game_Manager : MonoBehaviour
     {
         //Instantiate(m_game_flag_logo, new Vector3(1,1,1), Quaternion.identity);
         Is_Clear_Flag = true;
+        GameObject.Find("BGM").GetComponent<Game_BGM>().Stop_BGM();
+        FindObjectOfType<Audio_Manager>().Play("Result");
     }
 }
