@@ -6,8 +6,8 @@ using System;
 public class World_Stage_Nm : MonoBehaviour
 {
 
-    private const int WORLD_NUM = 5;//ワールド数
-    private static readonly int[] STAGE_NUM = { 10, 10, 10, 10, 10 };//ステージ数
+    public const int WORLD_NUM = 5;//ワールド数
+    public static readonly int[] STAGE_NUM = { 10, 10, 10, 10, 10 };//ステージ数
 
     void Awake()
     { 
