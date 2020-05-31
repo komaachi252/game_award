@@ -11,7 +11,7 @@ public class BottomManeger : MonoBehaviour
     private const int RETURN = 1;
     private const int NEXT = 2;
 
-    
+    public Game_Fade fade;//フェード
 
 
     public GameObject Select;//ワールドセレクトに移動するボタン
@@ -131,18 +131,19 @@ public class BottomManeger : MonoBehaviour
     {
         if (SELECT == now_bottom)
         {
-            SceneManager.LoadScene("WorldScene");
+            fade.Fade_Start(20, true, "WorldScene");
         }
 
         if (RETURN == now_bottom)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            fade.Fade_Start(20, true, SceneManager.GetActiveScene().name);
         }
 
         if (NEXT == now_bottom)
         {
             StageController.Set_nextstage();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            fade.Fade_Start(20, true, SceneManager.GetActiveScene().name);
         }
     }
 
