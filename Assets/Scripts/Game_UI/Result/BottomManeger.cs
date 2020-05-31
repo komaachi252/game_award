@@ -6,13 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class BottomManeger : MonoBehaviour
 {
-    private enum BOTTOM_ID
-    {
-        SELECT,
-        RETURN,
-        NEXT,
-        MAX
-    }
+
+    private const int SELECT = 0;
+    private const int RETURN = 1;
+    private const int NEXT = 2;
+
+    
 
 
     public GameObject Select;//ワールドセレクトに移動するボタン
@@ -35,7 +34,7 @@ public class BottomManeger : MonoBehaviour
     public Sprite Bottom_down;//ボタン押してる
 
     private int stick_flag = 0;//スティックフラグ
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,9 +61,9 @@ public class BottomManeger : MonoBehaviour
         {
             now_bottom--;
 
-            if (now_bottom <= (int)BOTTOM_ID.SELECT)//今のボタンがSELECTの場合
+            if (now_bottom <= SELECT)//今のボタンがSELECTの場合
             {
-                now_bottom = (int)BOTTOM_ID.SELECT;
+                now_bottom = SELECT;
             }
         }
 
@@ -72,9 +71,9 @@ public class BottomManeger : MonoBehaviour
         {
             now_bottom++;
 
-            if (now_bottom >= (int)BOTTOM_ID.NEXT)//今のボタンがMAXの場合
+            if (now_bottom >= NEXT)//今のボタンがMAXの場合
             {
-                now_bottom = (int)BOTTOM_ID.NEXT;
+                now_bottom = NEXT;
             }
         }
 
@@ -96,7 +95,7 @@ public class BottomManeger : MonoBehaviour
     {
         for (int i = 0; i < 2; i++)
         {
-            if ((int)BOTTOM_ID.SELECT == now_bottom)//セレクトの場合
+            if (SELECT == now_bottom)//セレクトの場合
             {
                 image_Select[i].color = new Color(image_Select[i].color.r, image_Select[i].color.g, image_Select[i].color.b, 1.0f);
             }
@@ -106,7 +105,7 @@ public class BottomManeger : MonoBehaviour
             }
 
 
-            if ((int)BOTTOM_ID.RETURN == now_bottom)//繰り返しの場合
+            if (RETURN == now_bottom)//繰り返しの場合
             {
                 image_Return[i].color = new Color(image_Return[i].color.r, image_Return[i].color.g, image_Return[i].color.b, 1.0f);
             }
@@ -116,7 +115,7 @@ public class BottomManeger : MonoBehaviour
             }
 
 
-            if ((int)BOTTOM_ID.NEXT == now_bottom)//次に進む場合
+            if (NEXT == now_bottom)//次に進む場合
             {
                 image_Next[i].color = new Color(image_Next[i].color.r, image_Next[i].color.g, image_Next[i].color.b, 1.0f);
             }
@@ -130,26 +129,26 @@ public class BottomManeger : MonoBehaviour
 
     private void Dicision()
     {
-        if ((int) BOTTOM_ID.SELECT == now_bottom)
+        if (SELECT == now_bottom)
         {
             SceneManager.LoadScene("WorldScene");
         }
 
-        if ((int)BOTTOM_ID.RETURN == now_bottom)
+        if (RETURN == now_bottom)
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        if ((int)BOTTOM_ID.NEXT == now_bottom)
+        if (NEXT == now_bottom)
         {
             StageController.Set_nextstage();
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
     private void Dicision2()
     {
-        if ((int)BOTTOM_ID.SELECT == now_bottom)
+        if (SELECT == now_bottom)
         {
             image_Select[0].sprite = Bottom_down;
         }
@@ -158,7 +157,7 @@ public class BottomManeger : MonoBehaviour
             image_Select[0].sprite = Bottom_up;
         }
 
-        if ((int)BOTTOM_ID.RETURN == now_bottom)
+        if (RETURN == now_bottom)
         {
             image_Return[0].sprite = Bottom_down;
         }
@@ -167,7 +166,7 @@ public class BottomManeger : MonoBehaviour
             image_Return[0].sprite = Bottom_up;
         }
 
-        if ((int)BOTTOM_ID.NEXT == now_bottom)
+        if (NEXT == now_bottom)
         {
             image_Next[0].sprite = Bottom_down;
         }
