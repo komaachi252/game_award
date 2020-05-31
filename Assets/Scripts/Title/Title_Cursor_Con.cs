@@ -39,6 +39,7 @@ public class Title_Cursor_Con : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FindObjectOfType<Game_Fade>().Is_Fade) return;
         if (m_is_wait) return;
         Cursor_Input();
     }
@@ -75,14 +76,17 @@ public class Title_Cursor_Con : MonoBehaviour
         {
             FindObjectOfType<Audio_Manager>().Play("enter");
             m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
+            m_is_wait = true;
         }
-        if(Input.GetKeyDown(KeyCode.Return) && idx == 1)  //  CONTINUE
+        if (Input.GetKeyDown(KeyCode.Return) && idx == 1)  //  CONTINUE
         {
-            //FindObjectOfType<Audio_Manager>().Play("enter");
-            //m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
+            FindObjectOfType<Audio_Manager>().Play("enter");
+            m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
+            m_is_wait = true;
         }
-        if(Input.GetKeyDown(KeyCode.Return) && idx == 2)  //  OPTION
+        if (Input.GetKeyDown(KeyCode.Return) && idx == 2)  //  OPTION
         {
+            FindObjectOfType<Audio_Manager>().Play("enter");
             m_is_wait = true;
             m_option_menu.gameObject.SetActive(true);
             m_option_menu.GetComponent<Option_Menu>().Open_Menu();

@@ -8,9 +8,16 @@ public class Title_Select_Bar : MonoBehaviour
     bool m_is_selected; //  選択中？
     public bool Is_Selected
     {
-        get { return m_is_selected;}
+        get { return m_is_selected; }
         set { m_is_selected = value; }
     }
+    bool m_is_wait;
+    public bool Is_Wait
+    {
+        get{ return m_is_wait; }
+        set { m_is_wait = value; }
+    }
+
     float m_t;  //  補間用媒介変数
     Vector3 m_current_scale;  //  現在のスケール
     Vector3 m_target_scale = new Vector3(1.2f, 1.2f, 1.0f);  //  目標スケール
@@ -29,6 +36,7 @@ public class Title_Select_Bar : MonoBehaviour
 
     public void Set_Index(int index)
     {
+        if (!m_is_wait) m_is_wait = true;
         //  自分と同じインデックスか？
         if(m_index == index)
         {
@@ -63,5 +71,6 @@ public class Title_Select_Bar : MonoBehaviour
     public void Reset_Scale()
     {
         this.gameObject.transform.localScale = m_init_scale;
+        m_is_wait = true;
     }
 }

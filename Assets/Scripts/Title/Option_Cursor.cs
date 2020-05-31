@@ -14,7 +14,6 @@ public class Option_Cursor : MonoBehaviour
         m_current_index = 0;
         //  初期Ｙ座標を保持しておく
         m_is_pos_set = false;
-        Debug.Log("fsdfg");
         foreach (var bar in m_select_bars)
         {
             bar.GetComponent<Title_Select_Bar>().Set_Index(m_current_index);
@@ -81,7 +80,7 @@ public class Option_Cursor : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return) && idx == 2)
         {
-            FindObjectOfType<Audio_Manager>().Play("enter");
+            FindObjectOfType<Audio_Manager>().Play("cancel");
             m_is_pos_set = false;
             m_current_index = 0;
             foreach (var bar in m_select_bars)
