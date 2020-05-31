@@ -19,7 +19,7 @@ public class Audio_Manager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        
         DontDestroyOnLoad(gameObject);
 
         foreach(Sound s in sounds)
@@ -42,7 +42,7 @@ public class Audio_Manager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning(name + "はありません");
+            Debug.Log(name + "はありません");
             return;
         }
         s.source.Play();
@@ -54,10 +54,22 @@ public class Audio_Manager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning(name + "はありません");
+            Debug.Log(name + "はありません");
             return;
         }
         s.source.Stop();
 
+    }
+
+    public void Set_Volume(bool bgm, float volume)
+    {
+        //  loopフラグでBGMを判定
+        foreach(var sound in sounds)
+        {
+            if (sound.source.loop == bgm)
+            {
+                sound.source.volume = volume;
+            }
+        }
     }
 }

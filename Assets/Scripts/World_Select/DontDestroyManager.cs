@@ -19,6 +19,7 @@ public class DontDestroyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Map_Index = StageController.Get_stage();
+        Map_Index = StageController.Get_Index();
+       // Debug.Log(Map_Index);
     }
 }

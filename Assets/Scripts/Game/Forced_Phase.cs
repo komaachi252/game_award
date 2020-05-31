@@ -60,11 +60,11 @@ public class Forced_Phase : MonoBehaviour
         var pos = this.transform.position;
         if (m_is_hot)
         {
-            pos.y += 0.3f;
+            //pos.y += 0.3f;
         }
         else
         {
-            pos.y -= 0.5f;
+            //pos.y -= 0.5f;
         }
         pos.z -= 0.5f;
         Instantiate(m_push_effect, pos, Quaternion.identity);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rain : MonoBehaviour
+public class Option_Sound_Changer : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,10 +14,5 @@ public class Rain : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void Set_Enable()
-    {
-        this.gameObject.SetActive(false);
     }
 }
