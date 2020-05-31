@@ -15,4 +15,9 @@ public class Rain : MonoBehaviour
     {
         
     }
+
+    public void Set_Enable()
+    {
+        this.gameObject.SetActive(false);
+    }
 }

@@ -249,6 +249,10 @@ public class StageController : MonoBehaviour
         return now_stage + stage;//全部繋げたやぁつ
     }
 
+    public static int Get_Index()
+    {
+        return now_world * 10 + now_stage;
+    }
     //次のステージに進む
     public static void Set_nextstage()
     {

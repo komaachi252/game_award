@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 public class Game_Fade : MonoBehaviour
 {
     bool m_is_fade = false;  // フェード中判定
+    public bool Is_Fade
+    {
+        get { return m_is_fade; }
+    }
     bool m_is_fade_out = false; // フェードアウトか？
     int m_frame_cnt = 0;  // 現在のフレーム
     int m_fade_frame = 0; // フェードフレーム

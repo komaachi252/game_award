@@ -37,7 +37,8 @@ public class Game_Manager : MonoBehaviour
     {
         //Instantiate(m_game_flag_logo, new Vector3(1,1,1), Quaternion.identity);
         Is_Clear_Flag = true;
-        GameObject.Find("BGM").GetComponent<Game_BGM>().Stop_BGM();
-        FindObjectOfType<Audio_Manager>().Play("Result");
+        GameObject.Find("Bgm").GetComponent<Game_BGM>().Stop_BGM();
+        GameObject.Find("Rain").GetComponent<Rain>().Set_Enable();
+        GameObject.Find("Audio_Manager").GetComponent<Audio_Manager>().Play("Result");
     }
 }

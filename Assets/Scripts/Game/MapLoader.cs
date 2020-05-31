@@ -35,8 +35,8 @@ public class MapLoader : MonoBehaviour
 
     private void Awake()
     {
-       // Map_Index = DontDestroyManager.Map_Index;
-        //Debug.Log(Map_Index);
+        Map_Index = DontDestroyManager.Map_Index;
+        Debug.Log(Map_Index);
     }
 
     void Start()
@@ -97,7 +97,7 @@ public class MapLoader : MonoBehaviour
             m_map_datas.Add(data);
         }
 
-        m_map_index = 0;
+       // m_map_index = 0;
         //Debug.Log(m_map_index);
         //  指定したインデックスのマップを生成する
         Map_Create(m_map_datas[m_map_index]);
