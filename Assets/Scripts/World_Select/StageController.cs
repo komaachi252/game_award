@@ -201,7 +201,7 @@ public class StageController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))//決定
+        if (Input.GetKeyDown(KeyCode.Return))//決定
         {
             if (select_flag == 0)//ワールド選択の時
             {
