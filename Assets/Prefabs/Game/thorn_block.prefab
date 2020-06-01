@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9050248294421376173}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: THORN_BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4887666713150922252}
   m_Layer: 0
   m_Name: thorn_block
-  m_TagString: THORN_BLOCK
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

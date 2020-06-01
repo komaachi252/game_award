@@ -46,6 +46,7 @@ public class Phase : MonoBehaviour
         {
             if (!m_is_stay)
             {
+                //Debug.Break();
                 m_is_stay = true;
                 m_tag_name = col.gameObject.tag;
             
