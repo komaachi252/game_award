@@ -5,6 +5,7 @@ using UnityEngine;
 public class HIT_T : MonoBehaviour
 {
     public PLAYER PLAYER;
+    Thorn_Block Thorn_Block;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,9 +58,15 @@ public class HIT_T : MonoBehaviour
             PLAYER.HARDCOLD();
         }
 
-        if(other.gameObject.CompareTag("SPONGE"))
+        if (other.gameObject.CompareTag("SPONGE"))
         {
             PLAYER.SPONGE();
+        }
+
+        if (other.gameObject.CompareTag("THORN_INV"))
+        {
+            Thorn_Block = other.gameObject.GetComponent<Thorn_Block>();
+            PLAYER.THORN(Thorn_Block.GETpop(), other.gameObject.transform.position.y);
         }
     }
 
@@ -82,5 +89,16 @@ public class HIT_T : MonoBehaviour
         {
             PLAYER.CLEAR_stay_COLD();
         }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        /*
+        if (other.gameObject.CompareTag("THORN_BLOCK_INV"))
+        {
+            Thorn_Block = other.gameObject.GetComponent<Thorn_Block>();
+            PLAYER.THORN(Thorn_Block.GETpop(), other.gameObject.transform.position.y);
+        }
+        */
     }
 }

@@ -31,6 +31,7 @@ TagManager:
   - DRAIN
   - LEAF_INV
   - SKY
+  - THORN_INV
   layers:
   - Default
   - TransparentFX
