@@ -32,7 +32,7 @@ public class PLAYER : MonoBehaviour
     public int MOVE_D = 1;
     public int MOVE_V = 1;
     public int B_MOVE_D = 1;
-    public int VMOVEflag = 0;   //縦移動予約フラグ
+    public int VMOVEflag = 0;       //縦移動予約フラグ
     public int AUTOMOVEflag = 0;    //強制移動フラグ
     public int AUTOMOVEflag2 = 0;   //強制移動フラグ２
     public int AUTOMOVEflag3 = 0;   //強制移動フラグ３
@@ -40,6 +40,7 @@ public class PLAYER : MonoBehaviour
     public float A_VMOVEPOS = 0;
     public float MOVEPOS = 0;       //強制移動目標地点
     public int MOVEFinish = 0;      //強制移動完了フラグ
+    public int DROPFLAG = 0;        //水滴落下予約フラグ
     public int GAPMOVE_U = 0;       //GAP通過フラグ下
     public int GAPMOVE_T = 0;       //GAP通過フラグ上
     public float TARGETV = 0;       //
@@ -205,6 +206,7 @@ public class PLAYER : MonoBehaviour
                 stay_COLD = 0;
 
                 AUTOMOVEflag2 = 1;
+                DROPFLAG = 1;
             }
         }
 
@@ -228,6 +230,7 @@ public class PLAYER : MonoBehaviour
                 stay_COLD = 0;
 
                 AUTOMOVEflag2 = 1;
+                DROPFLAG = 1;
             }
         }
 
@@ -248,6 +251,11 @@ public class PLAYER : MonoBehaviour
                     STAND_U = 0;
                 }
 
+                if(TYPE == 1)
+                {
+                    tag = "AQUA";
+                }
+
                 if (TYPE == 2)
                 {
                     tag = "CLOUD";
@@ -260,6 +268,8 @@ public class PLAYER : MonoBehaviour
                 }
             }
         }
+
+        //移動入力受付管理
 
         if (TYPE == 0 && MOVE_NOW == 0)
         {
@@ -565,7 +575,6 @@ public class PLAYER : MonoBehaviour
                     {
                         SOLID.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                     if (TYPE == 2)
                     {
@@ -595,7 +604,6 @@ public class PLAYER : MonoBehaviour
                     {
                         CLOUD.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                 }
 
@@ -640,7 +648,6 @@ public class PLAYER : MonoBehaviour
                     {
                         SOLID.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                     if (TYPE == 2)
                     {
@@ -671,17 +678,11 @@ public class PLAYER : MonoBehaviour
                     {
                         AQUA.exchange_s();
                         SOLID.exchange_b();
-                        /*
-                        tag = "SOLID";
-                        Debug.Log("降下");
-                        Physics.gravity = new Vector3(0, -9.8f, 0);
-                        */
                     }
                     if (TYPE == 1)
                     {
                         CLOUD.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                 }
                 else if (TYPE == 0)
@@ -692,8 +693,17 @@ public class PLAYER : MonoBehaviour
             }
 
             //水滴壁落下
-
-            if (stay_WALL_R == 1)
+            if(DROPFLAG == 1)
+            {
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+                Physics.gravity = new Vector3(0, -9.8f, 0);
+                MOVE_V = 1;
+                DROPFLAG = 0;
+            }
+            /*
+            if (stay_WALL_R == 1 && TYPE == 1)
             {
                 STAND = 0;
                 STAND_T = 0;
@@ -702,7 +712,7 @@ public class PLAYER : MonoBehaviour
                 MOVE_V = 1;
             }
 
-            if (stay_WALL_L == 1)
+            if (stay_WALL_L == 1 && TYPE == 1)
             {
                 STAND = 0;
                 STAND_T = 0;
@@ -710,6 +720,7 @@ public class PLAYER : MonoBehaviour
                 Physics.gravity = new Vector3(0, -9.8f, 0);
                 MOVE_V = 1;
             }
+            */
 
             //水ギミック利用
             if (stay_WATER == 1)
@@ -1058,6 +1069,11 @@ public class PLAYER : MonoBehaviour
     public int GETFLOATflag()
     {
         return FLOATflag;
+    }
+
+    public int GETGAMEOVER()
+    {
+        return GAMEOVER;
     }
 
 

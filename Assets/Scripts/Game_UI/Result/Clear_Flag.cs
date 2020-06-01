@@ -8,6 +8,8 @@ public class Clear_Flag : MonoBehaviour
 
     public GameObject Result;//リザルトのゲームオブジェクト
 
+    private StarManeger star;//星制御するやつ
+
     //フラグ
     //0 = 非表示
     //1 = 表示(最初の一回だけ)
@@ -25,6 +27,8 @@ public class Clear_Flag : MonoBehaviour
     void Start()
     {
         Result.SetActive(false);
+
+        star = Result.GetComponent<StarManeger>();//星制御するやつ
     }
 
     // Update is called once per frame
@@ -41,6 +45,8 @@ public class Clear_Flag : MonoBehaviour
             Game_Canvas.planeDistance = CAMERA_RANGE;
 
             Debug.Log(Game_Canvas.renderMode);
+
+            star.Start_Star_Anime();
         }
 
         if (Input.GetKeyDown(KeyCode.L))//Lでクリアにする
