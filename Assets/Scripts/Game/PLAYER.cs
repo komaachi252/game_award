@@ -72,6 +72,7 @@ public class PLAYER : MonoBehaviour
     public int stay_WALL_L = 0; //壁（移動不能マス）接触フラグ左
     public int stay_WATER = 0;  //水接触フラグ
     public int stay_THORN_BLOCK = 0;    //トゲブロック接触フラグ
+    public int stay_FIRE = 0;     //炎隣接フラグ
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -413,7 +414,6 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-
             JUGEMOVE.SETposx(posx);
             VMOVEflag = JUGEMOVE.root(MOVE_D, MOVE_V);
             B_MOVE_D = MOVE_D;
@@ -661,7 +661,6 @@ public class PLAYER : MonoBehaviour
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
                 }
-
             }
 
             //強制冷却
@@ -741,6 +740,17 @@ public class PLAYER : MonoBehaviour
                 Game_Fade.Fade_Start(90, true, "GameScene");
             }
 
+            if (stay_FIRE == 1)
+            {
+                stay_FIRE = 0;
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                exchangecount = 61;
+
+                Debug.Log("加熱");
+                TYPE++;
+                SOLID.exchange_s();
+                AQUA.exchange_b();
+            }
         }
 
         if (GAPMOVE_U == 1)
@@ -1053,6 +1063,26 @@ public class PLAYER : MonoBehaviour
 
             AUTOMOVEflag2 = 1;
             stay_WATER = 1;
+        }
+    }
+
+    public void FIRE()
+    {
+        if (TYPE == 0)
+        {
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            AUTOMOVEflag2 = 1;
+            stay_FIRE = 1;
         }
     }
 

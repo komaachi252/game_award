@@ -268,6 +268,7 @@ MonoBehaviour:
   A_VMOVEPOS: 0
   MOVEPOS: 0
   MOVEFinish: 0
+  DROPFLAG: 0
   GAPMOVE_U: 0
   GAPMOVE_T: 0
   TARGETV: 0
@@ -277,6 +278,8 @@ MonoBehaviour:
   VIEWflag: -1
   VIEWBACK: 0
   GAMEOVER: 0
+  GOAL: 0
+  FADEFLAg: 0
   FADECONT: 0
   MOVE_NOW: 0
   STAND: 0
@@ -295,6 +298,8 @@ MonoBehaviour:
   stay_WALL_R: 0
   stay_WALL_L: 0
   stay_WATER: 0
+  stay_THORN_BLOCK: 0
+  stay_FIRE: 0
 --- !u!65 &8249742290531316596
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -997,7 +1002,7 @@ GameObject:
   - component: {fileID: 1607154312596780857}
   m_Layer: 0
   m_Name: JUGEPOINT
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1068,7 +1073,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PLAYER: {fileID: 559887081260174395}
-  HIT_RT: {fileID: 0}
 --- !u!1 &8092298089131920484
 GameObject:
   m_ObjectHideFlags: 0

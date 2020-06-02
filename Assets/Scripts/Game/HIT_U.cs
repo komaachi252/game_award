@@ -82,6 +82,11 @@ public class HIT_U : MonoBehaviour
             Thorn_Block = other.gameObject.GetComponent<Thorn_Block>();
             PLAYER.THORN(Thorn_Block.GETpop(), other.gameObject.transform.position.y);
         }
+
+        if (other.gameObject.CompareTag("FIRE"))
+        {
+            PLAYER.FIRE();
+        }
     }
 
     void OnTriggerExit(Collider other)              //他のオブジェクトとの接触時の処理
