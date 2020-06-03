@@ -12,6 +12,8 @@ public class MapLoader : MonoBehaviour
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
+    public GameObject m_decorator;
+
     static int m_map_index = 0;  //  読み込むマップのインデックス
 
     public GameObject m_fade; //  フェード用オブジェクト参照
@@ -179,6 +181,9 @@ public class MapLoader : MonoBehaviour
 
             }
         }
+
+        //  マップ修飾
+        m_decorator.GetComponent<Map_Decorator>().Decorate_Map(in map_data);
 
         //  プレイヤーを最後に生成
         Instantiate(m_objects[9], new Vector3(p_x, p_y, 0.0f), Quaternion.identity);
