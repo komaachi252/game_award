@@ -53,6 +53,7 @@ public class PLAYER : MonoBehaviour
     public int GOAL = 0;            //ゴールフラグ
     public int FADEFLAg = 0;        //フェードフラグ
     public int FADECONT = 0;        //フェードアウトカウント
+    public int Leaf_HIT = 0;        //葉っぱ接触フラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -154,13 +155,13 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0  && FLOATflag == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
@@ -278,6 +279,7 @@ public class PLAYER : MonoBehaviour
             if (STAND_U == 1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
                 boxcollider.enabled = false;
                 capcollider.enabled = true;
             }
@@ -288,11 +290,13 @@ public class PLAYER : MonoBehaviour
             if (STAND_U == 1 && MOVE_V == 1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
             }
 
             if (STAND_T == 1 && MOVE_V == -1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
             }
         }
 
@@ -301,6 +305,7 @@ public class PLAYER : MonoBehaviour
             if (STAND_T == 1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
             }
         }
 
@@ -364,7 +369,7 @@ public class PLAYER : MonoBehaviour
 
         if (posx != B_posx)
         {
-            if (MOVE_D == 1 && VMOVEflag == 1 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
+            if (MOVE_D == 1 && VMOVEflag == 1 && Leaf_HIT == 0 &&(TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
             {
                 if (transform.position.x > VMOVEPOS && AUTOMOVEflag == 0)
                 {
@@ -389,7 +394,7 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-            if (MOVE_D == -1 && VMOVEflag == 1 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
+            if (MOVE_D == -1 && VMOVEflag == 1 && Leaf_HIT == 0 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
             {
                 if (transform.position.x < VMOVEPOS && AUTOMOVEflag == 0)
                 {
@@ -1154,10 +1159,8 @@ public class PLAYER : MonoBehaviour
     {
         if (MUTEKI == 0)
         {
-            //Debug.Log("何か");
             if (other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("LEAF"))
             {
-                //Debug.Log("葉っぱ");
                 STAND = 0;
                 STAND_T = 0;
                 STAND_U = 0;
@@ -1169,9 +1172,18 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
+        }
+
+        if (other.gameObject.CompareTag("LEAF"))
+        {
+            Leaf_HIT = 1;
+        }
+
+        if (other.gameObject.CompareTag("LEAF_INV"))
+        {
+            Leaf_HIT = 1;
         }
 
         if (other.gameObject.CompareTag("GOAL") && GOAL == 0)
@@ -1190,7 +1202,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1200,7 +1211,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    // SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1210,7 +1220,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1220,7 +1229,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1230,7 +1238,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
