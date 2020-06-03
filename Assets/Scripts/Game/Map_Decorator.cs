@@ -11,15 +11,13 @@ public class Map_Decorator : MonoBehaviour
     void Start()
     {
         m_world_index = DontDestroyManager.Map_Index / 10;
+        Debug.Log(m_world_index);
     }
 
     public void Decorate_Map(in Map_Data map_data)
     {
         var x = 0.5f;
         var y = (map_data.Height - 1) * 1.0f;
-
-        float p_x = 0.0f;
-        float p_y = 0.0f;
 
         int pop_cnt = 0;
         int seed_num = 0;
@@ -53,7 +51,6 @@ public class Map_Decorator : MonoBehaviour
             var seed = seed_num % 4;
             if(seed == 0)
             {
-                Debug.Log(seed);
                 create_index = 0;
             }
             if(seed == 1)
@@ -71,6 +68,7 @@ public class Map_Decorator : MonoBehaviour
         }
         if(m_world_index == 2)
         {
+            Debug.Log(m_world_index);
             var seed = seed_num % 3;
             if(seed == 0)
             {
