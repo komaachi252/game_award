@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Clear_Flag : MonoBehaviour
 {
@@ -23,12 +24,19 @@ public class Clear_Flag : MonoBehaviour
     public Camera Main_Camera;//メインカメラ
     public Canvas Game_Canvas;//ゲームで使ってるキャンバス
 
+    void Awake()
+    {
+        //SceneManager.UnloadScene("ResultScene");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        Result.SetActive(false);
+        //Result.SetActive(false);
 
-        star = Result.GetComponent<StarManeger>();//星制御するやつ
+        //star = Result.GetComponent<StarManeger>();//星制御するやつ
+
+
     }
 
     // Update is called once per frame
@@ -37,16 +45,18 @@ public class Clear_Flag : MonoBehaviour
 
         if (flag == 0 && GameManeger.GetComponent<Game_Manager>().Is_Clear_Flag == true)
         {
-            Result.SetActive(true);
+            //Result.SetActive(true);
             flag = 2;
 
-            Game_Canvas.renderMode = RenderMode.ScreenSpaceCamera;//カメラを変更
-            Game_Canvas.worldCamera = Main_Camera;//設定カメラをメインカメラに変更
-            Game_Canvas.planeDistance = CAMERA_RANGE;
+            //Game_Canvas.renderMode = RenderMode.ScreenSpaceCamera;//カメラを変更
+            //Game_Canvas.worldCamera = Main_Camera;//設定カメラをメインカメラに変更
+            //Game_Canvas.planeDistance = CAMERA_RANGE;
 
-            Debug.Log(Game_Canvas.renderMode);
+            //Debug.Log(Game_Canvas.renderMode);
 
-            star.Start_Star_Anime();
+            //star.Start_Star_Anime();
+
+            SceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);//リザルトシーンを読み込む(加算)
         }
 
         if (Input.GetKeyDown(KeyCode.L))//Lでクリアにする
