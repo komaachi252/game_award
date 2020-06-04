@@ -51,9 +51,14 @@ public class Thorn_Block : MonoBehaviour
             this.transform.Translate(0, -0.1f, 0);
             m_dist += 0.1f;
         }
-        if(m_dist >= 0.9f)
+        if (m_dist >= 0.9f)
         {
             m_is_move = false;
         }
+    }
+
+    public bool GETpop()
+    {
+        return m_is_pop;
     }
 }

@@ -32,7 +32,7 @@ public class PLAYER : MonoBehaviour
     public int MOVE_D = 1;
     public int MOVE_V = 1;
     public int B_MOVE_D = 1;
-    public int VMOVEflag = 0;   //縦移動予約フラグ
+    public int VMOVEflag = 0;       //縦移動予約フラグ
     public int AUTOMOVEflag = 0;    //強制移動フラグ
     public int AUTOMOVEflag2 = 0;   //強制移動フラグ２
     public int AUTOMOVEflag3 = 0;   //強制移動フラグ３
@@ -40,6 +40,7 @@ public class PLAYER : MonoBehaviour
     public float A_VMOVEPOS = 0;
     public float MOVEPOS = 0;       //強制移動目標地点
     public int MOVEFinish = 0;      //強制移動完了フラグ
+    public int DROPFLAG = 0;        //水滴落下予約フラグ
     public int GAPMOVE_U = 0;       //GAP通過フラグ下
     public int GAPMOVE_T = 0;       //GAP通過フラグ上
     public float TARGETV = 0;       //
@@ -52,6 +53,7 @@ public class PLAYER : MonoBehaviour
     public int GOAL = 0;            //ゴールフラグ
     public int FADEFLAg = 0;        //フェードフラグ
     public int FADECONT = 0;        //フェードアウトカウント
+    public int Leaf_HIT = 0;        //葉っぱ接触フラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -70,6 +72,8 @@ public class PLAYER : MonoBehaviour
     public int stay_WALL_R = 0; //壁（移動不能マス）接触フラグ右
     public int stay_WALL_L = 0; //壁（移動不能マス）接触フラグ左
     public int stay_WATER = 0;  //水接触フラグ
+    public int stay_THORN_BLOCK = 0;    //トゲブロック接触フラグ
+    public int stay_FIRE = 0;     //炎隣接フラグ
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -80,7 +84,6 @@ public class PLAYER : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GetComponent<Renderer>().material.color = colors[TYPE];
         CAMERA = GameObject.Find("Main Camera");
         PLAYERCAMERA = CAMERA.GetComponent<PLAYERCAMERA>();
 
@@ -92,7 +95,6 @@ public class PLAYER : MonoBehaviour
         boxcollider = this.gameObject.GetComponent<BoxCollider>();
         capcollider = this.gameObject.GetComponent<CapsuleCollider>();
         Physics.gravity = new Vector3(0, -9.8f, 0);
-        //tag = "SOLID";
         MUTEKI = 6;
     }
 
@@ -139,10 +141,10 @@ public class PLAYER : MonoBehaviour
                 }
 
                 AUTOMOVEflag2 = 1;
-            }   
+            }
         }
 
-        if(Input.GetKey(KeyCode.Return))
+        if (Input.GetKey(KeyCode.Return))
         {
             if (GOAL == 1 && FADEFLAg == 0)
             {
@@ -151,13 +153,13 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
@@ -183,6 +185,19 @@ public class PLAYER : MonoBehaviour
             }
         }
 
+        if (AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0)
+        {
+            if (rb.velocity.x > 0)
+            {
+                MOVE_D = 1;
+            }
+
+            if (rb.velocity.x < 0)
+            {
+                MOVE_D = -1;
+            }
+        }
+
         //水滴落下検出
 
         if (stay_WALL_R == 1 && TYPE == 1 && MOVE_V == -1)
@@ -205,6 +220,7 @@ public class PLAYER : MonoBehaviour
                 stay_COLD = 0;
 
                 AUTOMOVEflag2 = 1;
+                DROPFLAG = 1;
             }
         }
 
@@ -228,6 +244,7 @@ public class PLAYER : MonoBehaviour
                 stay_COLD = 0;
 
                 AUTOMOVEflag2 = 1;
+                DROPFLAG = 1;
             }
         }
 
@@ -248,6 +265,11 @@ public class PLAYER : MonoBehaviour
                     STAND_U = 0;
                 }
 
+                if (TYPE == 1)
+                {
+                    tag = "AQUA";
+                }
+
                 if (TYPE == 2)
                 {
                     tag = "CLOUD";
@@ -261,11 +283,14 @@ public class PLAYER : MonoBehaviour
             }
         }
 
+        //移動入力受付管理
+
         if (TYPE == 0 && MOVE_NOW == 0)
         {
             if (STAND_U == 1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
                 boxcollider.enabled = false;
                 capcollider.enabled = true;
             }
@@ -276,11 +301,13 @@ public class PLAYER : MonoBehaviour
             if (STAND_U == 1 && MOVE_V == 1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
             }
 
             if (STAND_T == 1 && MOVE_V == -1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
             }
         }
 
@@ -289,6 +316,7 @@ public class PLAYER : MonoBehaviour
             if (STAND_T == 1)
             {
                 STAND = 1;
+                Leaf_HIT = 0;
             }
         }
 
@@ -352,7 +380,7 @@ public class PLAYER : MonoBehaviour
 
         if (posx != B_posx)
         {
-            if (MOVE_D == 1 && VMOVEflag == 1 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
+            if (MOVE_D == 1 && VMOVEflag == 1 && Leaf_HIT == 0 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
             {
                 if (transform.position.x > VMOVEPOS && AUTOMOVEflag == 0)
                 {
@@ -377,7 +405,7 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-            if (MOVE_D == -1 && VMOVEflag == 1 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
+            if (MOVE_D == -1 && VMOVEflag == 1 && Leaf_HIT == 0 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
             {
                 if (transform.position.x < VMOVEPOS && AUTOMOVEflag == 0)
                 {
@@ -401,7 +429,6 @@ public class PLAYER : MonoBehaviour
                     A_VMOVEPOS = VMOVEPOS;
                 }
             }
-
 
             JUGEMOVE.SETposx(posx);
             VMOVEflag = JUGEMOVE.root(MOVE_D, MOVE_V);
@@ -565,7 +592,6 @@ public class PLAYER : MonoBehaviour
                     {
                         SOLID.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                     if (TYPE == 2)
                     {
@@ -595,7 +621,6 @@ public class PLAYER : MonoBehaviour
                     {
                         CLOUD.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                 }
 
@@ -640,7 +665,6 @@ public class PLAYER : MonoBehaviour
                     {
                         SOLID.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                     if (TYPE == 2)
                     {
@@ -648,12 +672,11 @@ public class PLAYER : MonoBehaviour
                         CLOUD.exchange_b();
                     }
                 }
-                else if(TYPE==2)
+                else if (TYPE == 2)
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
                 }
-                
             }
 
             //強制冷却
@@ -671,17 +694,11 @@ public class PLAYER : MonoBehaviour
                     {
                         AQUA.exchange_s();
                         SOLID.exchange_b();
-                        /*
-                        tag = "SOLID";
-                        Debug.Log("降下");
-                        Physics.gravity = new Vector3(0, -9.8f, 0);
-                        */
                     }
                     if (TYPE == 1)
                     {
                         CLOUD.exchange_s();
                         AQUA.exchange_b();
-                        tag = "AQUA";
                     }
                 }
                 else if (TYPE == 0)
@@ -692,8 +709,17 @@ public class PLAYER : MonoBehaviour
             }
 
             //水滴壁落下
-
-            if (stay_WALL_R == 1)
+            if (DROPFLAG == 1)
+            {
+                STAND = 0;
+                STAND_T = 0;
+                STAND_U = 0;
+                Physics.gravity = new Vector3(0, -9.8f, 0);
+                MOVE_V = 1;
+                DROPFLAG = 0;
+            }
+            /*
+            if (stay_WALL_R == 1 && TYPE == 1)
             {
                 STAND = 0;
                 STAND_T = 0;
@@ -702,7 +728,7 @@ public class PLAYER : MonoBehaviour
                 MOVE_V = 1;
             }
 
-            if (stay_WALL_L == 1)
+            if (stay_WALL_L == 1 && TYPE == 1)
             {
                 STAND = 0;
                 STAND_T = 0;
@@ -710,6 +736,7 @@ public class PLAYER : MonoBehaviour
                 Physics.gravity = new Vector3(0, -9.8f, 0);
                 MOVE_V = 1;
             }
+            */
 
             //水ギミック利用
             if (stay_WATER == 1)
@@ -723,6 +750,23 @@ public class PLAYER : MonoBehaviour
                 FLOATflag = 1;
             }
 
+            if (stay_THORN_BLOCK == 1)
+            {
+                GAMEOVER = 1;
+                Game_Fade.Fade_Start(90, true, "GameScene");
+            }
+
+            if (stay_FIRE == 1)
+            {
+                stay_FIRE = 0;
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                exchangecount = 61;
+
+                Debug.Log("加熱");
+                TYPE++;
+                SOLID.exchange_s();
+                AQUA.exchange_b();
+            }
         }
 
         if (GAPMOVE_U == 1)
@@ -892,7 +936,8 @@ public class PLAYER : MonoBehaviour
 
     public void SET_V_MOVEPOS(float x)
     {
-        if (VMOVEflag == 0)
+        //if (VMOVEflag == 0)
+        if (AUTOMOVEflag == 0)
         {
             VMOVEPOS = x - 0.5f * MOVE_D;
         }
@@ -1038,9 +1083,50 @@ public class PLAYER : MonoBehaviour
         }
     }
 
+    public void FIRE()
+    {
+        if (TYPE == 0)
+        {
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            AUTOMOVEflag2 = 1;
+            stay_FIRE = 1;
+        }
+    }
+
+    public void THORN(bool pop, float block_y)
+    {
+        //トゲが出ていないで液体か気体なら
+        if (pop == false && (TYPE == 1 || TYPE == 2))
+        {
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            AUTOMOVEflag2 = 1;
+            stay_THORN_BLOCK = 1;
+        }
+    }
+
     public void SPONGE()
     {
-        if(TYPE == 1)
+        if (TYPE == 1)
         {
             GAMEOVER = 1;
             Game_Fade.Fade_Start(90, true, "GameScene");
@@ -1058,6 +1144,11 @@ public class PLAYER : MonoBehaviour
     public int GETFLOATflag()
     {
         return FLOATflag;
+    }
+
+    public int GETGAMEOVER()
+    {
+        return GAMEOVER;
     }
 
 
@@ -1080,10 +1171,8 @@ public class PLAYER : MonoBehaviour
     {
         if (MUTEKI == 0)
         {
-            //Debug.Log("何か");
             if (other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("LEAF"))
             {
-                //Debug.Log("葉っぱ");
                 STAND = 0;
                 STAND_T = 0;
                 STAND_U = 0;
@@ -1095,9 +1184,18 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
+        }
+
+        if (other.gameObject.CompareTag("LEAF"))
+        {
+            Leaf_HIT = 1;
+        }
+
+        if (other.gameObject.CompareTag("LEAF_INV"))
+        {
+            Leaf_HIT = 1;
         }
 
         if (other.gameObject.CompareTag("GOAL") && GOAL == 0)
@@ -1116,7 +1214,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1126,7 +1223,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    // SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1136,7 +1232,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1146,7 +1241,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1156,7 +1250,6 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     Game_Fade.Fade_Start(90, true, "GameScene");
-                    //SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
                 }
             }
 
@@ -1176,11 +1269,5 @@ public class PLAYER : MonoBehaviour
         {
             PLAYERCAMERA.CLAREMILLFIND();
         }
-    }
-
-
-    void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
-    {
-
     }
 }

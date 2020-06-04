@@ -5,6 +5,7 @@ using UnityEngine;
 public class HIT_U : MonoBehaviour
 {
     public PLAYER PLAYER;
+    Thorn_Block Thorn_Block;
     Collider Collider;
     // Start is called before the first frame update
     void Start()
@@ -28,8 +29,8 @@ public class HIT_U : MonoBehaviour
 
     void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") || 
-            other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER") || 
+        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("HOT") || other.gameObject.CompareTag("COLD") ||
+            other.gameObject.CompareTag("THORN_BLOCK") || other.gameObject.CompareTag("GAP") || other.gameObject.CompareTag("WATER") ||
             other.gameObject.CompareTag("DRAIN") || other.gameObject.CompareTag("LIFT") || other.gameObject.CompareTag("HARD_HOT") || other.gameObject.CompareTag("HARD_COLD"))
         {
             //Debug.Log("下");
@@ -56,7 +57,7 @@ public class HIT_U : MonoBehaviour
 
         if (other.gameObject.CompareTag("WATER"))
         {
-            Debug.Log("水の位置"+other.transform.position.y);
+            Debug.Log("水の位置" + other.transform.position.y);
             Collider = other.gameObject.GetComponent<BoxCollider>();
             PLAYER.WATER(other.transform.position.y);
         }
@@ -74,6 +75,17 @@ public class HIT_U : MonoBehaviour
         if (other.gameObject.CompareTag("SPONGE"))
         {
             PLAYER.SPONGE();
+        }
+
+        if (other.gameObject.CompareTag("THORN"))
+        {
+            Thorn_Block = other.gameObject.GetComponent<Thorn_Block>();
+            PLAYER.THORN(Thorn_Block.GETpop(), other.gameObject.transform.position.y);
+        }
+
+        if (other.gameObject.CompareTag("FIRE"))
+        {
+            PLAYER.FIRE();
         }
     }
 
@@ -96,7 +108,7 @@ public class HIT_U : MonoBehaviour
         {
             PLAYER.CLEAR_stay_COLD();
         }
-        
+
         if (other.gameObject.CompareTag("WATER"))
         {
             PLAYER.CLEAR_stay_WATER();
@@ -112,5 +124,16 @@ public class HIT_U : MonoBehaviour
             }
             */
         }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        /*
+        if (other.gameObject.CompareTag("THORN_BLOCK"))
+        {
+            Thorn_Block = other.gameObject.GetComponent<Thorn_Block>();
+            PLAYER.THORN(Thorn_Block.GETpop(), other.gameObject.transform.position.y);
+        }
+        */
     }
 }

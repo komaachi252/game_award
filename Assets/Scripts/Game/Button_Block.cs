@@ -85,10 +85,14 @@ public class Button_Block : MonoBehaviour
 
     void Pushed_Move()
     {
-        
         foreach(var thorn in GameObject.FindGameObjectsWithTag("THORN"))
         {
             thorn.GetComponent<Thorn_Block>().Pop_Start();
         }
+        foreach(var thorn in GameObject.FindGameObjectsWithTag("THORN_INV"))
+        {
+            thorn.GetComponent<Thorn_Block>().Pop_Start();
+        }
+
     }
 }

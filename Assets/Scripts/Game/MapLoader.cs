@@ -12,6 +12,8 @@ public class MapLoader : MonoBehaviour
 
     public GameObject[] m_objects;  //  読み込むオブジェクト番号に対応
 
+    public GameObject m_decorator;
+
     static int m_map_index = 0;  //  読み込むマップのインデックス
 
     public GameObject m_fade; //  フェード用オブジェクト参照
@@ -85,6 +87,16 @@ public class MapLoader : MonoBehaviour
         m_file_paths.Add(FILE_PATH + "world4-8.csv");
         m_file_paths.Add(FILE_PATH + "world4-9.csv");
         m_file_paths.Add(FILE_PATH + "world4-10.csv");
+        m_file_paths.Add(FILE_PATH + "world5-1.csv");
+        m_file_paths.Add(FILE_PATH + "world5-2.csv");
+        m_file_paths.Add(FILE_PATH + "world5-3.csv");
+        m_file_paths.Add(FILE_PATH + "world5-4.csv");
+        m_file_paths.Add(FILE_PATH + "world5-5.csv");
+        m_file_paths.Add(FILE_PATH + "world5-6.csv");
+        m_file_paths.Add(FILE_PATH + "world5-7.csv");
+        m_file_paths.Add(FILE_PATH + "world5-8.csv");
+        m_file_paths.Add(FILE_PATH + "world5-9.csv");
+        m_file_paths.Add(FILE_PATH + "world5-10.csv");
         m_file_paths.Add(FILE_PATH + "dojo1.csv");
         m_file_paths.Add(FILE_PATH + "dojo2.csv");
         m_file_paths.Add(FILE_PATH + "dojo3.csv");
@@ -169,6 +181,9 @@ public class MapLoader : MonoBehaviour
 
             }
         }
+
+        //  マップ修飾
+        m_decorator.GetComponent<Map_Decorator>().Decorate_Map(in map_data);
 
         //  プレイヤーを最後に生成
         Instantiate(m_objects[9], new Vector3(p_x, p_y, 0.0f), Quaternion.identity);

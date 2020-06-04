@@ -29,6 +29,7 @@ public class Audio_Manager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.volume = s.volume;
             s.source.loop = s.loop;
+            s.source.spatialBlend = 0.0f;
         }
     }
 

@@ -7,8 +7,8 @@ public class Leaf_Controller : MonoBehaviour
     // Start is called before the first frame update
     
     public const int ICE_ROTATE = 64;  //  ICEの時の回転角度
-    public const int AQUA_ROTATE = 45;  //  AQUAの時の回転角度
-    public const int CLOUD_ROTATE = -45;  //  CLOUDの時の回転角度
+    public const int AQUA_ROTATE = 40;  //  AQUAの時の回転角度
+    public const int CLOUD_ROTATE = -40;  //  CLOUDの時の回転角度
     public const int INV_ICE_ROTATE = -ICE_ROTATE; //  戻す回転
     public const int INV_AQUA_ROTATE = -AQUA_ROTATE;
     public const int INV_CLOUD_ROTATE = -CLOUD_ROTATE;
