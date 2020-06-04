@@ -281,6 +281,7 @@ MonoBehaviour:
   GOAL: 0
   FADEFLAg: 0
   FADECONT: 0
+  Leaf_HIT: 0
   MOVE_NOW: 0
   STAND: 0
   STAND_T: 0
@@ -340,9 +341,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4
-  m_Height: 1
+  m_Height: 0.99
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.01, z: 0}
 --- !u!114 &3628557762051623597
 MonoBehaviour:
   m_ObjectHideFlags: 0

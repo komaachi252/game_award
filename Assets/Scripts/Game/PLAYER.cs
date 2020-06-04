@@ -84,7 +84,6 @@ public class PLAYER : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GetComponent<Renderer>().material.color = colors[TYPE];
         CAMERA = GameObject.Find("Main Camera");
         PLAYERCAMERA = CAMERA.GetComponent<PLAYERCAMERA>();
 
@@ -96,7 +95,6 @@ public class PLAYER : MonoBehaviour
         boxcollider = this.gameObject.GetComponent<BoxCollider>();
         capcollider = this.gameObject.GetComponent<CapsuleCollider>();
         Physics.gravity = new Vector3(0, -9.8f, 0);
-        //tag = "SOLID";
         MUTEKI = 6;
     }
 
@@ -155,7 +153,7 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0  && FLOATflag == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
@@ -184,6 +182,19 @@ public class PLAYER : MonoBehaviour
             if (rb.velocity.magnitude < 3.0f)
             {
                 rb.AddForce(FORCE);
+            }
+        }
+
+        if (AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0)
+        {
+            if (rb.velocity.x > 0)
+            {
+                MOVE_D = 1;
+            }
+
+            if (rb.velocity.x < 0)
+            {
+                MOVE_D = -1;
             }
         }
 
@@ -369,7 +380,7 @@ public class PLAYER : MonoBehaviour
 
         if (posx != B_posx)
         {
-            if (MOVE_D == 1 && VMOVEflag == 1 && Leaf_HIT == 0 &&(TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
+            if (MOVE_D == 1 && VMOVEflag == 1 && Leaf_HIT == 0 && (TYPE == 2 || TYPE == 0 || (TYPE == 1 && MOVE_V == 1)))  //縦移動予約が入っていて同じ方向に進んでいたら（雲）
             {
                 if (transform.position.x > VMOVEPOS && AUTOMOVEflag == 0)
                 {
@@ -925,7 +936,8 @@ public class PLAYER : MonoBehaviour
 
     public void SET_V_MOVEPOS(float x)
     {
-        if (VMOVEflag == 0)
+        //if (VMOVEflag == 0)
+        if (AUTOMOVEflag == 0)
         {
             VMOVEPOS = x - 0.5f * MOVE_D;
         }
@@ -1257,11 +1269,5 @@ public class PLAYER : MonoBehaviour
         {
             PLAYERCAMERA.CLAREMILLFIND();
         }
-    }
-
-
-    void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
-    {
-
     }
 }
