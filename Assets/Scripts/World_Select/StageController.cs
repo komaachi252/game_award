@@ -258,11 +258,13 @@ public class StageController : MonoBehaviour
     {
         now_stage++;
 
-        if (World_Stage_Nm.GET_STAGE_NUM(now_world) < now_stage)//ワールドのステージ数より増えていたら
+        if (World_Stage_Nm.GET_STAGE_NUM(now_world) <= now_stage)//ワールドのステージ数より増えていたら
         {
             now_stage = 0;//ステージを0にする
             now_world++;//ワールドを次に進める
         }
+
+        DontDestroyManager.IndexUpdate();//インデックスの更新
 
         Debug.Log("今のステージ " + now_stage + "\n今のワールド " + now_world);
 

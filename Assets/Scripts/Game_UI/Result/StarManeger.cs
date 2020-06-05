@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class StarManeger : MonoBehaviour
 {
+    [SerializeField] ExposePheseCount exphese;//変化回数貰う
+
     public GameObject[] gameobject_star;
-    private Image[] image_star;
     private Animator[] anime_star;
     
 
@@ -20,8 +21,8 @@ public class StarManeger : MonoBehaviour
     private const int FALSE = 1;//星を暗くする
     private int[] star_flag;//星の状態
 
-
-    private int[][] star_id;//星を明るくする条件のID
+    //星フラグ
+    private int[] Phese_num;//ステージごとの変化回数の評価数記録するやつ
 
     //フラグ
     //0 = 何も起きない
@@ -30,12 +31,6 @@ public class StarManeger : MonoBehaviour
     //3 = 星2アニメーション
     //4 = 星3アニメーション
     private int flag = 0;//最初の一回だけフラグ
-
-    //フラグ
-    //0 = 何もしない
-    //1 = 小さくする
-    //2 = 大きくする
-    private int anime_flag;//アニメーションフラグ
     
 
     // Start is called before the first frame update
@@ -44,11 +39,9 @@ public class StarManeger : MonoBehaviour
         //=============================================================================
         //星アニメーションとイメージの準備
         //=============================================================================
-        image_star = new Image[gameobject_star.Length];
         anime_star = new Animator[gameobject_star.Length];
         for (int i = 0; i < gameobject_star.Length; i++)
         {
-            image_star[i] = gameobject_star[i].GetComponent<Image>();//イメージ
             anime_star[i] = gameobject_star[i].GetComponent<Animator>();//アニメーション
         }
 
@@ -62,26 +55,25 @@ public class StarManeger : MonoBehaviour
 
         for (int i = 0; i < star_flag.Length; i++)//とりあえずFALSE
         {
-            star_flag[i] = FALSE;
+            star_flag[i] = -1;
         }
 
+        //星ID生成
+        int stage_num = 0;
+        for (int i = 0; i < World_Stage_Nm.GET_WORLD_NUM(); i++)
+        {
+            stage_num += World_Stage_Nm.GET_STAGE_NUM(i);
+        }
+
+        Phese_num = new int[stage_num];
 
         //=============================================================================
         //ステージ分星の設定生成するやつ
         //=============================================================================
-        int stage_num = 0;
-        for (int i = 0; i < World_Stage_Nm.GET_WORLD_NUM(); i++)//ワールド分回す
-        {
-            stage_num += World_Stage_Nm.GET_STAGE_NUM(i);//ステージ数をカウントする
-        }
-
-        star_id = new int[stage_num][];//ステージ数分生成
-        for (int i = 0; i < star_id.Length; i++)
-        {
-            star_id[i] = new int[gameobject_star.Length];//星の数分生成
-        }
 
         Star_ID_Set();//星の情報をセット
+
+        Star_AnimeStart();
     }
 
     //======================================================
@@ -89,13 +81,13 @@ public class StarManeger : MonoBehaviour
     //======================================================
     private void Star_ID_Set()
     {
-        //とりあえず
-        for (int i = 0; i < star_id.Length; i++)
+
+        for (int i = 0; i < Phese_num.Length; i++)
         {
-            star_id[i][0] = 0;
-            star_id[i][1] = 1;
-            star_id[i][2] = 2;
+            Phese_num[i] = 5;
         }
+
+        text_star[1].text = "変化回数　" + Phese_num[StageController.Get_stage()] + "回";
     }
 
     // Update is called once per frame
@@ -125,53 +117,66 @@ public class StarManeger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Start_Star_Anime();
+            Star_AnimeStart();
             
         }
 
-        if (flag == 1)//星準備
+        
+
+        if (flag == 1)//星1アニメーション中
         {
-            if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("End"))//状態確認
+            if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[0] == FALSE)//状態確認
             {
-                anime_star[1].SetTrigger("Anime");
+                
+                if (Phese_num[StageController.Get_stage()] <= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
+                {
+                    anime_star[1].SetTrigger("Anime");
+                    star_flag[1] = TRUE;
+                }
+                else
+                {
+                    star_flag[1] = FALSE;
+                }
                 flag = 2;
             }
         }
 
-        if (flag == 2)//星1アニメーション
+        if (flag == 2)//星2アニメーション中
         {
-            if (anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("End"))//状態確認
+            if (anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[1] == FALSE)//状態確認
             {
                 anime_star[2].SetTrigger("Anime");
+                star_flag[2] = TRUE;
                 flag = 3;
             }
         }
 
 
-        if (flag == 3)//星2アニメーション
+        if (flag == 3)//星3アニメーション中
         {
-            if (anime_star[2].GetCurrentAnimatorStateInfo(0).IsName("End"))//状態確認
+            if (anime_star[2].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[2] == FALSE)//状態確認
             {
-                anime_star[3].SetTrigger("Anime");
+                
                 flag = 4;
-            }
-        }
-
-
-        if (flag == 4)//星3アニメーション
-        {
-            if (anime_star[3].GetCurrentAnimatorStateInfo(0).IsName("End"))//状態確認
-            {
-                flag = 0;
             }
         }
 
     }
 
-    public void Start_Star_Anime()
+
+    //星のアニメーションを再生する
+    public void Star_AnimeStart()
     {
+
         anime_star[0].SetTrigger("Anime");
+        star_flag[0] = TRUE;
         flag = 1;
+    }
+
+    //星の情報を設定
+    private void Star_set()
+    {
+
     }
 
 
@@ -200,13 +205,5 @@ public class StarManeger : MonoBehaviour
                 star_flag[star_number] = TRUE;
                 break;
         }
-    }
-
-    //======================================================
-    //星のアニメーションを始める
-    //======================================================
-    public void Star_AnimeStart()
-    {
-
     }
 }
