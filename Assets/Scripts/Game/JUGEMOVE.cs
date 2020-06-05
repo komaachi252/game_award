@@ -105,6 +105,11 @@ public class JUGEMOVE : MonoBehaviour
         return transform.position.x;
     }
 
+    public float GET_JUGEPOS_y()
+    {
+        return transform.position.y;
+    }
+
     /*void OnDrawGizmos()
     {
         Vector3 POS = transform.position;

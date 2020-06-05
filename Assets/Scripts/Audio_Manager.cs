@@ -59,7 +59,7 @@ public class Audio_Manager : MonoBehaviour
             return;
         }
         s.source.Stop();
-
+        Debug.Log(name + "は停止中");
     }
 
     public void Set_Volume(bool bgm, float volume)

@@ -54,6 +54,7 @@ public class PLAYER : MonoBehaviour
     public int FADEFLAg = 0;        //フェードフラグ
     public int FADECONT = 0;        //フェードアウトカウント
     public int Leaf_HIT = 0;        //葉っぱ接触フラグ
+    public int SPONGE_HIT = 0;      //スポンジ接触フラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -153,13 +154,13 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
@@ -632,7 +633,8 @@ public class PLAYER : MonoBehaviour
             if (stay_GAP_U == 1)
             {
                 capcollider.enabled = false;
-                TARGETV = transform.position.y - 2.1f;
+                //TARGETV = transform.position.y - 2.1f;
+                TARGETV = JUGEMOVE.GET_JUGEPOS_y() - 2.1f;
                 GAPMOVE_U = 1;
                 MOVE_V = -1;
                 STAND = 0;
@@ -643,7 +645,8 @@ public class PLAYER : MonoBehaviour
             if (stay_GAP_T == 1)
             {
                 capcollider.enabled = false;
-                TARGETV = transform.position.y + 2.1f;
+                //TARGETV = transform.position.y + 2.1f;
+                TARGETV = JUGEMOVE.GET_JUGEPOS_y() + 2.1f;
                 GAPMOVE_T = 1;
                 STAND = 0;
                 STAND_T = 0;
@@ -816,6 +819,11 @@ public class PLAYER : MonoBehaviour
         if (MUTEKI > 0)
         {
             MUTEKI--;
+        }
+
+        if(SPONGE_HIT > 0)
+        {
+            SPONGE_HIT--;
         }
 
         if (posy != B_posy)
@@ -1130,6 +1138,11 @@ public class PLAYER : MonoBehaviour
         {
             GAMEOVER = 1;
             Game_Fade.Fade_Start(90, true, "GameScene");
+        }
+
+        if(TYPE == 0)
+        {
+            SPONGE_HIT = 50;
         }
     }
 
