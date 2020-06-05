@@ -8,6 +8,7 @@ public class NoiseController : MonoBehaviour
     public GameObject []gameObject;
     public float amount;
     private GameObject now,set;
+    Canvas canvas;
 
     IEnumerator GeneratePulseNoise()
     {
@@ -23,6 +24,7 @@ public class NoiseController : MonoBehaviour
         set = gameObject[1];
         now = gameObject[2];
         StartCoroutine(GeneratePulseNoise());
+        canvas = GetComponent<Canvas>();
     }
 
     public void ChangeIcon(bool waterIce = false)
@@ -46,5 +48,17 @@ public class NoiseController : MonoBehaviour
         }
         now.GetComponent<Image>().gameObject.SetActive(true);
         StartCoroutine(GeneratePulseNoise());
+    }
+
+    public void CHANGE_CANVAS()
+    {
+        if(canvas.enabled == true)
+        {
+            canvas.enabled = false;
+        }
+        else
+        {
+            canvas.enabled = true;
+        }
     }
 }

@@ -44,7 +44,8 @@ public class PLAYER : MonoBehaviour
     public int GAPMOVE_U = 0;       //GAP通過フラグ下
     public int GAPMOVE_T = 0;       //GAP通過フラグ上
     public float TARGETV = 0;       //
-    public float DOWNPOS = 0;       //水滴落下準備位置
+    public float DOWNPOS_L = 0;     //水滴落下準備位置
+    public float DOWNPOS_R = 0;     //水滴落下準備位置
     public int FLOATflag = 0;       //水上移動フラグ
     public int MUTEKI = 0;          //無敵フラグ
     public int VIEWflag = -1;       //見渡しフラグ
@@ -74,7 +75,8 @@ public class PLAYER : MonoBehaviour
     public int stay_WALL_L = 0; //壁（移動不能マス）接触フラグ左
     public int stay_WATER = 0;  //水接触フラグ
     public int stay_THORN_BLOCK = 0;    //トゲブロック接触フラグ
-    public int stay_FIRE = 0;     //炎隣接フラグ
+    public int stay_FIRE = 0;     //炎接触フラグ
+    public int stay_DRAIN = 0;    //ドレイン接触フラグ  
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -102,12 +104,41 @@ public class PLAYER : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //int ARROW = 0;
+        
+        float x_axis = Input.GetAxis("Horizontal2");//右マイナス　左プラス
+        float x_axis_R = Input.GetAxis("Rstick_H"); //右マイナス　左プラス
+        float y_axis_R = Input.GetAxis("Rstick_V"); //上プラス　下マイナス
+
+        //Debug.Log("右スティック左右" + x_axis_R);
+        //Debug.Log("右スティック上下" + y_axis_R);
+        //Debug.Log(x_axis);
+        int ARROW = 0;
+
+        if(x_axis < 0)
+        {
+            ARROW = 1;
+        }
+
+        if(x_axis > 0)
+        {
+            ARROW = 2;
+        }
+
+        if((x_axis_R != 0 ||y_axis_R != 0) && VIEWflag == -1)
+        {
+            VIEWflag = 1;
+        }
+
+        x_axis = Mathf.Abs(x_axis);
+        
+
         if (VIEWBACK > 0)
         {
             VIEWBACK--;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && MOVE_NOW == 0 && exchangecount == 0 && VIEWflag == -1)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0")) && MOVE_NOW == 0 && exchangecount == 0 && VIEWflag == -1)
         {
             Debug.Log("入力");
             if (stay_HOT == 1)
@@ -154,17 +185,19 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく右キーが押されたら
+        if ((Input.GetKey(KeyCode.D) || ARROW == 1) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく左キーが押されたら
+        if ((Input.GetKey(KeyCode.A) || ARROW == 2) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
         }
+
+        //見渡し関係
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -175,11 +208,27 @@ public class PLAYER : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown("joystick button 0") && VIEWflag == 1)
+        {
+            VIEWflag = -1;
+            VIEWBACK = 30;
+
+        }
+
         if (MOVE_NOW > 0)
         {
             MOVE_NOW--;
+            Vector3 FORCE;
 
-            Vector3 FORCE = new Vector3(20.0f * MOVE_D, 1.0f * MOVE_V, 0.0f);
+            if (ARROW == 0)
+            {
+                FORCE = new Vector3(20.0f * MOVE_D, 1.0f * MOVE_V, 0.0f);
+            }
+            else
+            {
+                FORCE = new Vector3(20.0f * MOVE_D * x_axis, 1.0f * MOVE_V, 0.0f);
+            }
+
             if (rb.velocity.magnitude < 3.0f)
             {
                 rb.AddForce(FORCE);
@@ -203,7 +252,7 @@ public class PLAYER : MonoBehaviour
 
         if (stay_WALL_R == 1 && TYPE == 1 && MOVE_V == -1)
         {
-            if (transform.position.x > DOWNPOS)
+            if (transform.position.x > DOWNPOS_R)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -227,7 +276,7 @@ public class PLAYER : MonoBehaviour
 
         if (stay_WALL_L == 1 && TYPE == 1 && MOVE_V == -1)
         {
-            if (transform.position.x < DOWNPOS)
+            if (transform.position.x < DOWNPOS_L)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -770,6 +819,12 @@ public class PLAYER : MonoBehaviour
                 SOLID.exchange_s();
                 AQUA.exchange_b();
             }
+
+            if (stay_DRAIN == 1)
+            {
+                GAMEOVER = 1;
+                Game_Fade.Fade_Start(90, true, "GameScene");
+            }
         }
 
         if (GAPMOVE_U == 1)
@@ -821,7 +876,7 @@ public class PLAYER : MonoBehaviour
             MUTEKI--;
         }
 
-        if(SPONGE_HIT > 0)
+        if (SPONGE_HIT > 0)
         {
             SPONGE_HIT--;
         }
@@ -1009,7 +1064,7 @@ public class PLAYER : MonoBehaviour
     public void SET_stay_WALL_R()
     {
         stay_WALL_R = 1;
-        DOWNPOS = JUGEMOVE.GET_JUGEPOS();
+        DOWNPOS_R = JUGEMOVE.GET_JUGEPOS() + 0.1f;
     }
 
     public void CLEAR_stay_WALL_R()
@@ -1020,7 +1075,7 @@ public class PLAYER : MonoBehaviour
     public void SET_stay_WALL_L()
     {
         stay_WALL_L = 1;
-        DOWNPOS = JUGEMOVE.GET_JUGEPOS();
+        DOWNPOS_L = JUGEMOVE.GET_JUGEPOS() - 0.1f;
     }
 
     public void CLEAR_stay_WALL_L()
@@ -1111,6 +1166,26 @@ public class PLAYER : MonoBehaviour
         }
     }
 
+    public void DRAIN()
+    {
+        if (TYPE == 1)
+        {
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            AUTOMOVEflag2 = 1;
+            stay_DRAIN = 1;
+        }
+    }
+
     public void THORN(bool pop, float block_y)
     {
         //トゲが出ていないで液体か気体なら
@@ -1140,7 +1215,7 @@ public class PLAYER : MonoBehaviour
             Game_Fade.Fade_Start(90, true, "GameScene");
         }
 
-        if(TYPE == 0)
+        if (TYPE == 0)
         {
             SPONGE_HIT = 50;
         }
@@ -1191,6 +1266,7 @@ public class PLAYER : MonoBehaviour
                 STAND_U = 0;
             }
 
+            /*
             if (other.gameObject.CompareTag("DRAIN") && GAMEOVER == 0)
             {
                 if (TYPE == 1)
@@ -1199,6 +1275,7 @@ public class PLAYER : MonoBehaviour
                     Game_Fade.Fade_Start(90, true, "GameScene");
                 }
             }
+            */
         }
 
         if (other.gameObject.CompareTag("LEAF"))

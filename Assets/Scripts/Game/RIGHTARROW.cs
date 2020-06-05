@@ -50,4 +50,10 @@ public class RIGHTARROW : MonoBehaviour
             count = 0;
         }
     }
+
+    public void CHANGE_FLAG()
+    {
+        FLAG *= -1;
+        count = 0;
+    }
 }

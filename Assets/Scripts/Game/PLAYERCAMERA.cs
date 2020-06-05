@@ -5,6 +5,12 @@ using UnityEngine;
 public class PLAYERCAMERA : MonoBehaviour
 {
     public MapLoader MapLoader;
+    public LEFTARROW LEFTARROW;
+    public RIGHTARROW RIGHTARROW;
+    public UPARROW UPARROW;
+    public DOWNARROW DOWNARROW;
+    public EYE EYE;
+    public NoiseController NoiseController;
     PLAYER PLAYER;
     GameObject player;
     Vector3 pos;
@@ -29,17 +35,72 @@ public class PLAYERCAMERA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float x_axis_R = Input.GetAxis("Rstick_H"); //右マイナス　左プラス
+        float y_axis_R = Input.GetAxis("Rstick_V"); //上プラス　下マイナス
+
         if (count > 0)
         {
             count--;
-            if (count == 0)
+            if (count == 1)
             {
                 player = GameObject.Find("PLAYER_MASTER");
                 PLAYER = player.GetComponent<PLAYER>();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0)
+        //見渡し状態でなくRスティックがいじられたら
+        if ((x_axis_R != 0 || y_axis_R != 0) && MODE_L == -1 && BACKcount == 0 && count == 0)
+        {
+            MODE_L = 1;
+
+            LEFTARROW.CHANGE_FLAG();
+            RIGHTARROW.CHANGE_FLAG();
+            UPARROW.CHANGE_FLAG();
+            DOWNARROW.CHANGE_FLAG();
+            EYE.CHANGE_FLAG();
+            NoiseController.CHANGE_CANVAS();
+        }
+
+        //見渡し中にアクションボタンが押されたら
+        if(Input.GetKeyDown("joystick button 0") && MODE_L== 1 && BACKcount == 0)
+        {
+            MODE_L = -1;
+            BACKcount = 30;
+            Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
+            TARGETPOS.y += 1.1f + offset_y;
+
+            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+            {
+                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+            }
+
+            if (TARGETPOS.x < 4.6f)
+            {
+                TARGETPOS.x = 4.6f;
+            }
+
+            if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
+            {
+                TARGETPOS.y = MapLoader.Get_Map_Height() - 3.1f;
+            }
+
+            if (TARGETPOS.y < 2.1f)
+            {
+                TARGETPOS.y = 2.1f;
+            }
+
+            BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
+            BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
+
+            LEFTARROW.CHANGE_FLAG();
+            RIGHTARROW.CHANGE_FLAG();
+            UPARROW.CHANGE_FLAG();
+            DOWNARROW.CHANGE_FLAG();
+            EYE.CHANGE_FLAG();
+            NoiseController.CHANGE_CANVAS();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0 && count == 0)
         {
             MODE_L *= -1;
 
@@ -72,6 +133,8 @@ public class PLAYERCAMERA : MonoBehaviour
                 BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
                 BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
             }
+
+            NoiseController.CHANGE_CANVAS();
         }
 
 
@@ -211,29 +274,28 @@ public class PLAYERCAMERA : MonoBehaviour
                     offset_z = -5;
                 }
             }
-
         }
 
         if (count == 0 && MODE_L == 1)
         {
             pos = transform.position;
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) || x_axis_R > 0)
             {
                 pos.x -= 0.1f;
             }
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || x_axis_R < 0)
             {
                 pos.x += 0.1f;
             }
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) || y_axis_R > 0)
             {
                 pos.y += 0.1f;
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S) || y_axis_R < 0)
             {
                 pos.y -= 0.1f;
             }

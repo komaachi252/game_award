@@ -30,4 +30,9 @@ public class EYE : MonoBehaviour
             FLAG *= -1;
         }
     }
+
+    public void CHANGE_FLAG()
+    {
+        FLAG *= -1;
+    }
 }

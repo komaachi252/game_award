@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -593,7 +593,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3.8659668e+30, y: 0, z: 0, w: 9.914581}
+  m_BoundingSphereOverride: {x: 6.82e-43, y: 6.772358, z: 6.82e-43, w: 0.00021493876}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -893,6 +893,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapLoader: {fileID: 376517047}
+  LEFTARROW: {fileID: 565253566}
+  RIGHTARROW: {fileID: 1341514361}
+  UPARROW: {fileID: 1325886212}
+  DOWNARROW: {fileID: 862194301}
+  EYE: {fileID: 442952121}
+  NoiseController: {fileID: 1029647423}
   MILLFIND: 0
   offset_x: 0
   offset_y: 0
@@ -1118,6 +1124,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dc048d232d0f484684d0c14c6567f82, type: 3}
+--- !u!114 &1029647423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6730698063134973, guid: 0dc048d232d0f484684d0c14c6567f82,
+    type: 3}
+  m_PrefabInstance: {fileID: 1029647422}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 842c720856bcf9d43a95e3926508ceca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1038203289
 GameObject:
   m_ObjectHideFlags: 0
