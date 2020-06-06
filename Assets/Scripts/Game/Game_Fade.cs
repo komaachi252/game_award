@@ -15,6 +15,7 @@ public class Game_Fade : MonoBehaviour
     int m_frame_cnt = 0;  // 現在のフレーム
     int m_fade_frame = 0; // フェードフレーム
     string m_next_scene; //  次のシーン名
+    string m_addition_scene;//　次の加算シーン名
     
     void Awake()
     {
@@ -47,6 +48,7 @@ public class Game_Fade : MonoBehaviour
             if (m_is_fade_out)
             {
                 SceneManager.LoadScene(m_next_scene);
+                SceneManager.LoadScene(m_addition_scene, LoadSceneMode.Additive);
             }
         }
         if (m_is_fade_out)
@@ -61,7 +63,7 @@ public class Game_Fade : MonoBehaviour
         this.gameObject.GetComponent<Image>().color = color;
     }
 
-    public void Fade_Start(int fade_frame = 20, bool fade_out = false, string next_scene = "NONE")
+    public void Fade_Start(int fade_frame = 20, bool fade_out = false, string next_scene = "NONE",string addition_scene = "NONE")
     {
         if (m_is_fade) return;
 
@@ -70,6 +72,7 @@ public class Game_Fade : MonoBehaviour
         m_is_fade_out = fade_out;
         m_fade_frame = fade_frame;
         m_next_scene = next_scene;
+        m_addition_scene = addition_scene;
         m_frame_cnt = 0;
     }
 }

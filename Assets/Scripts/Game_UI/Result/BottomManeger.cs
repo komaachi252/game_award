@@ -131,24 +131,20 @@ public class BottomManeger : MonoBehaviour
     {
         if (SELECT == now_bottom)
         {
-            fade.Fade_Start(20, true);
-            SceneManager.LoadScene("WorldScene");
+            fade.Fade_Start(20, true, "WorldScene");
+            
         }
 
         if (RETURN == now_bottom)
         {
-            fade.Fade_Start(20, true);
-            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
-            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
+            fade.Fade_Start(20, true, "GameScene", "PauseScene");
         }
 
         if (NEXT == now_bottom)
         {
             StageController.Set_nextstage();
 
-            fade.Fade_Start(20, true);
-            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
-            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
+            fade.Fade_Start(20, true, "GameScene", "PauseScene");
         }
     }
 
