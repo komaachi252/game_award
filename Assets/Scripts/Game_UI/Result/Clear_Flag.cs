@@ -32,11 +32,9 @@ public class Clear_Flag : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Result.SetActive(false);
 
-        //star = Result.GetComponent<StarManeger>();//星制御するやつ
-
-
+        
+        SceneManager.UnloadSceneAsync("ResultScene");//リザルトシーン削除
     }
 
     // Update is called once per frame
