@@ -61,9 +61,10 @@ public class Feed : MonoBehaviour
         if (feed_mode == 0)//フェードイン
         {
             flag = 1;
-            alfa = 255;
+            alfa = 1.0f;
         }
-        else if (feed_mode == 1)//フェードアウト
+
+        if (feed_mode == 1)//フェードアウト
         {
             flag = 2;//フラグをセット
             alfa = 0;

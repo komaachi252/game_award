@@ -60,6 +60,8 @@ public class StageController : MonoBehaviour
         select_flag = 0;//ワールド選択から始める
 
         script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
+
+        script_feed.Start_Feed(0, 250.0f);//フェード開始
     }
 
     // Update is called once per frame
