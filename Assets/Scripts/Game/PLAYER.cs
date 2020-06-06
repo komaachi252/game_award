@@ -804,7 +804,16 @@ public class PLAYER : MonoBehaviour
             if (stay_THORN_BLOCK == 1)
             {
                 GAMEOVER = 1;
-                Game_Fade.Fade_Start(90, true, "GameScene");
+                GAMEOVER_ACT = 90;
+                if (TYPE == 1)
+                {
+                    AQUA_MOTION.MOTION_RYU();
+                }
+
+                if(TYPE == 2)
+                {
+
+                }
             }
 
             if (stay_FIRE == 1)
@@ -824,7 +833,6 @@ public class PLAYER : MonoBehaviour
                 GAMEOVER = 1;
                 GAMEOVER_ACT = 90;
                 AQUA_MOTION.MOTION_RYU();
-                //Game_Fade.Fade_Start(90, true, "GameScene");
             }
         }
 
@@ -1350,7 +1358,9 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 0)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    tag = "Untagged";
+                    //Game_Fade.Fade_Start(90, true, "GameScene");
                 }
             }
 
