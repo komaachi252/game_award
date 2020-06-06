@@ -22,7 +22,7 @@ public class Title_Select_Bar : MonoBehaviour
     Vector3 m_current_scale;  //  現在のスケール
     Vector3 m_target_scale = new Vector3(1.2f, 1.2f, 1.0f);  //  目標スケール
     Vector3 m_init_scale;  //  初期スケール
-    void Start()
+    void Awake()
     {
         m_init_scale = this.gameObject.transform.localScale;
         m_is_selected = false;

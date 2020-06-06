@@ -32,7 +32,7 @@ public class Effect_Manager : MonoBehaviour
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
         var pos_right = this.transform.position;
         pos_right.x += 4.5f;
