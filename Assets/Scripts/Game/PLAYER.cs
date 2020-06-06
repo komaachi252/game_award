@@ -81,7 +81,8 @@ public class PLAYER : MonoBehaviour
     public int stay_WATER = 0;  //水接触フラグ
     public int stay_THORN_BLOCK = 0;    //トゲブロック接触フラグ
     public int stay_FIRE = 0;     //炎接触フラグ
-    public int stay_DRAIN = 0;    //ドレイン接触フラグ  
+    public int stay_DRAIN = 0;    //ドレイン接触フラグ
+    public int stay_LIFTZOON = 0;   //リフトゾーン侵入フラグ
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -443,7 +444,7 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-            if (MOVE_D == 1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
+            if (MOVE_D == 1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1 && stay_LIFTZOON == 0)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
             {
                 if (transform.position.x > VMOVEPOS && AUTOMOVEflag3 == 0)
                 {
@@ -468,7 +469,7 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-            if (MOVE_D == -1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
+            if (MOVE_D == -1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1 && stay_LIFTZOON == 0)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
             {
                 if (transform.position.x < VMOVEPOS && AUTOMOVEflag3 == 0)
                 {
@@ -1377,11 +1378,24 @@ public class PLAYER : MonoBehaviour
         }
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("LIFTZOON"))
+        {
+            stay_LIFTZOON = 1;
+        }
+    }
+
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("WATERMILL"))
         {
             PLAYERCAMERA.CLAREMILLFIND();
+        }
+
+        if (other.gameObject.CompareTag("LIFTZOON"))
+        {
+            stay_LIFTZOON = 0;
         }
     }
 
