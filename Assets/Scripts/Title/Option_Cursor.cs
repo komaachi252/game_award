@@ -11,13 +11,7 @@ public class Option_Cursor : MonoBehaviour
     bool m_is_init_pos_y;
     void Start()
     {
-        m_current_index = 0;
-        //  初期Ｙ座標を保持しておく
-        m_is_pos_set = false;
-        foreach (var bar in m_select_bars)
-        {
-            bar.GetComponent<Title_Select_Bar>().Set_Index(m_current_index);
-        }
+        
     }
 
     // Update is called once per frame
@@ -25,7 +19,16 @@ public class Option_Cursor : MonoBehaviour
     {
         //  一度だけ呼び、Y座標を取得する
         if(!m_is_init_pos_y && this.gameObject.transform.parent.gameObject.transform.localScale.x == 1.0f)
-        { 
+        {
+
+            m_current_index = 0;
+            //  初期Ｙ座標を保持しておく
+            m_is_pos_set = false;
+            foreach (var bar in m_select_bars)
+            {
+                bar.GetComponent<Title_Select_Bar>().Set_Index(m_current_index);
+            }
+
             m_pos_y = this.gameObject.transform.position.y;
             m_is_init_pos_y = true;
         }

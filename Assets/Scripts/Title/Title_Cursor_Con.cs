@@ -7,7 +7,8 @@ public class Title_Cursor_Con : MonoBehaviour
 {
     //  現在の選択インデックス
     int m_current_cursor_idx = 0;
-    float m_pos_y;
+    float m_init_pos_y;
+    float m_init_pos_x;
     public GameObject m_fade;
     bool m_is_play = false;
     public GameObject[] m_select_bars;
@@ -27,7 +28,8 @@ public class Title_Cursor_Con : MonoBehaviour
         //  NewGameから、セーブデータがあれば1からでもよい
         m_current_cursor_idx = 0;
         //  初期Ｙ座標を保持しておく
-        m_pos_y = this.transform.position.y;
+        m_init_pos_y = this.transform.position.y;
+        m_init_pos_x = this.transform.position.x;
         m_fade.GetComponent<Game_Fade>().Fade_Start();
         m_is_wait = false;
         foreach(var bar in m_select_bars)
@@ -56,22 +58,38 @@ public class Title_Cursor_Con : MonoBehaviour
         var idx = m_current_cursor_idx;
         if (Input.GetKeyDown(KeyCode.W))
         {
-            idx--;
-            if (idx < 0)
+            if(idx - 2 >= 0)
             {
-                idx = 3;
+                FindObjectOfType<Audio_Manager>().Play("select");
+                idx -= 2;
             }
-            FindObjectOfType<Audio_Manager>().Play("select");
+            
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            idx++;
-            if (idx > 3)
+            if (idx + 2 < 4)
             {
-                idx = 0;
+                FindObjectOfType<Audio_Manager>().Play("select");
+                idx += 2;
             }
-            FindObjectOfType<Audio_Manager>().Play("select");
         }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (idx - 1 >= 0)
+            {
+                idx--;
+                FindObjectOfType<Audio_Manager>().Play("select");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (idx + 1 < 4)
+            {
+                idx++;
+                FindObjectOfType<Audio_Manager>().Play("select");
+            }
+        }
+
         if(Input.GetKeyDown(KeyCode.Return) && idx == 0)  //  NEWGAME
         {
             FindObjectOfType<Audio_Manager>().Play("enter");
@@ -109,8 +127,8 @@ public class Title_Cursor_Con : MonoBehaviour
         }
         //  インデックスに応じてＹ座標を移動
         m_current_cursor_idx = new_cursor_idx;
-        Debug.Log(m_pos_y + m_current_cursor_idx * -20.0f);
-        this.transform.position = new Vector3(this.transform.position.x,  m_pos_y + m_current_cursor_idx * -20.0f, this.transform.position.z);
+
+        this.transform.position = new Vector3(m_init_pos_x + 97.0f * (new_cursor_idx % 2),  m_init_pos_y - 20.0f * (new_cursor_idx / 2), this.transform.position.z);
     }
 
 

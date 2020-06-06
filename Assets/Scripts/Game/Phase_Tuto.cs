@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phase : MonoBehaviour
+public class Phase_Tuto : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject m_effect;
-
+    
     public bool m_is_hot;
     public string m_tag_name = "P";
     bool m_is_stay = false;
     //public GameObject instance;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,13 +23,6 @@ public class Phase : MonoBehaviour
         }
     }
 
-    void Create_Effect()
-    {
-        var pos = this.transform.position;
-        pos.z -= 0.5f;
-        Instantiate(m_effect, pos, Quaternion.identity);
-    }
-
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
@@ -40,7 +31,7 @@ public class Phase : MonoBehaviour
             {
                 m_is_stay = true;
                 m_tag_name = col.gameObject.tag;
-            
+
             }
         }
     }
@@ -50,15 +41,11 @@ public class Phase : MonoBehaviour
         if (!GameObject.Find("PLAYER_MASTER")) return;
         if (GameObject.Find("PLAYER_MASTER").gameObject.tag != m_tag_name)
         {
-            Create_Effect();
-            if (m_is_hot)
+            if (this.gameObject.GetComponentInChildren<UI_Tuto>())
             {
-                FindObjectOfType<Audio_Manager>().Play("heat1");
+                this.gameObject.GetComponentInChildren<UI_Tuto>().Destroy();
             }
-            else
-            {
-                FindObjectOfType<Audio_Manager>().Play("frozen");
-            }
+
             m_tag_name = GameObject.Find("PLAYER_MASTER").gameObject.tag;
             Debug.Log(m_tag_name + "がでる");
             //m_is_stay = false;
