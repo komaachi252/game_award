@@ -13,6 +13,7 @@ public class PLAYER : MonoBehaviour
     GameObject FADE;
     public SOLID SOLID;
     public AQUA AQUA;
+    public AQUA_MOTION AQUA_MOTION;
     public CLOUD CLOUD;
     public JUGEMOVE JUGEMOVE;
     public HIT_U HIT_U;
@@ -51,6 +52,7 @@ public class PLAYER : MonoBehaviour
     public int VIEWflag = -1;       //見渡しフラグ
     public int VIEWBACK = 0;        //見渡し復元カウント
     public int GAMEOVER = 0;        //ゲームオーバー判定フラグ
+    public int GAMEOVER_ACT = 0;    //ゲームオーバーアクションカウント
     public int GOAL = 0;            //ゴールフラグ
     public int FADEFLAg = 0;        //フェードフラグ
     public int FADECONT = 0;        //フェードアウトカウント
@@ -110,9 +112,6 @@ public class PLAYER : MonoBehaviour
         float x_axis_R = Input.GetAxis("Rstick_H"); //右マイナス　左プラス
         float y_axis_R = Input.GetAxis("Rstick_V"); //上プラス　下マイナス
 
-        //Debug.Log("右スティック左右" + x_axis_R);
-        //Debug.Log("右スティック上下" + y_axis_R);
-        //Debug.Log(x_axis);
         int ARROW = 0;
 
         if (x_axis < 0)
@@ -823,7 +822,9 @@ public class PLAYER : MonoBehaviour
             if (stay_DRAIN == 1)
             {
                 GAMEOVER = 1;
-                Game_Fade.Fade_Start(90, true, "GameScene");
+                GAMEOVER_ACT = 90;
+                AQUA_MOTION.MOTION_RYU();
+                //Game_Fade.Fade_Start(90, true, "GameScene");
             }
         }
 
@@ -886,6 +887,15 @@ public class PLAYER : MonoBehaviour
             VMOVEflag = 0;
             JUGEMOVE.SETposy(posy);
             VMOVEflag = JUGEMOVE.root(MOVE_D, MOVE_V);
+        }
+
+        if (GAMEOVER_ACT > 0)
+        {
+            GAMEOVER_ACT--;
+            if (GAMEOVER_ACT == 0)
+            {
+                Game_Fade.Fade_Start(90, true, "GameScene");
+            }
         }
 
         /*

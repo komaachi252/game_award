@@ -87,6 +87,11 @@ public class HIT_U : MonoBehaviour
         {
             PLAYER.FIRE();
         }
+
+        if (other.gameObject.CompareTag("DRAIN"))
+        {
+            PLAYER.DRAIN();
+        }
     }
 
     void OnTriggerExit(Collider other)              //他のオブジェクトとの接触時の処理
