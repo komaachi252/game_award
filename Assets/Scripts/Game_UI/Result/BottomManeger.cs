@@ -77,12 +77,12 @@ public class BottomManeger : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Return))
         {
             Dicision2();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Return))
         {
             Dicision();
         }
@@ -137,6 +137,7 @@ public class BottomManeger : MonoBehaviour
         if (RETURN == now_bottom)
         {
             fade.Fade_Start(20, true, "GameScene");
+            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
 
         if (NEXT == now_bottom)
@@ -144,6 +145,7 @@ public class BottomManeger : MonoBehaviour
             StageController.Set_nextstage();
 
             fade.Fade_Start(20, true, "GameScene");
+            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
     }
 
