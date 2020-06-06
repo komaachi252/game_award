@@ -131,12 +131,14 @@ public class BottomManeger : MonoBehaviour
     {
         if (SELECT == now_bottom)
         {
-            fade.Fade_Start(20, true, "WorldScene");
+            fade.Fade_Start(20, true);
+            SceneManager.LoadScene("WorldScene");
         }
 
         if (RETURN == now_bottom)
         {
-            fade.Fade_Start(20, true, "GameScene");
+            fade.Fade_Start(20, true);
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
             SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
 
@@ -144,7 +146,8 @@ public class BottomManeger : MonoBehaviour
         {
             StageController.Set_nextstage();
 
-            fade.Fade_Start(20, true, "GameScene");
+            fade.Fade_Start(20, true);
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
             SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
     }

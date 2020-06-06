@@ -20,7 +20,7 @@ public class Clear_Flag : MonoBehaviour
     //=============================================================
     //レンダラーモード変更するやつ
     //=============================================================
-    private const float CAMERA_RANGE = 50.0f;
+    private const float CAMERA_RANGE = 2.0f;
     public Camera Main_Camera;//メインカメラ
     public Canvas Game_Canvas;//ゲームで使ってるキャンバス
 
