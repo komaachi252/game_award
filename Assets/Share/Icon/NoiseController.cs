@@ -61,4 +61,10 @@ public class NoiseController : MonoBehaviour
             canvas.enabled = true;
         }
     }
+
+    //今の状態を取得
+    public GameObject Get_NowMode
+    {
+        get { return now; }
+    }
 }

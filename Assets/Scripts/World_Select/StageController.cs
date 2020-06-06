@@ -92,7 +92,8 @@ public class StageController : MonoBehaviour
 
         if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
 
         if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
