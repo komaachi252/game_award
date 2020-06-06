@@ -22,4 +22,9 @@ public class DontDestroyManager : MonoBehaviour
         Map_Index = StageController.Get_Index();
        // Debug.Log(Map_Index);
     }
+
+    public static void IndexUpdate()
+    {
+        Map_Index = StageController.Get_Index();
+    }
 }

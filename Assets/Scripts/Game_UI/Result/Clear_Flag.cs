@@ -26,7 +26,7 @@ public class Clear_Flag : MonoBehaviour
 
     void Awake()
     {
-        //SceneManager.UnloadScene("ResultScene");
+        //SceneManager.UnloadSceneAsync("ResultScene");
     }
 
     // Start is called before the first frame update
@@ -48,9 +48,9 @@ public class Clear_Flag : MonoBehaviour
             //Result.SetActive(true);
             flag = 2;
 
-            //Game_Canvas.renderMode = RenderMode.ScreenSpaceCamera;//カメラを変更
-            //Game_Canvas.worldCamera = Main_Camera;//設定カメラをメインカメラに変更
-            //Game_Canvas.planeDistance = CAMERA_RANGE;
+            Game_Canvas.renderMode = RenderMode.ScreenSpaceCamera;//カメラを変更
+            Game_Canvas.worldCamera = Main_Camera;//設定カメラをメインカメラに変更
+            Game_Canvas.planeDistance = CAMERA_RANGE;
 
             //Debug.Log(Game_Canvas.renderMode);
 
