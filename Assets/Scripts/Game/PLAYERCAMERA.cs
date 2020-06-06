@@ -16,6 +16,7 @@ public class PLAYERCAMERA : MonoBehaviour
     Vector3 pos;
     int count;
     int MODE_L = -1;
+    int GOAL = 0;
     int BACKcount = 0;
     float BACKMOVE_x = 0;
     float BACKMOVE_y = 0;
@@ -49,7 +50,7 @@ public class PLAYERCAMERA : MonoBehaviour
         }
 
         //見渡し状態でなくRスティックがいじられたら
-        if ((x_axis_R != 0 || y_axis_R != 0) && MODE_L == -1 && BACKcount == 0 && count == 0)
+        if ((x_axis_R != 0 || y_axis_R != 0) && MODE_L == -1 && BACKcount == 0 && count == 0 && GOAL == 0)
         {
             MODE_L = 1;
 
@@ -62,7 +63,7 @@ public class PLAYERCAMERA : MonoBehaviour
         }
 
         //見渡し中にアクションボタンが押されたら
-        if(Input.GetKeyDown("joystick button 0") && MODE_L== 1 && BACKcount == 0)
+        if (Input.GetKeyDown("joystick button 0") && MODE_L == 1 && BACKcount == 0)
         {
             MODE_L = -1;
             BACKcount = 30;
@@ -100,7 +101,7 @@ public class PLAYERCAMERA : MonoBehaviour
             NoiseController.CHANGE_CANVAS();
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0 && count == 0)
+        if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0 && count == 0 && GOAL == 0)
         {
             MODE_L *= -1;
 
@@ -382,6 +383,45 @@ public class PLAYERCAMERA : MonoBehaviour
     {
         MILLFIND = 0;
         offset_x_MAX = 0;
+    }
+
+    public void F_LOCK()
+    {
+        GOAL = 1;
+        EYE.LOCK();
+        DOWNARROW.LOCK();
+        UPARROW.LOCK();
+        RIGHTARROW.LOCK();
+        LEFTARROW.LOCK();
+
+        MODE_L = -1;
+
+        BACKcount = 30;
+        Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
+        TARGETPOS.y += 1.1f + offset_y;
+
+        if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+        {
+            TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+        }
+
+        if (TARGETPOS.x < 4.6f)
+        {
+            TARGETPOS.x = 4.6f;
+        }
+
+        if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
+        {
+            TARGETPOS.y = MapLoader.Get_Map_Height() - 3.1f;
+        }
+
+        if (TARGETPOS.y < 2.1f)
+        {
+            TARGETPOS.y = 2.1f;
+        }
+
+        BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
+        BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
     }
 }
 

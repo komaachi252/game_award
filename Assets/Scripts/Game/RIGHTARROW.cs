@@ -9,6 +9,7 @@ public class RIGHTARROW : MonoBehaviour
     public PLAYERCAMERA PLAYERCAMERA;
     int count = 0;
     int FLAG = -1;
+    int LOCK_F = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +45,7 @@ public class RIGHTARROW : MonoBehaviour
             image.enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && LOCK_F == 0)
         {
             FLAG *= -1;
             count = 0;
@@ -53,7 +54,17 @@ public class RIGHTARROW : MonoBehaviour
 
     public void CHANGE_FLAG()
     {
-        FLAG *= -1;
-        count = 0;
+        if (LOCK_F == 0)
+        {
+            FLAG *= -1;
+            count = 0;
+        }
+    }
+
+    public void LOCK()
+    {
+        LOCK_F = 1;
+        FLAG = -1;
     }
 }
+

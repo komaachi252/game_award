@@ -7,6 +7,7 @@ public class EYE : MonoBehaviour
 {
     Image image;
     int FLAG = -1;
+    int LOCK_F = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,7 @@ public class EYE : MonoBehaviour
             image.enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && LOCK_F == 0)
         {
             FLAG *= -1;
         }
@@ -33,6 +34,16 @@ public class EYE : MonoBehaviour
 
     public void CHANGE_FLAG()
     {
-        FLAG *= -1;
+        if (LOCK_F == 0)
+        {
+            FLAG *= -1;
+        }
+    }
+
+    public void LOCK()
+    {
+        LOCK_F = 1;
+        FLAG = -1;
     }
 }
+
