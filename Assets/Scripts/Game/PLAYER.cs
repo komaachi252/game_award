@@ -44,7 +44,8 @@ public class PLAYER : MonoBehaviour
     public int GAPMOVE_U = 0;       //GAP通過フラグ下
     public int GAPMOVE_T = 0;       //GAP通過フラグ上
     public float TARGETV = 0;       //
-    public float DOWNPOS = 0;       //水滴落下準備位置
+    public float DOWNPOS_L = 0;     //水滴落下準備位置
+    public float DOWNPOS_R = 0;     //水滴落下準備位置
     public int FLOATflag = 0;       //水上移動フラグ
     public int MUTEKI = 0;          //無敵フラグ
     public int VIEWflag = -1;       //見渡しフラグ
@@ -54,6 +55,7 @@ public class PLAYER : MonoBehaviour
     public int FADEFLAg = 0;        //フェードフラグ
     public int FADECONT = 0;        //フェードアウトカウント
     public int Leaf_HIT = 0;        //葉っぱ接触フラグ
+    public int SPONGE_HIT = 0;      //スポンジ接触フラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -153,13 +155,13 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく右キーが押されたら
+        if (Input.GetKey(KeyCode.D) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく右キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = 1;
         }
 
-        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0)      //移動中でなく左キーが押されたら
+        if (Input.GetKey(KeyCode.A) && MOVE_NOW == 0 && exchangecount == 0 && STAND == 1 && AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GAPMOVE_T == 0 && GAPMOVE_U == 0 && VIEWflag == -1 && VIEWBACK == 0 && GOAL == 0 && GAMEOVER == 0 && FLOATflag == 0 && SPONGE_HIT == 0)      //移動中でなく左キーが押されたら
         {
             MOVE_NOW = 1;
             MOVE_D = -1;
@@ -202,7 +204,7 @@ public class PLAYER : MonoBehaviour
 
         if (stay_WALL_R == 1 && TYPE == 1 && MOVE_V == -1)
         {
-            if (transform.position.x > DOWNPOS)
+            if (transform.position.x > DOWNPOS_R)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -226,7 +228,7 @@ public class PLAYER : MonoBehaviour
 
         if (stay_WALL_L == 1 && TYPE == 1 && MOVE_V == -1)
         {
-            if (transform.position.x < DOWNPOS)
+            if (transform.position.x < DOWNPOS_L)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -632,7 +634,8 @@ public class PLAYER : MonoBehaviour
             if (stay_GAP_U == 1)
             {
                 capcollider.enabled = false;
-                TARGETV = transform.position.y - 2.1f;
+                //TARGETV = transform.position.y - 2.1f;
+                TARGETV = JUGEMOVE.GET_JUGEPOS_y() - 2.1f;
                 GAPMOVE_U = 1;
                 MOVE_V = -1;
                 STAND = 0;
@@ -643,7 +646,8 @@ public class PLAYER : MonoBehaviour
             if (stay_GAP_T == 1)
             {
                 capcollider.enabled = false;
-                TARGETV = transform.position.y + 2.1f;
+                //TARGETV = transform.position.y + 2.1f;
+                TARGETV = JUGEMOVE.GET_JUGEPOS_y() + 2.1f;
                 GAPMOVE_T = 1;
                 STAND = 0;
                 STAND_T = 0;
@@ -816,6 +820,11 @@ public class PLAYER : MonoBehaviour
         if (MUTEKI > 0)
         {
             MUTEKI--;
+        }
+
+        if(SPONGE_HIT > 0)
+        {
+            SPONGE_HIT--;
         }
 
         if (posy != B_posy)
@@ -1001,7 +1010,7 @@ public class PLAYER : MonoBehaviour
     public void SET_stay_WALL_R()
     {
         stay_WALL_R = 1;
-        DOWNPOS = JUGEMOVE.GET_JUGEPOS();
+        DOWNPOS_R = JUGEMOVE.GET_JUGEPOS() + 0.1f;
     }
 
     public void CLEAR_stay_WALL_R()
@@ -1012,7 +1021,7 @@ public class PLAYER : MonoBehaviour
     public void SET_stay_WALL_L()
     {
         stay_WALL_L = 1;
-        DOWNPOS = JUGEMOVE.GET_JUGEPOS();
+        DOWNPOS_L = JUGEMOVE.GET_JUGEPOS() - 0.1f;
     }
 
     public void CLEAR_stay_WALL_L()
@@ -1130,6 +1139,11 @@ public class PLAYER : MonoBehaviour
         {
             GAMEOVER = 1;
             Game_Fade.Fade_Start(90, true, "GameScene");
+        }
+
+        if(TYPE == 0)
+        {
+            SPONGE_HIT = 50;
         }
     }
 

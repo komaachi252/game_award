@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3274722107161932695}
   - component: {fileID: 3274722107161932696}
-  - component: {fileID: 4798290746473311022}
+  - component: {fileID: 1903799299256373638}
   m_Layer: 0
   m_Name: liquid
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   effectAsset: {fileID: 11400000, guid: 2d1f4bd38c64fb34480a93b52cf0463b, type: 2}
   playOnStart: 1
   isLooping: 0
---- !u!114 &4798290746473311022
+--- !u!114 &1903799299256373638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,7 +57,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3274722107161932697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35dac0d7b7566df41956f9a8b997e8e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b75cd25213c2fb4b8032f019e020d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_life_frame: 18000

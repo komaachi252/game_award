@@ -23,4 +23,17 @@ public class Windmill : MonoBehaviour
        
         this.transform.Rotate(new Vector3(0, 0, -m_rotate_speed));
     }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("CLOUD") && !col.GetComponent<BoxCollider>().isTrigger)
+        {
+            FindObjectOfType<Audio_Manager>().Play("kazama_desu");
+        }
+        if (col.gameObject.CompareTag("AQUA") && !col.GetComponent<BoxCollider>().isTrigger)
+        {
+            FindObjectOfType<Audio_Manager>().Play("kazama");
+        }
+
+    }
 }

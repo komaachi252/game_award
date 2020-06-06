@@ -15,4 +15,12 @@ public class Drain : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("AQUA") && !col.gameObject.GetComponent<BoxCollider>().isTrigger)
+        {
+            FindObjectOfType<Audio_Manager>().Play("drain");
+        }
+    }
 }

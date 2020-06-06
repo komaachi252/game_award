@@ -28,7 +28,7 @@ public class Phase_UI : MonoBehaviour
         // プレイヤーのタグを監視
         if (!GameObject.Find("PLAYER_MASTER").gameObject.tag.Equals(m_player_tag))
         {
-            Debug.Log(m_player_tag);
+            //Debug.Log(m_player_tag);
 
             //  状態変化カウント
             m_phase_cnt++;

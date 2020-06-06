@@ -2530,7 +2530,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sounds.Array.data[19].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 4002e7f7bfd425344bb7799bfc2151db, type: 3}
+      objectReference: {fileID: 8300000, guid: 997411d10588d4140a786c1617e0d034, type: 3}
     - target: {fileID: 488724906435708657, guid: a0951a89999c4cb40b255df8ef65fa81,
         type: 3}
       propertyPath: sounds.Array.data[19].volume
@@ -2664,13 +2664,13 @@ PrefabInstance:
     - target: {fileID: 488724906435708657, guid: a0951a89999c4cb40b255df8ef65fa81,
         type: 3}
       propertyPath: sounds.Array.data[26].name
-      value: kazama_desu
+      value: gear_stop
       objectReference: {fileID: 0}
     - target: {fileID: 488724906435708657, guid: a0951a89999c4cb40b255df8ef65fa81,
         type: 3}
       propertyPath: sounds.Array.data[26].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 89b943bcbcf75464587c1ed51e233357, type: 3}
+      objectReference: {fileID: 8300000, guid: 84ef4f879a684d34f812e7f57da7b893, type: 3}
     - target: {fileID: 488724906435708657, guid: a0951a89999c4cb40b255df8ef65fa81,
         type: 3}
       propertyPath: sounds.Array.data[26].volume

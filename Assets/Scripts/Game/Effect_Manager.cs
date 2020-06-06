@@ -18,14 +18,14 @@ public class Effect_Manager : MonoBehaviour
     {
         m_pop_frame = 0;
         m_player_tag = "SOLID";
+        Pop_Effect();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-
         m_pop_frame++;
-        if(m_pop_frame >= POP_FRAME_MAX)
+        if (m_pop_frame >= POP_FRAME_MAX)
         {
             Pop_Effect();
             m_pop_frame = 0;
@@ -34,19 +34,33 @@ public class Effect_Manager : MonoBehaviour
 
     void Update()
     {
-        
         var pos_right = this.transform.position;
         pos_right.x += 4.5f;
         var pos_left = this.transform.position;
         pos_left.x -= 4.5f;
-        foreach (var effect in m_right_effects)
+        
+        for(int i = 0; i < m_right_effects.Count; i++)
         {
-            effect.transform.position = pos_right;
+            if (m_right_effects[i] == null) continue;
+            m_right_effects[i].transform.position = pos_right;
+            if(m_right_effects[i].GetComponent<UI_Effect>().Get_Frame() > 480)
+            {
+                m_right_effects.RemoveAt(i);
+                Destroy(m_right_effects[i]);
+            }
         }
-        foreach (var effect in m_left_effects)
+
+        for(int i = 0; i < m_left_effects.Count; i++)
         {
-            effect.transform.position = pos_left;
+            if (m_right_effects[i] == null) continue;
+            m_left_effects[i].transform.position = pos_left;
+            if(m_left_effects[i].GetComponent<UI_Effect>().Get_Frame() > 480)
+            {
+                m_left_effects.RemoveAt(i);
+                Destroy(m_left_effects[i]);
+            }
         }
+        
     }
 
     void Pop_Effect()

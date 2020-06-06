@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4350007286735368437}
   - component: {fileID: 4350007286735368442}
-  - component: {fileID: 6033283022460840012}
+  - component: {fileID: 4249209591332322621}
   m_Layer: 0
   m_Name: Gas
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   effectAsset: {fileID: 11400000, guid: 62364de549b4be0438df73a07f0d970b, type: 2}
   playOnStart: 1
   isLooping: 0
---- !u!114 &6033283022460840012
+--- !u!114 &4249209591332322621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,7 +57,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4350007286735368443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35dac0d7b7566df41956f9a8b997e8e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b75cd25213c2fb4b8032f019e020d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_life_frame: 18000
