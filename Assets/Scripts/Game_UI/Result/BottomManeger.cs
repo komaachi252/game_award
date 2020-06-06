@@ -77,12 +77,12 @@ public class BottomManeger : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Return))
         {
             Dicision2();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Return))
         {
             Dicision();
         }
@@ -131,19 +131,24 @@ public class BottomManeger : MonoBehaviour
     {
         if (SELECT == now_bottom)
         {
-            fade.Fade_Start(20, true, "WorldScene");
+            fade.Fade_Start(20, true);
+            SceneManager.LoadScene("WorldScene");
         }
 
         if (RETURN == now_bottom)
         {
-            fade.Fade_Start(20, true, "GameScene");
+            fade.Fade_Start(20, true);
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
 
         if (NEXT == now_bottom)
         {
             StageController.Set_nextstage();
 
-            fade.Fade_Start(20, true, "GameScene");
+            fade.Fade_Start(20, true);
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
     }
 

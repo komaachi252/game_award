@@ -105,7 +105,7 @@ public class PLAYER : MonoBehaviour
     void Update()
     {
         //int ARROW = 0;
-        
+
         float x_axis = Input.GetAxis("Horizontal2");//右マイナス　左プラス
         float x_axis_R = Input.GetAxis("Rstick_H"); //右マイナス　左プラス
         float y_axis_R = Input.GetAxis("Rstick_V"); //上プラス　下マイナス
@@ -115,23 +115,23 @@ public class PLAYER : MonoBehaviour
         //Debug.Log(x_axis);
         int ARROW = 0;
 
-        if(x_axis < 0)
+        if (x_axis < 0)
         {
             ARROW = 1;
         }
 
-        if(x_axis > 0)
+        if (x_axis > 0)
         {
             ARROW = 2;
         }
 
-        if((x_axis_R != 0 ||y_axis_R != 0) && VIEWflag == -1)
+        if ((x_axis_R != 0 || y_axis_R != 0) && VIEWflag == -1)
         {
             VIEWflag = 1;
         }
 
         x_axis = Mathf.Abs(x_axis);
-        
+
 
         if (VIEWBACK > 0)
         {
@@ -1291,6 +1291,7 @@ public class PLAYER : MonoBehaviour
         if (other.gameObject.CompareTag("GOAL") && GOAL == 0)
         {
             GOAL = 1;
+            PLAYERCAMERA.F_LOCK();
         }
     }
 

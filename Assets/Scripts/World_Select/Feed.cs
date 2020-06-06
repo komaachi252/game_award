@@ -38,6 +38,7 @@ public class Feed : MonoBehaviour
             if (alfa <= 0.0f)
             {
                 flag = 0;
+                image.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }
         }
 
@@ -49,6 +50,7 @@ public class Feed : MonoBehaviour
             if (alfa >= 1.0f)//真っ暗になったら
             {
                 flag = 0;//フェードを止める
+                image.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
             }
         }
     }
@@ -61,9 +63,10 @@ public class Feed : MonoBehaviour
         if (feed_mode == 0)//フェードイン
         {
             flag = 1;
-            alfa = 255;
+            alfa = 1.0f;
         }
-        else if (feed_mode == 1)//フェードアウト
+
+        if (feed_mode == 1)//フェードアウト
         {
             flag = 2;//フラグをセット
             alfa = 0;

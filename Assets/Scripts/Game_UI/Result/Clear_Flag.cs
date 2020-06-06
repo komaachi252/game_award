@@ -20,7 +20,7 @@ public class Clear_Flag : MonoBehaviour
     //=============================================================
     //レンダラーモード変更するやつ
     //=============================================================
-    private const float CAMERA_RANGE = 50.0f;
+    private const float CAMERA_RANGE = 2.0f;
     public Camera Main_Camera;//メインカメラ
     public Canvas Game_Canvas;//ゲームで使ってるキャンバス
 
@@ -32,11 +32,9 @@ public class Clear_Flag : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Result.SetActive(false);
 
-        //star = Result.GetComponent<StarManeger>();//星制御するやつ
-
-
+        
+        SceneManager.UnloadSceneAsync("ResultScene");//リザルトシーン削除
     }
 
     // Update is called once per frame

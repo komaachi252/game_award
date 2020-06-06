@@ -73,7 +73,7 @@ public class StarManeger : MonoBehaviour
 
         Star_ID_Set();//星の情報をセット
 
-        Star_AnimeStart();
+        //Star_AnimeStart();
     }
 
     //======================================================
@@ -93,36 +93,6 @@ public class StarManeger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (flag == 0)
-        //{
-        //    for (int i = 0; i < image_star.Length; i++)
-        //    {
-        //        Star_switch(i, star_id[StageController.Get_stage()][i]);//星の状態変更
-        //    }
-
-        //    for (int i = 0; i < image_star.Length; i++)
-        //    {
-        //        if (star_flag[i] == TRUE)//星が明るくなる場合
-        //        {
-        //            image_star[i].sprite = true_star;
-        //        }
-        //        else if (star_flag[i] == FALSE)//星が暗くなる場合
-        //        {
-        //            image_star[i].sprite = false_star;
-        //        }
-        //    }
-
-        //    flag = 1;//二回目通過するの回避
-        //}
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Star_AnimeStart();
-            
-        }
-
-        
-
         if (flag == 1)//星1アニメーション中
         {
             if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[0] == FALSE)//状態確認
@@ -173,13 +143,6 @@ public class StarManeger : MonoBehaviour
         flag = 1;
     }
 
-    //星の情報を設定
-    private void Star_set()
-    {
-
-    }
-
-
     //======================================================
     //星の状態確認&変更
     //======================================================
@@ -205,5 +168,15 @@ public class StarManeger : MonoBehaviour
                 star_flag[star_number] = TRUE;
                 break;
         }
+    }
+
+    //星がアニメーションしたかしてないか
+    public bool Active_AnimeStar()
+    {
+        if (flag == 4)
+        {
+            return false;
+        }
+        return true;
     }
 }
