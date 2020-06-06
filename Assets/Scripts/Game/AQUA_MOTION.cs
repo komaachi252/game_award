@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class AQUA_MOTION : MonoBehaviour
 {
+    public PLAYER PLAYER;
+    int MOVE_D = 1;
+    Vector3 SPIN;
+
     int MODE = 0;
     int TIME_COUNT = 0;
     Vector3 size;
@@ -17,7 +21,38 @@ public class AQUA_MOTION : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(MODE==1)
+        if (MODE == 0)
+        {
+            MOVE_D = PLAYER.GET_MOVE_D();
+
+            if (MOVE_D == 1)
+            {
+                if (transform.rotation.y != 90)
+                {
+                    transform.Rotate(0.0f, -3.0f, 0.0f);
+
+                    if (transform.localEulerAngles.y < 90)
+                    {
+                        transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+                    }
+                }
+            }
+
+            if (MOVE_D == -1)
+            {
+                if (transform.rotation.y != 270)
+                {
+                    transform.Rotate(0.0f, 3.0f, 0.0f);
+
+                    if (transform.localEulerAngles.y > 270)
+                    {
+                        transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+                    }
+                }
+            }
+        }
+
+        if (MODE==1)
         {
             if (TIME_COUNT < 10)
             {

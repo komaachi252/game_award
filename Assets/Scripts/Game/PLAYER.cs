@@ -14,6 +14,9 @@ public class PLAYER : MonoBehaviour
     public SOLID SOLID;
     public AQUA AQUA;
     public AQUA_MOTION AQUA_MOTION;
+    public ICE_ATAMA_MOTION ICE_ATAMA_MOTION;
+    public ICE_doutai_MOTION ICE_Doutai_MOTION;
+    public ICE_kubiwa_MOTION ICE_Kubiwa_MOTION;
     public CLOUD CLOUD;
     public JUGEMOVE JUGEMOVE;
     public HIT_U HIT_U;
@@ -1283,17 +1286,6 @@ public class PLAYER : MonoBehaviour
                 STAND_T = 0;
                 STAND_U = 0;
             }
-
-            /*
-            if (other.gameObject.CompareTag("DRAIN") && GAMEOVER == 0)
-            {
-                if (TYPE == 1)
-                {
-                    GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
-                }
-            }
-            */
         }
 
         if (other.gameObject.CompareTag("LEAF"))
@@ -1331,7 +1323,11 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 0)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    tag = "Untagged";
+                    ICE_ATAMA_MOTION.CRUSH();
+                    ICE_Doutai_MOTION.CRUSH();
+                    ICE_Kubiwa_MOTION.CRUSH();
                 }
             }
 
@@ -1349,7 +1345,11 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 0)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    tag = "Untagged";
+                    ICE_ATAMA_MOTION.CRUSH();
+                    ICE_Doutai_MOTION.CRUSH();
+                    ICE_Kubiwa_MOTION.CRUSH();
                 }
             }
 
@@ -1360,7 +1360,10 @@ public class PLAYER : MonoBehaviour
                     GAMEOVER = 1;
                     GAMEOVER_ACT = 90;
                     tag = "Untagged";
-                    //Game_Fade.Fade_Start(90, true, "GameScene");
+                    //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    ICE_ATAMA_MOTION.CRUSH();
+                    ICE_Doutai_MOTION.CRUSH();
+                    ICE_Kubiwa_MOTION.CRUSH();
                 }
             }
 
@@ -1380,5 +1383,10 @@ public class PLAYER : MonoBehaviour
         {
             PLAYERCAMERA.CLAREMILLFIND();
         }
+    }
+
+    public int GET_MOVE_D()
+    {
+        return MOVE_D;
     }
 }
