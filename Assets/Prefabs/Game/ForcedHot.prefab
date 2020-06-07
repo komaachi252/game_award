@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 896386824729500855}
   - component: {fileID: 896386824729500854}
   - component: {fileID: 896386824729500853}
-  - component: {fileID: 896386824729500859}
-  - component: {fileID: 193675487399059055}
   - component: {fileID: 8481152007606565580}
   - component: {fileID: 2673740520337927806}
   m_Layer: 0
@@ -63,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7e54bb214fca8504f9f453a497059a7e, type: 2}
+  - {fileID: 2100000, guid: c9abdafd9080ebf42a2c856b1c72d2d5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,35 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &896386824729500859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896386824729500858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3a398e6c1997f4192f93cd1d15507f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_effect: {fileID: 2500573915103041916, guid: f8d920ad78e449046ada1741a2115a9f,
-    type: 3}
-  m_is_hot: 1
-  m_tag_name: 
---- !u!65 &193675487399059055
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896386824729500858}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.46330833, y: 0.24767011, z: 0.43484676}
-  m_Center: {x: -0.0019840002, y: 0.4243872, z: -0.0016204715}
 --- !u!114 &8481152007606565580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,3 +122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_effect: {fileID: 2500573915103041916, guid: f8d920ad78e449046ada1741a2115a9f,
     type: 3}
+  m_push_effect: {fileID: 2500573915103041916, guid: f8d920ad78e449046ada1741a2115a9f,
+    type: 3}
+  m_is_hot: 1

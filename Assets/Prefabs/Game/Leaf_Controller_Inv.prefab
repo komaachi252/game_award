@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7284481729757815872}
   m_Layer: 0
   m_Name: Leaf_Colli_Ride
-  m_TagString: Untagged
+  m_TagString: SKY
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 2462638931227198209}
   m_Layer: 0
   m_Name: Leaf_Colli_Under
-  m_TagString: Untagged
+  m_TagString: SKY
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8048939344080989428}
   m_Layer: 0
   m_Name: Leaf_Colli
-  m_TagString: Untagged
+  m_TagString: SKY
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,7 +159,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.860118, z: 2.750555}
+  m_Size: {x: 1, y: 2.5, z: 2.750555}
   m_Center: {x: -5.7902643e-24, y: 0.92010784, z: -0.06468758}
 --- !u!114 &8048939344080989428
 MonoBehaviour:
@@ -239,6 +239,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: leaf
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380086373037236208, guid: c03ba49808fda604e81a9a3d7a03f072,
+        type: 3}
+      propertyPath: m_TagString
+      value: LEAF_INV
       objectReference: {fileID: 0}
     - target: {fileID: 7985382520779124195, guid: c03ba49808fda604e81a9a3d7a03f072,
         type: 3}

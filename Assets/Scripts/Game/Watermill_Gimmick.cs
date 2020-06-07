@@ -5,11 +5,18 @@ using UnityEngine;
 public class Watermill_Gimmick : MonoBehaviour
 {
     // Start is called before the first frame update
-    GameObject m_watermill = null;
+    GameObject[] m_watermill = null;
+    public GameObject m_trigger_up;
+    public GameObject m_trigger_down;
 
     const float MAX_DISTANCE = 4.0f;
     float m_total_dist = 0.0f;
-    bool m_is_max_dist = false;
+    //bool m_is_max_dist = false;
+    enum Gate_Phase
+    {
+        Default,
+        UP_Max
+    };
     void Start()
     {
         //m_watermill = GameObject.FindGameObjectWithTag("Watermill");
@@ -33,21 +40,46 @@ public class Watermill_Gimmick : MonoBehaviour
 
     private void Move()
     {
-        if (m_is_max_dist) return;
-
-        var move_dist = m_watermill.GetComponent<Watermill>().Rotate_Speed * 0.01f;
-        
-        if(m_total_dist + move_dist > MAX_DISTANCE)
+        float move_dist = 0.0f;
+        foreach(var watermill in m_watermill)
         {
-            move_dist = MAX_DISTANCE - m_total_dist;
-            m_is_max_dist = true;
+            move_dist += watermill.GetComponent<Watermill>().Rotate_Speed * 0.01f;
         }
-        m_total_dist += move_dist; 
+
+        if (move_dist > 0.0f && m_trigger_up.GetComponent<WaterGate_Trigger>().Is_Colli)
+        {
+            Debug.Log(move_dist + "up");
+            return;
+        }
+        if (move_dist < 0.0f && m_trigger_down.GetComponent<WaterGate_Trigger>().Is_Colli)
+        {
+            Debug.Log(move_dist + "down");
+            return;
+        }
+
+
+        /*
+        if(Mathf.Abs(m_total_dist) + Mathf.Abs(move_dist) > MAX_DISTANCE)
+        {
+            if(m_total_dist > 0.0f) {
+                move_dist = MAX_DISTANCE - m_total_dist;
+            }
+            else
+            {
+                move_dist = -MAX_DISTANCE + m_total_dist;
+            }
+
+            m_is_max_dist = true;
+
+        }
+        */
+        m_total_dist += move_dist;
         this.transform.Translate(0.0f, move_dist, 0.0f);
     }
 
     void Set_Watermill()
     {
-        m_watermill = GameObject.FindGameObjectWithTag("WATERMILL");
+        m_watermill = GameObject.FindGameObjectsWithTag("WATERMILL");
     }
+
 }

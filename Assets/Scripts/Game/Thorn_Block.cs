@@ -29,10 +29,12 @@ public class Thorn_Block : MonoBehaviour
     {
         if (m_is_pop)
         {
+            FindObjectOfType<Audio_Manager>().Play("thorn_push");
             m_is_pop = false;
         }
         else
         {
+            FindObjectOfType<Audio_Manager>().Play("thorn_pop");
             m_is_pop = true;
         }
         m_is_move = true;
@@ -51,9 +53,14 @@ public class Thorn_Block : MonoBehaviour
             this.transform.Translate(0, -0.1f, 0);
             m_dist += 0.1f;
         }
-        if(m_dist >= 0.9f)
+        if (m_dist >= 0.9f)
         {
             m_is_move = false;
         }
+    }
+
+    public bool GETpop()
+    {
+        return m_is_pop;
     }
 }

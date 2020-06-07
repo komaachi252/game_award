@@ -11,7 +11,7 @@ public class Lift_Block : MonoBehaviour
     bool m_is_move = false;
     float m_dist_max;
     float m_dist;
-    float m_move_speed = 0.05f;
+    float m_move_speed = 0.025f;
     int m_wait_frame;
     int WAIT_FRAME = 20;
     void Start()

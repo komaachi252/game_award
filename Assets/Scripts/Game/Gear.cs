@@ -10,6 +10,7 @@ public class Gear : MonoBehaviour
     bool m_aqua_colli = false;
     float m_t = 0.0f;
     Color m_rusted_color = new Color(0.44f, 0.23f, 0.12f);
+    int STOP = 0;
     void Start()
     {
         //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
@@ -49,7 +50,13 @@ public class Gear : MonoBehaviour
     {
         if (col.gameObject.CompareTag("AQUA"))
         {
-            m_aqua_colli = true;
+            if (STOP == 0)
+            {
+                FindObjectOfType<Audio_Manager>().Play("gear_stop");
+                m_aqua_colli = true;
+                this.gameObject.tag = "Untagged";
+                STOP = 1;
+            }
         }
     }
 }

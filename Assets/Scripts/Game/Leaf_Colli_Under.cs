@@ -28,6 +28,7 @@ public class Leaf_Colli_Under : MonoBehaviour
     {
         if(col.gameObject.CompareTag("CLOUD") && !col.GetComponent<BoxCollider>().isTrigger)
         {
+            FindObjectOfType<Audio_Manager>().Play("leaf");
             Debug.Log("OnTriggerEnter_Under");
             m_controller.gameObject.GetComponent<Leaf_Controller>().Set_Colli_Type(Leaf.Colli_Type.CLOUD);
         }

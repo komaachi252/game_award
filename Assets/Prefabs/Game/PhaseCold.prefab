@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 782559252204637427}
   - component: {fileID: 782559252204637426}
   - component: {fileID: 782559252204637431}
-  - component: {fileID: 1811939448118725022}
   - component: {fileID: 7516531943398243446}
   m_Layer: 0
   m_Name: PhaseCold
@@ -111,19 +110,7 @@ MonoBehaviour:
   m_effect: {fileID: 3699134127002865707, guid: 07688568c692cc94ca1be874e29dbba6,
     type: 3}
   m_is_hot: 0
---- !u!65 &1811939448118725022
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782559252204637425}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4671278, y: 0.15897739, z: 0.34583998}
-  m_Center: {x: 0.017174244, y: -0.53399557, z: -0.1712892}
+  m_tag_name: P
 --- !u!114 &7516531943398243446
 MonoBehaviour:
   m_ObjectHideFlags: 0

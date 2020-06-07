@@ -2,8 +2,7 @@
 
 public class SketchHot : MonoBehaviour
 {
-    [SerializeField]
-    Material mat;
+    public Material mat;
 
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {

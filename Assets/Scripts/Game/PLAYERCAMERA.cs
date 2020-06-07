@@ -36,6 +36,11 @@ public class PLAYERCAMERA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Mathf.Approximately(Time.timeScale, 0f))
+        {
+            return;
+        }
+
         float x_axis_R = Input.GetAxis("Rstick_H"); //右マイナス　左プラス
         float y_axis_R = Input.GetAxis("Rstick_V"); //上プラス　下マイナス
 

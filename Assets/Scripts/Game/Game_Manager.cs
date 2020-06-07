@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game_Manager : MonoBehaviour
 {
@@ -16,17 +17,28 @@ public class Game_Manager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEngine.Application.Quit();
+        }
     }
 
     public void Game_Clear()
     {
-        Instantiate(m_game_flag_logo, new Vector3(1,1,1), Quaternion.identity);
+        //Instantiate(m_game_flag_logo, new Vector3(1,1,1), Quaternion.identity);
+        Is_Clear_Flag = true;
+        GameObject.Find("Bgm").GetComponent<Game_BGM>().Stop_BGM();
+        GameObject.Find("Rain").GetComponent<Rain>().Set_Enable();
+        GameObject.Find("Audio_Manager").GetComponent<Audio_Manager>().Play("Result");
     }
 }

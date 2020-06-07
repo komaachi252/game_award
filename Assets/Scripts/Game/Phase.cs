@@ -28,34 +28,10 @@ public class Phase : MonoBehaviour
     void Create_Effect()
     {
         var pos = this.transform.position;
-        if (m_is_hot)
-        {
-            pos.y += 0.3f;
-        }
-        else
-        {
-            pos.y -= 0.5f;
-        }
         pos.z -= 0.5f;
         Instantiate(m_effect, pos, Quaternion.identity);
     }
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if(col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
-        {
-            //Create_Effect();
-            if (m_is_hot)
-            {
-               // FindObjectOfType<Audio_Manager>().Play("heat1");
-            }
-            else
-            {
-                //FindObjectOfType<Audio_Manager>().Play("frozen");
-            }
-
-        }
-    }
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
@@ -64,22 +40,15 @@ public class Phase : MonoBehaviour
             {
                 m_is_stay = true;
                 m_tag_name = col.gameObject.tag;
+            
             }
-            /*
-            if (m_tag_name != col.gameObject.tag && !m_is_stay)
-            {
-                m_tag_name = col.gameObject.tag;
-                Debug.Log(m_tag_name);
-                m_is_stay = true;
-            }
-            */
         }
     }
 
     void Trans_Check()
     {
-        if (!GameObject.Find("PLAYER_MASTER(Clone)")) return;
-        if (GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag != m_tag_name)
+        if (!GameObject.Find("PLAYER_MASTER")) return;
+        if (GameObject.Find("PLAYER_MASTER").gameObject.tag != m_tag_name)
         {
             Create_Effect();
             if (m_is_hot)
@@ -90,7 +59,7 @@ public class Phase : MonoBehaviour
             {
                 FindObjectOfType<Audio_Manager>().Play("frozen");
             }
-            m_tag_name = GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag;
+            m_tag_name = GameObject.Find("PLAYER_MASTER").gameObject.tag;
             Debug.Log(m_tag_name + "がでる");
             //m_is_stay = false;
         }
@@ -104,41 +73,7 @@ public class Phase : MonoBehaviour
             if (m_is_stay)
             {
                 m_is_stay = false;
-                //m_tag_name = col.gameObject.tag;
             }
-            /*
-            if (m_tag_name != col.gameObject.tag && !m_is_stay)
-            {
-                m_tag_name = col.gameObject.tag;
-                Debug.Log(m_tag_name);
-                m_is_stay = true;
-            }
-            */
         }
-    }
-
-
-    private void OnCollisionStay(Collision col)
-    {
-        /*
-        if (col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
-        {
-            //Debug.Log("ステイ");
-            if (m_tag_name != col.gameObject.tag)
-            {
-                Create_Effect();
-                if (m_is_hot)
-                {
-                    FindObjectOfType<Audio_Manager>().Play("heat1");
-                }
-                else
-                {
-                    FindObjectOfType<Audio_Manager>().Play("frozen");
-                }
-                m_tag_name = col.gameObject.tag;
-                Debug.Log(m_tag_name + "がでる");
-                m_is_stay = false;
-            }
-        }*/
     }
 }

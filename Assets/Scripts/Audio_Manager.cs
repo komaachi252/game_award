@@ -19,7 +19,7 @@ public class Audio_Manager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        
         DontDestroyOnLoad(gameObject);
 
         foreach(Sound s in sounds)
@@ -29,12 +29,13 @@ public class Audio_Manager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.volume = s.volume;
             s.source.loop = s.loop;
+            s.source.spatialBlend = 0.0f;
         }
     }
 
     void Start()
     {
-        Play("rain1");  
+     
     }
 
     public void Play(string name)
@@ -42,10 +43,34 @@ public class Audio_Manager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning(name + "はありません");
+            Debug.Log(name + "はありません");
             return;
         }
         s.source.Play();
         Debug.Log(name + "は再生中");
+    }
+
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log(name + "はありません");
+            return;
+        }
+        s.source.Stop();
+        Debug.Log(name + "は停止中");
+    }
+
+    public void Set_Volume(bool bgm, float volume)
+    {
+        //  loopフラグでBGMを判定
+        foreach(var sound in sounds)
+        {
+            if (sound.source.loop == bgm)
+            {
+                sound.source.volume = volume;
+            }
+        }
     }
 }
