@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Star_PheseSet : MonoBehaviour
+[CreateAssetMenu(menuName = "Data/Star_PheseSet", fileName = "Star_PheseSet")]
+
+public class Star_PheseSet : ScriptableObject
 {
 
     public int[] star_phese;
