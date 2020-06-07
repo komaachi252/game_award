@@ -595,8 +595,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3.0092666e-36, y: 2.7755576e-17, z: 1.009742e-28,
-    w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1627,8 +1626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d3b650644619845851a38d95b92910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManeger: {fileID: 1941350529}
-  Result: {fileID: 0}
+  GameManeger: {fileID: 1941350530}
   Main_Camera: {fileID: 963194227}
   Game_Canvas: {fileID: 1038203292}
 --- !u!4 &1523891376
@@ -1699,6 +1697,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1134604319}
           m_ObjectArgumentAssemblyTypeName: Helpme, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6fa6c0baa178a5b4aad25643a11ceec2, type: 2}
+        m_MethodName: set_Expose_CrearFlag
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1941350530}
+          m_ObjectArgumentAssemblyTypeName: Game_Manager, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
