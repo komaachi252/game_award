@@ -1274,6 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaaa7a5af92e2404ca9e4a6c585a14ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clearflag: {fileID: 11400000, guid: 6fa6c0baa178a5b4aad25643a11ceec2, type: 2}
   Pause_canvas: {fileID: 29733810}
   text:
   - {fileID: 2147131059}

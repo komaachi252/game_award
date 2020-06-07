@@ -118,12 +118,15 @@ public class StageController : MonoBehaviour
             {
                 next_world--;
                 input_cooltime = 0;
+                FindObjectOfType<Audio_Manager>().Play("select");
             }
             else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage > 0)//ステージ選択
             {
                 next_stage--;
                 input_cooltime = 0;
+                FindObjectOfType<Audio_Manager>().Play("select");
             }
+            
         }
 
         if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
@@ -132,12 +135,15 @@ public class StageController : MonoBehaviour
             {
                 next_world++;
                 input_cooltime = 0;
+                FindObjectOfType<Audio_Manager>().Play("select");
             }
             else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage < World_Stage_Nm.GET_STAGE_NUM(now_world) - 1)//ステージ選択
             {
                 next_stage++;
                 input_cooltime = 0;
+                FindObjectOfType<Audio_Manager>().Play("select");
             }
+            
         }
 
         if (Input.GetKeyDown("joystick button 0"))//決定A
@@ -151,9 +157,10 @@ public class StageController : MonoBehaviour
                 select_flag = 2;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
             }
+            FindObjectOfType<Audio_Manager>().Play("enter");
         }
 
-        if (Input.GetKeyDown("joystick button 2"))//決定X
+        if (Input.GetKeyDown("joystick button 2"))//戻るX
         {
             if (select_flag == 1)//ステージ選択の時
             {
@@ -165,6 +172,8 @@ public class StageController : MonoBehaviour
                 select_flag = 3;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
             }
+
+            FindObjectOfType<Audio_Manager>().Play("cancel");
         }
 
         
@@ -188,6 +197,8 @@ public class StageController : MonoBehaviour
                 input_cooltime = 0;
             }
 
+            FindObjectOfType<Audio_Manager>().Play("select");
+
         }
 
         if (Input.GetKeyDown(KeyCode.W))//上
@@ -202,6 +213,7 @@ public class StageController : MonoBehaviour
                 next_stage--;
                 input_cooltime = 0;
             }
+            FindObjectOfType<Audio_Manager>().Play("select");
         }
 
         if (Input.GetKeyDown(KeyCode.Return))//決定
@@ -216,6 +228,7 @@ public class StageController : MonoBehaviour
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
 
             }
+            FindObjectOfType<Audio_Manager>().Play("enter");
         }
 
         if (Input.GetKeyDown(KeyCode.Z))//決定してたら一個前に戻る
@@ -230,6 +243,7 @@ public class StageController : MonoBehaviour
                 select_flag = 3;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
             }
+            FindObjectOfType<Audio_Manager>().Play("cancel");
         }
     }
 
