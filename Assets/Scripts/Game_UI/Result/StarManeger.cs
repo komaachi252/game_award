@@ -24,6 +24,7 @@ public class StarManeger : MonoBehaviour
     //星フラグ
     private int Phese_num;//ステージごとの変化回数の評価数記録するやつ
     [SerializeField] Star_PheseSet starphese;
+    [SerializeField] ExposeIsHelp help;
 
     //フラグ
     //0 = 何も起きない
@@ -102,8 +103,16 @@ public class StarManeger : MonoBehaviour
         {
             if (anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[1] == FALSE)//状態確認
             {
-                anime_star[2].SetTrigger("Anime");
-                star_flag[2] = TRUE;
+                if (help.Expose_Helpme.Is_Help == true)
+                {
+                    anime_star[2].SetTrigger("Anime");
+                    star_flag[2] = TRUE;
+                }
+                else if (help.Expose_Helpme.Is_Help == false)
+                {
+                    star_flag[2] = FALSE;
+                }
+                
                 flag = 3;
             }
         }

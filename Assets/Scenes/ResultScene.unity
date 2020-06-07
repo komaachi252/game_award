@@ -413,7 +413,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u304A\u307E\u3051\u30A2\u30A4\u30C6\u30E0\u53D6\u5F97"
+  m_Text: "\u4EF2\u9593\u306E\u6551\u51FA"
 --- !u!222 &143365270
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2433,6 +2433,7 @@ MonoBehaviour:
   true_star: {fileID: 21300000, guid: f721afd6695a7e74991b50fc649fdae4, type: 3}
   false_star: {fileID: 21300000, guid: 0b6bf5ccfa212994e9a5dc7276c406cf, type: 3}
   starphese: {fileID: 11400000, guid: 11f39ca2a4cee8e4d86287b297b47e1d, type: 2}
+  help: {fileID: 11400000, guid: c80273b79d043d0428f199e88dfc400c, type: 2}
 --- !u!114 &1426964478
 MonoBehaviour:
   m_ObjectHideFlags: 0
