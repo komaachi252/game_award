@@ -6,16 +6,8 @@ using UnityEngine.UI;
 public class Helpme : MonoBehaviour
 {
     // Start is called before the first frame update
-    // 救出したver
-    public Sprite m_another_sprite;
 
-    // 救出フラグ
-    bool m_is_help = false;
-    public bool Is_Help
-    {
-        get { return m_is_help; }
-        set { m_is_help = value; }
-    }
+    public Sprite m_another_sprite;
     void Start()
     {
         
@@ -29,9 +21,7 @@ public class Helpme : MonoBehaviour
 
     public void Help()
     {
-        //  救出フラグON
         this.gameObject.GetComponent<Image>().sprite = m_another_sprite;
-        Is_Help = true;
     }
 
 }

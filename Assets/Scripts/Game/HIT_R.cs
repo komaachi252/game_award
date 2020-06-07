@@ -16,19 +16,30 @@ public class HIT_R : MonoBehaviour
     {
 
     }
-    void OnTriggerEnter(Collider other)             //他のオブジェクトとの接触時の処理
+
+    void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("THORN_BLOCK"))     //加熱属性に当たった時
+        if (other.gameObject.CompareTag("HOT"))     //加熱属性に当たった時
         {
-            PLAYER.SET_stay_WALL_R();
+            PLAYER.SET_stayHOT_R();
+        }
+
+        if (other.gameObject.CompareTag("COLD"))    //冷却属性に当たった時
+        {
+            PLAYER.SET_stayCOLD_R();
         }
     }
 
     void OnTriggerExit(Collider other)              //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("BLOCK") || other.gameObject.CompareTag("THORN_BLOCK"))     //加熱属性から離れた時
+        if (other.gameObject.CompareTag("HOT"))     //加熱属性から離れた時
         {
-            PLAYER.CLEAR_stay_WALL_R();
+            PLAYER.CLEAR_stayHOT();
+        }
+
+        if (other.gameObject.CompareTag("COLD"))    //冷却属性から離れた時
+        {
+            PLAYER.CLEAR_stayCOLD();
         }
     }
 }

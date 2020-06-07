@@ -1,17 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StageController : MonoBehaviour
 {
     public static readonly int START_WORLD = 0;//初期ワールド　0スタート
     public static readonly int START_STAGE = 0;//初期ステージ　0スタート
-
-    private const float INPUT_COOLTIME = 0.3f;
-
-    public GameObject obje_feed;
-    Feed script_feed;//フェード
 
     public int next_world;//次に選択されてるワールド
     private static int now_world;//現在選択してるワールド
@@ -19,16 +13,12 @@ public class StageController : MonoBehaviour
     public int next_stage;//次に選択されているワールド
     private static int now_stage;//現在選択してるステージ
 
+    private int world_marking_num;//ワールド数
+    private int[] stage_marking_num;//ステージ数
+
     private int one_read;//最初に一回だけ呼ばれるようにするフラグ
 
-    //フラグ
-    //0 = ワールド
-    //1 = ステージ
-    //2 = ゲームシーンに移動
-    //3 = タイトルに戻る
     private int select_flag;//今ステージ選択中かワールド選択中か
-
-    private float input_cooltime;//入力クールタイム
 
     //スタートより早く呼ばれるらしい
     void Awake()
@@ -39,11 +29,8 @@ public class StageController : MonoBehaviour
             next_world = START_WORLD;
             now_world = START_WORLD;
 
-
             next_stage = START_STAGE;
             now_stage = START_STAGE;
-
-            select_flag = 0;
         }
     }
 
@@ -56,165 +43,77 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //================================
+
+        //ワールド数をカウントする
+        GameObject WorldMarking = GameObject.Find("WorldMarking");
+        foreach (Transform child in WorldMarking.transform)
+        {
+            world_marking_num++;
+        }
+
+        //================================
+
+        stage_marking_num = new int[world_marking_num];//ステージメモリ確保
+
+        GameObject StageMarking = GameObject.Find("StageMarking");
+        for (int i = 0; i < world_marking_num; i++)
+        {
+            GameObject world = StageMarking.transform.GetChild(i).gameObject;//子供
+            foreach (Transform transform in world.transform)//子供の数カウント
+            {
+                stage_marking_num[i]++;
+            }
+        }
 
         select_flag = 0;//ワールド選択から始める
-
-        script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
-
-        script_feed.Start_Feed(0, 250.0f);//フェード開始
     }
 
     // Update is called once per frame
     void Update()
     {
-        input_cooltime += Time.deltaTime;//クールタイムカウント
-
-        
-
-
-        //===============================================
-        //キーボード入力処理
-        //===============================================
-        Key_input();
-
-
-        //===============================================
-        //パッド入力処理
-        //===============================================
-        pad_input();
-
-
-        //===============================================
-        //その他いろいろ
-        //===============================================
-        now_world = next_world;
-        now_stage = next_stage;
-
-        if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
+        if (Input.GetKeyDown(KeyCode.Q))//進む
         {
-            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
-            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
-        }
-
-        if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
-        {
-            SceneManager.LoadScene("TitleScene");
-        }
-
-    }
-
-    //=========================================================
-    //パッド入力処理
-    //=========================================================
-    private void pad_input()
-    {
-        //float x_axis = Input.GetAxis("Horizontal");//右プラス　左マイナス
-        float y_axis = Input.GetAxis("Vertical");//上プラス　下マイナス
-        float arrow_axis = Input.GetAxis("Vertical_Arrow");
-
-        if (y_axis > 0.0f || arrow_axis < 0)//スティックを上に傾けたら
-        {
-            if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world > 0)//ワールド選択画面
-            {
-                next_world--;
-                input_cooltime = 0;
-            }
-            else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage > 0)//ステージ選択
-            {
-                next_stage--;
-                input_cooltime = 0;
-            }
-        }
-
-        if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
-        {
-            if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
+            if (select_flag == 0 && next_world < world_marking_num - 1)//ワールド選択画面
             {
                 next_world++;
-                input_cooltime = 0;
             }
-            else if (select_flag == 1 && input_cooltime >= INPUT_COOLTIME && next_stage < World_Stage_Nm.GET_STAGE_NUM(now_world) - 1)//ステージ選択
+            else if (select_flag == 1)//ステージ選択
             {
                 next_stage++;
-                input_cooltime = 0;
-            }
-        }
 
-        if (Input.GetKeyDown("joystick button 0"))//決定A
-        {
-            if (select_flag == 0)//ワールド選択の時
-            {
-                select_flag = 1;
-            }
-            else if (select_flag == 1)//ステージ選択の時
-            {
-                select_flag = 2;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
-            }
-        }
-
-        if (Input.GetKeyDown("joystick button 2"))//決定X
-        {
-            if (select_flag == 1)//ステージ選択の時
-            {
-                select_flag = 0;
-                next_stage = 0;
-            }
-            else if (select_flag == 0)//ワールド選択の時
-            {
-                select_flag = 3;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
-            }
-        }
-
-        
-    }
-
-    //=========================================================
-    //キーボード入力
-    //=========================================================
-    private void Key_input()
-    {
-        if (Input.GetKeyDown(KeyCode.S))//下
-        {
-            if (select_flag == 0 && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
-            {
-                next_world++;
-                input_cooltime = 0;
-            }
-            else if (select_flag == 1 && next_stage < World_Stage_Nm.GET_STAGE_NUM(now_world) - 1)//ステージ選択
-            {
-                next_stage++;
-                input_cooltime = 0;
+                if (next_stage > stage_marking_num[now_world] - 1)//次のステージがステージ数を超えていたら
+                {
+                    next_stage = 0;//ループするようにする
+                }
             }
 
         }
 
-        if (Input.GetKeyDown(KeyCode.W))//上
+        if (Input.GetKeyDown(KeyCode.A))//戻る
         {
             if (select_flag == 0 && next_world > 0)//ワールド選択画面
             {
                 next_world--;
-                input_cooltime = 0;
             }
-            else if (select_flag == 1 && next_stage > 0)//ステージ選択
+            else if (select_flag == 1)//ステージ選択
             {
                 next_stage--;
-                input_cooltime = 0;
+
+                if (next_stage < 0)//次のステージがステージ数を超えていたら
+                {
+                    next_stage = stage_marking_num[now_world] - 1;//ループするようにする
+                }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))//決定
+        now_stage = next_stage;
+
+        if (Input.GetKeyDown(KeyCode.Space))//決定
         {
             if (select_flag == 0)//ワールド選択の時
             {
                 select_flag = 1;
-            }
-            else if (select_flag == 1)//ステージ選択の時
-            {
-                select_flag = 2;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
-
             }
         }
 
@@ -223,12 +122,6 @@ public class StageController : MonoBehaviour
             if (select_flag == 1)//ステージ選択の時
             {
                 select_flag = 0;
-                next_stage = 0;
-            }
-            else if (select_flag == 0)
-            {
-                select_flag = 3;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
             }
         }
     }
@@ -244,33 +137,7 @@ public class StageController : MonoBehaviour
     //現在選択してるステージをあげる関数
     public static int Get_stage()
     {
-        int stage = 0;
-        for (int i = 0; i < now_world - 1; i++)
-        {
-            stage += World_Stage_Nm.GET_STAGE_NUM(i);
-        }
-        return now_stage + stage;//全部繋げたやぁつ
-    }
-
-    public static int Get_Index()
-    {
-        return now_world * 10 + now_stage;
-    }
-    //次のステージに進む
-    public static void Set_nextstage()
-    {
-        now_stage++;
-
-        if (World_Stage_Nm.GET_STAGE_NUM(now_world) <= now_stage)//ワールドのステージ数より増えていたら
-        {
-            now_stage = 0;//ステージを0にする
-            now_world++;//ワールドを次に進める
-        }
-
-        DontDestroyManager.IndexUpdate();//インデックスの更新
-
-        Debug.Log("今のステージ " + now_stage + "\n今のワールド " + now_world);
-
+        return now_stage;
     }
 
 
@@ -299,9 +166,4 @@ public class StageController : MonoBehaviour
     }
 
 
-    //現在選択してるステージの値を変更する関数
-    public void Set_stage(int set)
-    {
-        now_stage = set;
-    }
 }

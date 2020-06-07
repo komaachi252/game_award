@@ -49,10 +49,7 @@ public class Gear : MonoBehaviour
     {
         if (col.gameObject.CompareTag("AQUA"))
         {
-
-            FindObjectOfType<Audio_Manager>().Play("gear_stop");
             m_aqua_colli = true;
-            this.gameObject.tag = "Untagged";
         }
     }
 }

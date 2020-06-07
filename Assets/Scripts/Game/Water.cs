@@ -50,7 +50,7 @@ public class Water : MonoBehaviour
         if (Ripple_bUse == 0 || Ripple_On == 1)
         {
             //現在の位置を取得
-            pos = GameObject.Find("PLAYER_MASTER").transform.position;
+            pos = GameObject.Find("PLAYER_MASTER(Clone)").transform.position;
         }
         if(countup >= timecheck)
         {

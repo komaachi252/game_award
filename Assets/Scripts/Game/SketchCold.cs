@@ -2,7 +2,8 @@
 
 public class SketchCold : MonoBehaviour
 {
-   public Material mat;
+    [SerializeField]
+    Material mat;
 
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {

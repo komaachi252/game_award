@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8504974991782958862}
   - component: {fileID: 8504974991782958857}
   - component: {fileID: 8504974991782958856}
+  - component: {fileID: 8504974991782958861}
+  - component: {fileID: 7349528915925652068}
   - component: {fileID: 1480449756008769420}
   - component: {fileID: 4986986702563640870}
   m_Layer: 0
@@ -61,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1099925c585d1d34fa60a42c04a734e2, type: 2}
+  - {fileID: 2100000, guid: 43369ca66b6db3148a70a3f9ab6ecb90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,6 +97,35 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8504974991782958861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504974991782958859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3a398e6c1997f4192f93cd1d15507f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_effect: {fileID: 3699134127002865707, guid: 07688568c692cc94ca1be874e29dbba6,
+    type: 3}
+  m_is_hot: 0
+  m_tag_name: 
+--- !u!65 &7349528915925652068
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504974991782958859}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4671278, y: 1.1702514, z: 0.34583998}
+  m_Center: {x: 0.017174244, y: -0.028358579, z: -0.1712892}
 --- !u!114 &1480449756008769420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +153,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_effect: {fileID: 2500573915103041916, guid: f8d920ad78e449046ada1741a2115a9f,
     type: 3}
-  m_push_effect: {fileID: 3699134127002865707, guid: 07688568c692cc94ca1be874e29dbba6,
-    type: 3}
-  m_is_hot: 0

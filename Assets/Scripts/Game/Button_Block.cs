@@ -39,7 +39,6 @@ public class Button_Block : MonoBehaviour
     {
         if (col.gameObject.CompareTag("SOLID") && !m_is_exit && !m_is_push)
         {
-            FindObjectOfType<Audio_Manager>().Play("button");
             m_is_move = true;
             m_dist = 0.0f;
             m_is_push = true;
@@ -86,14 +85,10 @@ public class Button_Block : MonoBehaviour
 
     void Pushed_Move()
     {
+        
         foreach(var thorn in GameObject.FindGameObjectsWithTag("THORN"))
         {
             thorn.GetComponent<Thorn_Block>().Pop_Start();
         }
-        foreach(var thorn in GameObject.FindGameObjectsWithTag("THORN_INV"))
-        {
-            thorn.GetComponent<Thorn_Block>().Pop_Start();
-        }
-
     }
 }

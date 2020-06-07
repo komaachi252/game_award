@@ -5,46 +5,44 @@ using UnityEngine.UI;
 
 public class Phase_UI : MonoBehaviour
 {
-    string m_player_tag = "SOLID"; //  タグ変化判定用
-
-    //   変化回数
+    // Start is called before the first frame update
+    public Sprite[] m_sprites;
+    enum Phase_Index : int
+    {
+        Solid = 0,
+        Aqua,
+        Cloud
+    };
+    int m_sprite_index = (int)Phase_Index.Solid;
+    string m_player_tag = "SOLID";
     int m_phase_cnt = 0;
-    public int Phase_Cnt
+    void Awake()
     {
-        get { return m_phase_cnt; }
-        set { m_phase_cnt = value; }
-    }
-    void Start()
-    {
-        m_phase_cnt = 0;
-        m_player_tag = "SOLID";
+        this.gameObject.GetComponent<Image>().sprite = m_sprites[m_sprite_index];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!GameObject.Find("PLAYER_MASTER")) return;
-
-        // プレイヤーのタグを監視
-        if (!GameObject.Find("PLAYER_MASTER").gameObject.tag.Equals(m_player_tag))
+        if (!GameObject.Find("PLAYER_MASTER(Clone)")) return;
+        if (!GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag.Equals(m_player_tag))
         {
-            //Debug.Log(m_player_tag);
-
-            //  状態変化カウント
+            m_player_tag = GameObject.Find("PLAYER_MASTER(Clone)").gameObject.tag;
+            if(m_player_tag == "SOLID")
+            {
+                m_sprite_index = (int)Phase_Index.Solid;
+            }
+            if(m_player_tag == "AQUA")
+            {
+                m_sprite_index = (int)Phase_Index.Aqua;
+            }
+            if (m_player_tag == "CLOUD")
+            {
+                m_sprite_index = (int)Phase_Index.Cloud;
+            }
+            this.gameObject.GetComponent<Image>().sprite = m_sprites[m_sprite_index];
             m_phase_cnt++;
-            //  回数をカウントUIに設定
             GameObject.Find("Phase_Count").gameObject.GetComponent<Phase_Count>().Set_Phase_Count(m_phase_cnt);
-            if(m_player_tag == "AQUA" && GameObject.Find("PLAYER_MASTER").gameObject.tag == "SOLID")
-            {
-                GameObject.Find("Icon").GetComponent<NoiseController>().ChangeIcon(true);//水から氷なる時
-            }
-            else
-            {
-                GameObject.Find("Icon").GetComponent<NoiseController>().ChangeIcon();
-            }
-
-            m_player_tag = GameObject.Find("PLAYER_MASTER").gameObject.tag;
-            // GameObject.Find("Effect_Manager").gameObject.GetComponent<Effect_Manager>().Set_Player_Tag(m_player_tag);
         }
     }
 

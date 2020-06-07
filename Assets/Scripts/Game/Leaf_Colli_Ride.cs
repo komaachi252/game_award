@@ -23,13 +23,11 @@ public class Leaf_Colli_Ride : MonoBehaviour
         {
             if (col.gameObject.CompareTag("SOLID"))
             {
-                FindObjectOfType<Audio_Manager>().Play("leaf");
                 Debug.Log("OnTriggerEnter_Ride_Ice");
                 m_controller.GetComponent<Leaf_Controller>().Set_Colli_Type(Leaf.Colli_Type.ICE);
             }
             if (col.gameObject.CompareTag("AQUA"))
             {
-                FindObjectOfType<Audio_Manager>().Play("leaf");
                 Debug.Log("OnTriggerEnter_Ride_Aqua");
                 m_controller.GetComponent<Leaf_Controller>().Set_Colli_Type(Leaf.Colli_Type.AQUA);
             }

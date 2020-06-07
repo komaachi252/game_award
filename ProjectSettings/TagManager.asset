@@ -28,11 +28,6 @@ TagManager:
   - HARD_HOT
   - HARD_COLD
   - Help
-  - DRAIN
-  - LEAF_INV
-  - SKY
-  - THORN_INV
-  - LIFTZOON
   layers:
   - Default
   - TransparentFX

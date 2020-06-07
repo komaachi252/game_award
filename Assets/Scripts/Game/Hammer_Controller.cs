@@ -11,7 +11,7 @@ public class Hammer_Controller : MonoBehaviour
 
     private bool m_is_wait = false;
     private float m_move_speed = 0.0f;
-    private float m_return_speed = -2.5f;
+    private float m_return_speed = -2.0f;
     private int m_wait_frame;
     public bool m_is_right;
     void Start()
@@ -45,7 +45,7 @@ public class Hammer_Controller : MonoBehaviour
             {
                 transform.rotation = target;
                 m_is_wait = true;
-                m_wait_frame = 20;
+                m_wait_frame = 30;
                 m_move_speed = 0.0f;
             }
             else
@@ -53,10 +53,10 @@ public class Hammer_Controller : MonoBehaviour
                 transform.Rotate(new Vector3(0, 0, m_move_speed));
                 if (!m_is_right)
                 {
-                    m_move_speed += 0.18f;
+                    m_move_speed += 0.15f;
                 }else
                 {
-                    m_move_speed -= 0.18f;
+                    m_move_speed -= 0.15f;
                 }
             }
         }

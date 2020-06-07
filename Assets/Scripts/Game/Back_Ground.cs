@@ -8,13 +8,10 @@ public class Back_Ground : MonoBehaviour
 {
 
     public Sprite[] m_images;
-    public int m_image_num;
+    public uint m_image_num;
     void Awake()
     {
-        m_image_num = DontDestroyManager.Map_Index / 10;
-
         this.GetComponentInChildren<Image>().sprite = m_images[m_image_num];
-        this.GetComponentInChildren<Image>().color = new Color(0.7f, 0.7f, 0.7f);
 
         this.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }

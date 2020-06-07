@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 4371423915708081109}
   - component: {fileID: 8040864361036029740}
   - component: {fileID: 4964013702416377115}
-  - component: {fileID: 2077006917561263462}
   m_Layer: 0
   m_Name: Lift_Rail
-  m_TagString: LIFTZOON
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,16 +92,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f68692f5d488545aeb0862b5b6d168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2077006917561263462
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8622763277659974640}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 9, y: 2, z: 8}
-  m_Center: {x: 0, y: -2, z: -5}
