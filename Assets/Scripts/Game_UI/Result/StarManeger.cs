@@ -23,7 +23,7 @@ public class StarManeger : MonoBehaviour
 
     //星フラグ
     private int Phese_num;//ステージごとの変化回数の評価数記録するやつ
-    [SerializeField] ExposeStarPhese starphese;
+    [SerializeField] Star_PheseSet starphese;
 
     //フラグ
     //0 = 何も起きない
@@ -73,7 +73,7 @@ public class StarManeger : MonoBehaviour
     //======================================================
     private void Star_ID_Set()
     {
-        Phese_num = starphese.pheseset.Get_StarPhese(StageController.Get_stage());
+        Phese_num = starphese.Get_StarPhese(StageController.Get_stage());
         text_star[1].text = "変化回数　" + Phese_num + "回";
     }
 

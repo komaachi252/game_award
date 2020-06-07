@@ -2432,7 +2432,7 @@ MonoBehaviour:
   - {fileID: 143365269}
   true_star: {fileID: 21300000, guid: f721afd6695a7e74991b50fc649fdae4, type: 3}
   false_star: {fileID: 21300000, guid: 0b6bf5ccfa212994e9a5dc7276c406cf, type: 3}
-  starphese: {fileID: 11400000, guid: c413e36dfd9410e42a629e87a1da5e83, type: 2}
+  starphese: {fileID: 11400000, guid: 11f39ca2a4cee8e4d86287b297b47e1d, type: 2}
 --- !u!114 &1426964478
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -137,6 +137,7 @@ public class BottomManeger : MonoBehaviour
 
         if (RETURN == now_bottom)
         {
+            Time.timeScale = 1.0f;
             fade.Fade_Start(20, true, "GameScene", "PauseScene");
         }
 

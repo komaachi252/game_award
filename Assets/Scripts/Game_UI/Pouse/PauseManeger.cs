@@ -24,6 +24,14 @@ public class PauseManeger : MonoBehaviour
 
     [SerializeField] Game_Fade fade;
 
+    //パッドのフラグ
+    //入力フラグ
+    //0 = 未入力
+    //1 = 上
+    //2 = 下
+    //3 = 入力中
+    int pad_flag;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +44,41 @@ public class PauseManeger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //===========================================================
+        //パッド処理
+        //===========================================================
+        float y_axis = Input.GetAxis("Vertical");//スティック
+        float arrow_axis = Input.GetAxis("Vertical_Arrow");//パッド
+
+        if (y_axis > 0.0f || arrow_axis < 0.0f)//上
+        {
+            if (pad_flag == 0 || pad_flag == 2)
+            {
+                pad_flag = 1;
+            }
+            else if (pad_flag == 1)
+            {
+                pad_flag = 3;
+            }
+        }
+        else if (y_axis < 0.0f || arrow_axis > 0.0f)//下
+        {
+            if (pad_flag == 0 || pad_flag == 1)
+            {
+                pad_flag = 2;
+            }
+            else if (pad_flag == 2)
+            {
+                pad_flag = 3;
+            }
+        }
+        else
+        {
+            pad_flag = 0;
+        }
+        
+
+
         //===========================================================
         //ポーズするかしないか
         //===========================================================
@@ -53,6 +96,7 @@ public class PauseManeger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7"))
             {
+                Time.timeScale = 1.0f;
                 Pause_flag = false;
             }
 
@@ -61,7 +105,7 @@ public class PauseManeger : MonoBehaviour
             //===========================================================
             //ポーズ中
             //===========================================================
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) || pad_flag == 1)//上移動
             {
                 select_flag--;
                 if (select_flag < 0)
@@ -69,7 +113,7 @@ public class PauseManeger : MonoBehaviour
                     select_flag = 0;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.S) || pad_flag == 2)
             {
                 select_flag++;
                 if (select_flag >= text.Length)
@@ -77,8 +121,10 @@ public class PauseManeger : MonoBehaviour
                     select_flag = text.Length - 1;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Return))
+            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
+
+                Time.timeScale = 1.0f;
                 if (select_flag == 0)//戻る
                 {
                     Pause_flag = false;
