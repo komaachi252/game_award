@@ -22,7 +22,8 @@ public class StarManeger : MonoBehaviour
     private int[] star_flag;//星の状態
 
     //星フラグ
-    private int[] Phese_num;//ステージごとの変化回数の評価数記録するやつ
+    private int Phese_num;//ステージごとの変化回数の評価数記録するやつ
+    [SerializeField] Star_PheseSet starphese;
 
     //フラグ
     //0 = 何も起きない
@@ -58,15 +59,6 @@ public class StarManeger : MonoBehaviour
             star_flag[i] = -1;
         }
 
-        //星ID生成
-        int stage_num = 0;
-        for (int i = 0; i < World_Stage_Nm.GET_WORLD_NUM(); i++)
-        {
-            stage_num += World_Stage_Nm.GET_STAGE_NUM(i);
-        }
-
-        Phese_num = new int[stage_num];
-
         //=============================================================================
         //ステージ分星の設定生成するやつ
         //=============================================================================
@@ -81,13 +73,8 @@ public class StarManeger : MonoBehaviour
     //======================================================
     private void Star_ID_Set()
     {
-
-        for (int i = 0; i < Phese_num.Length; i++)
-        {
-            Phese_num[i] = 5;
-        }
-
-        text_star[1].text = "変化回数　" + Phese_num[StageController.Get_stage()] + "回";
+        Phese_num = starphese.Get_StarPhese(StageController.Get_stage());
+        text_star[1].text = "変化回数　" + Phese_num + "回";
     }
 
     // Update is called once per frame
@@ -98,7 +85,7 @@ public class StarManeger : MonoBehaviour
             if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[0] == FALSE)//状態確認
             {
                 
-                if (Phese_num[StageController.Get_stage()] <= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
+                if (Phese_num <= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
                 {
                     anime_star[1].SetTrigger("Anime");
                     star_flag[1] = TRUE;
@@ -133,7 +120,6 @@ public class StarManeger : MonoBehaviour
 
     }
 
-
     //星のアニメーションを再生する
     public void Star_AnimeStart()
     {
@@ -143,32 +129,6 @@ public class StarManeger : MonoBehaviour
         flag = 1;
     }
 
-    //======================================================
-    //星の状態確認&変更
-    //======================================================
-    private void Star_switch(int star_number,int star_id)
-    {
-        switch (star_id)
-        {
-            case 0:
-                text_star[star_number].text = "ステージクリア";
-                star_flag[star_number] = TRUE;//クリアしか出ないはずだからとりあえずTRUE
-
-                break;
-            case 1:
-                text_star[star_number].text = "変化回数　10回";
-
-                break;
-            case 2:
-                text_star[star_number].text = "おまけアイテム取得";
-
-                break;
-            default:
-                text_star[star_number].text = "何もないよ";
-                star_flag[star_number] = TRUE;
-                break;
-        }
-    }
 
     //星がアニメーションしたかしてないか
     public bool Active_AnimeStar()

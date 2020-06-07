@@ -7,6 +7,7 @@ public class Windmill : MonoBehaviour
     // Start is called before the first frame update
     public bool m_is_right;
     public float m_rotate_speed;
+    int once = 0;
 
     void Start()
     {
@@ -28,7 +29,11 @@ public class Windmill : MonoBehaviour
     {
         if (col.gameObject.CompareTag("CLOUD") && !col.GetComponent<BoxCollider>().isTrigger)
         {
-            FindObjectOfType<Audio_Manager>().Play("kazama_desu");
+            if (once == 0)
+            {
+                FindObjectOfType<Audio_Manager>().Play("kazama_desu");
+                once = 1;
+            }
         }
         if (col.gameObject.CompareTag("AQUA") && !col.GetComponent<BoxCollider>().isTrigger)
         {

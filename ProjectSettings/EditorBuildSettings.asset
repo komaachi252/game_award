@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ResultScene.unity
     guid: 44c248ec8d3d7c94484107d3d4892e4f
+  - enabled: 1
+    path: Assets/Scenes/PauseScene.unity
+    guid: dff1b6a4bff0f2f40bbdb6c7d3c9ec27
   m_configObjects: {}

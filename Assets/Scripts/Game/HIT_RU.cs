@@ -25,7 +25,7 @@ public class HIT_RU : MonoBehaviour
     void OnTriggerEnter(Collider other)             //他のオブジェクトとの接触時の処理
     {
         HIT = 1;
-        if (other.gameObject.CompareTag("HAMMER") || other.gameObject.CompareTag("WINDMILL") || other.gameObject.CompareTag("SKY") || other.gameObject.CompareTag("LEAF") || other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("AQUA") || other.gameObject.CompareTag("SOLID") || other.gameObject.CompareTag("CLOUD"))     //加熱属性に当たった時
+        if (other.gameObject.CompareTag("HAMMER") || other.gameObject.CompareTag("WINDMILL") || other.gameObject.CompareTag("SKY") || other.gameObject.CompareTag("LEAF") || other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("AQUA") || other.gameObject.CompareTag("SOLID") || other.gameObject.CompareTag("CLOUD") || other.gameObject.CompareTag("LIFTZOON"))     //加熱属性に当たった時
         {
             HIT = 0;
         }
@@ -34,7 +34,7 @@ public class HIT_RU : MonoBehaviour
     void OnTriggerStay(Collider other)             //他のオブジェクトとの接触時の処理
     {
         HIT = 1;
-        if (other.gameObject.CompareTag("HAMMER") || other.gameObject.CompareTag("WINDMILL") || other.gameObject.CompareTag("SKY") || other.gameObject.CompareTag("LEAF") || other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("AQUA") || other.gameObject.CompareTag("SOLID") || other.gameObject.CompareTag("CLOUD"))     //加熱属性に当たった時
+        if (other.gameObject.CompareTag("HAMMER") || other.gameObject.CompareTag("WINDMILL") || other.gameObject.CompareTag("SKY") || other.gameObject.CompareTag("LEAF") || other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("AQUA") || other.gameObject.CompareTag("SOLID") || other.gameObject.CompareTag("CLOUD") || other.gameObject.CompareTag("LIFTZOON"))     //加熱属性に当たった時
         {
             HIT = 0;
         }
@@ -42,7 +42,7 @@ public class HIT_RU : MonoBehaviour
 
     void OnTriggerExit(Collider other)              //他のオブジェクトとの接触時の処理
     {
-        if (other.gameObject.CompareTag("HAMMER") || other.gameObject.CompareTag("WINDMILL") || other.gameObject.CompareTag("SKY") || other.gameObject.CompareTag("LEAF") || other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("AQUA") || other.gameObject.CompareTag("SOLID") || other.gameObject.CompareTag("CLOUD"))     //加熱属性に当たった時
+        if (other.gameObject.CompareTag("HAMMER") || other.gameObject.CompareTag("WINDMILL") || other.gameObject.CompareTag("SKY") || other.gameObject.CompareTag("LEAF") || other.gameObject.CompareTag("LEAF_INV") || other.gameObject.CompareTag("AQUA") || other.gameObject.CompareTag("SOLID") || other.gameObject.CompareTag("CLOUD") || other.gameObject.CompareTag("LIFTZOON"))     //加熱属性に当たった時
         {
             //HIT = 0;
         }

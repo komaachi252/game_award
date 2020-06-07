@@ -83,7 +83,7 @@ public class Map_Decorator : MonoBehaviour
             }
             trans.z = -1.0f;
         }
-        if(m_world_index == 2)
+        if(m_world_index == 200)
         {
             var seed = seed_num % 3;
             if(seed == 0)

@@ -13,6 +13,11 @@ public class PLAYER : MonoBehaviour
     GameObject FADE;
     public SOLID SOLID;
     public AQUA AQUA;
+    public AQUA_MOTION AQUA_MOTION;
+    public ICE_ATAMA_MOTION ICE_ATAMA_MOTION;
+    public ICE_doutai_MOTION ICE_Doutai_MOTION;
+    public ICE_kubiwa_MOTION ICE_Kubiwa_MOTION;
+    public CLOUD_MOTION CLOUD_MOTION;
     public CLOUD CLOUD;
     public JUGEMOVE JUGEMOVE;
     public HIT_U HIT_U;
@@ -51,11 +56,13 @@ public class PLAYER : MonoBehaviour
     public int VIEWflag = -1;       //見渡しフラグ
     public int VIEWBACK = 0;        //見渡し復元カウント
     public int GAMEOVER = 0;        //ゲームオーバー判定フラグ
+    public int GAMEOVER_ACT = 0;    //ゲームオーバーアクションカウント
     public int GOAL = 0;            //ゴールフラグ
     public int FADEFLAg = 0;        //フェードフラグ
     public int FADECONT = 0;        //フェードアウトカウント
     public int Leaf_HIT = 0;        //葉っぱ接触フラグ
     public int SPONGE_HIT = 0;      //スポンジ接触フラグ
+    public int GAME_STOP = -1;       //ポーズフラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -76,7 +83,8 @@ public class PLAYER : MonoBehaviour
     public int stay_WATER = 0;  //水接触フラグ
     public int stay_THORN_BLOCK = 0;    //トゲブロック接触フラグ
     public int stay_FIRE = 0;     //炎接触フラグ
-    public int stay_DRAIN = 0;    //ドレイン接触フラグ  
+    public int stay_DRAIN = 0;    //ドレイン接触フラグ
+    public int stay_LIFTZOON = 0;   //リフトゾーン侵入フラグ
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -106,13 +114,36 @@ public class PLAYER : MonoBehaviour
     {
         //int ARROW = 0;
 
+        if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") )
+        {
+            GAME_STOP *= -1;
+            if (GAME_STOP == 1)
+            {
+                Time.timeScale = 0f;
+            }
+            if(GAME_STOP == -1)
+            {
+                Time.timeScale = 1f;
+            }
+        }
+
+        /*ポーズ画面がコントローラーに対応したら開く
+        if(GAME_STOP == 1 && Input.GetKeyDown("joystick button 0"))
+        {
+            GAME_STOP = -1;
+            Time.timeScale = 1f;
+        }
+        */
+
+        if(Mathf.Approximately(Time.timeScale,0f))
+        {
+            return;
+        }
+
         float x_axis = Input.GetAxis("Horizontal2");//右マイナス　左プラス
         float x_axis_R = Input.GetAxis("Rstick_H"); //右マイナス　左プラス
         float y_axis_R = Input.GetAxis("Rstick_V"); //上プラス　下マイナス
 
-        //Debug.Log("右スティック左右" + x_axis_R);
-        //Debug.Log("右スティック上下" + y_axis_R);
-        //Debug.Log(x_axis);
         int ARROW = 0;
 
         if (x_axis < 0)
@@ -441,7 +472,7 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-            if (MOVE_D == 1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
+            if (MOVE_D == 1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1 && stay_LIFTZOON == 0)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
             {
                 if (transform.position.x > VMOVEPOS && AUTOMOVEflag3 == 0)
                 {
@@ -466,7 +497,7 @@ public class PLAYER : MonoBehaviour
                 }
             }
 
-            if (MOVE_D == -1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
+            if (MOVE_D == -1 && VMOVEflag == 1 && TYPE == 1 && MOVE_V == -1 && stay_LIFTZOON == 0)  //縦移動予約が入っていて同じ方向に進んでいたら（水）
             {
                 if (transform.position.x < VMOVEPOS && AUTOMOVEflag3 == 0)
                 {
@@ -805,7 +836,16 @@ public class PLAYER : MonoBehaviour
             if (stay_THORN_BLOCK == 1)
             {
                 GAMEOVER = 1;
-                Game_Fade.Fade_Start(90, true, "GameScene");
+                GAMEOVER_ACT = 90;
+                if (TYPE == 1)
+                {
+                    AQUA_MOTION.MOTION_RYU();
+                }
+
+                if(TYPE == 2)
+                {
+                    CLOUD_MOTION.MOTION_RYU();
+                }
             }
 
             if (stay_FIRE == 1)
@@ -823,7 +863,8 @@ public class PLAYER : MonoBehaviour
             if (stay_DRAIN == 1)
             {
                 GAMEOVER = 1;
-                Game_Fade.Fade_Start(90, true, "GameScene");
+                GAMEOVER_ACT = 90;
+                AQUA_MOTION.MOTION_RYU();
             }
         }
 
@@ -886,6 +927,15 @@ public class PLAYER : MonoBehaviour
             VMOVEflag = 0;
             JUGEMOVE.SETposy(posy);
             VMOVEflag = JUGEMOVE.root(MOVE_D, MOVE_V);
+        }
+
+        if (GAMEOVER_ACT > 0)
+        {
+            GAMEOVER_ACT--;
+            if (GAMEOVER_ACT == 0)
+            {
+                Game_Fade.Fade_Start(90, true, "GameScene");
+            }
         }
 
         /*
@@ -1265,17 +1315,6 @@ public class PLAYER : MonoBehaviour
                 STAND_T = 0;
                 STAND_U = 0;
             }
-
-            /*
-            if (other.gameObject.CompareTag("DRAIN") && GAMEOVER == 0)
-            {
-                if (TYPE == 1)
-                {
-                    GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
-                }
-            }
-            */
         }
 
         if (other.gameObject.CompareTag("LEAF"))
@@ -1304,7 +1343,10 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 2)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    CLOUD_MOTION.CRUSH();
+                    rb.velocity = new Vector3(0.0f, -0.0f, 0.0f);
+                    Physics.gravity = new Vector3(0.0f, 0.0f, 0.0f);
                 }
             }
 
@@ -1313,7 +1355,11 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 0)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    tag = "Untagged";
+                    ICE_ATAMA_MOTION.CRUSH();
+                    ICE_Doutai_MOTION.CRUSH();
+                    ICE_Kubiwa_MOTION.CRUSH();
                 }
             }
 
@@ -1331,7 +1377,11 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 0)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    tag = "Untagged";
+                    ICE_ATAMA_MOTION.CRUSH();
+                    ICE_Doutai_MOTION.CRUSH();
+                    ICE_Kubiwa_MOTION.CRUSH();
                 }
             }
 
@@ -1340,7 +1390,12 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 0)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    tag = "Untagged";
+                    //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    ICE_ATAMA_MOTION.CRUSH();
+                    ICE_Doutai_MOTION.CRUSH();
+                    ICE_Kubiwa_MOTION.CRUSH();
                 }
             }
 
@@ -1354,11 +1409,29 @@ public class PLAYER : MonoBehaviour
         }
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("LIFTZOON"))
+        {
+            stay_LIFTZOON = 1;
+        }
+    }
+
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("WATERMILL"))
         {
             PLAYERCAMERA.CLAREMILLFIND();
         }
+
+        if (other.gameObject.CompareTag("LIFTZOON"))
+        {
+            stay_LIFTZOON = 0;
+        }
+    }
+
+    public int GET_MOVE_D()
+    {
+        return MOVE_D;
     }
 }
