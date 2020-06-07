@@ -127,13 +127,12 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        /*ポーズ画面がコントローラーに対応したら開く
+        //ポーズ画面がコントローラーに対応したら開く
         if(GAME_STOP == 1 && Input.GetKeyDown("joystick button 0"))
         {
             GAME_STOP = -1;
             Time.timeScale = 1f;
-        }
-        */
+        }       
 
         if (Mathf.Approximately(Time.timeScale, 0f))
         {
