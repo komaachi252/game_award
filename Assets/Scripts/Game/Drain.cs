@@ -5,6 +5,7 @@ using UnityEngine;
 public class Drain : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject m_splash;
     void Awake()
     {
         this.transform.Translate(0, -0.5f, 0);

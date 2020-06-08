@@ -9,6 +9,8 @@ public class FIRE : MonoBehaviour
     public Vector3 pos_BASE;
     int CHANGE = 0;
     int MODE = 0;
+    public GameObject m_fire;
+    public GameObject m_fire_extinguish;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,11 @@ public class FIRE : MonoBehaviour
             transform.localScale = size;
             transform.position = pos;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     private void OnTriggerEnter(Collider col)
