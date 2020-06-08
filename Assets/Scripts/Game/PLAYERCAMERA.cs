@@ -55,7 +55,7 @@ public class PLAYERCAMERA : MonoBehaviour
         }
 
         //見渡し状態でなくRスティックがいじられたら
-        if ((x_axis_R != 0 || y_axis_R != 0) && MODE_L == -1 && BACKcount == 0 && count == 0 && GOAL == 0)
+        if ((x_axis_R != 0 || y_axis_R != 0) && MODE_L == -1 && BACKcount == 0 && count == 0 && GOAL == 0 && MILLFIND == 0 && offset_z == -5)
         {
             MODE_L = 1;
 
@@ -106,7 +106,7 @@ public class PLAYERCAMERA : MonoBehaviour
             NoiseController.CHANGE_CANVAS();
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0 && count == 0 && GOAL == 0)
+        if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0 && count == 0 && GOAL == 0 && MILLFIND == 0 && offset_z == -5)
         {
             MODE_L *= -1;
 
@@ -382,6 +382,44 @@ public class PLAYERCAMERA : MonoBehaviour
     public void SETMILLFIND()
     {
         MILLFIND = 1;
+
+        if(MODE_L == 1)
+        {
+            MODE_L = -1;
+            BACKcount = 30;
+            Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
+            TARGETPOS.y += 1.1f + offset_y;
+
+            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+            {
+                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+            }
+
+            if (TARGETPOS.x < 4.6f)
+            {
+                TARGETPOS.x = 4.6f;
+            }
+
+            if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
+            {
+                TARGETPOS.y = MapLoader.Get_Map_Height() - 3.1f;
+            }
+
+            if (TARGETPOS.y < 2.1f)
+            {
+                TARGETPOS.y = 2.1f;
+            }
+
+            BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
+            BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
+
+            LEFTARROW.CHANGE_FLAG();
+            RIGHTARROW.CHANGE_FLAG();
+            UPARROW.CHANGE_FLAG();
+            DOWNARROW.CHANGE_FLAG();
+            EYE.CHANGE_FLAG();
+            NoiseController.CHANGE_CANVAS();
+        }
     }
 
     public void CLAREMILLFIND()
@@ -427,6 +465,21 @@ public class PLAYERCAMERA : MonoBehaviour
 
         BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
         BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
+    }
+
+    public float GETofset_Z()
+    {
+        return offset_z;
+    }
+
+    public int GET_VIEW_OK()
+    {
+        if(MILLFIND ==0 && offset_z == -5)
+        {
+            return 1;
+        }
+
+        return 0;
     }
 }
 
