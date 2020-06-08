@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0bf1cf2643975419d3219cbafeb97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PLAYERCAMERA: {fileID: 0}
 --- !u!1 &555872781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,16 +1171,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numimage:
-  - {fileID: 512832794092569013, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: -5320917688778872318, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: 1512081409965998958, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: 1558614329279217784, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: -2063260603257403762, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: -662497963929487295, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: 7697519257932161911, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: 6297641149923487983, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: 4638873940434523210, guid: c915d03c89708fb479254f3669281b09, type: 3}
-  - {fileID: 5412577795254219372, guid: c915d03c89708fb479254f3669281b09, type: 3}
+  - {fileID: 512832794092569013, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: -5320917688778872318, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: 1512081409965998958, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: 1558614329279217784, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: -2063260603257403762, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: -662497963929487295, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: 7697519257932161911, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: 6297641149923487983, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: 4638873940434523210, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
+  - {fileID: 5412577795254219372, guid: afeec026280fc1b47b5cc913b4419ae4, type: 3}
   number: 
 --- !u!1 &1134604315
 GameObject:
