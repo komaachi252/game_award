@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Clear_Flag : MonoBehaviour
 {
-    public GameObject GameManeger;//ゲームマネージャーをもらう
-
-    public GameObject Result;//リザルトのゲームオブジェクト
+    public Game_Manager GameManeger;//ゲームマネージャーをもらう
 
     private StarManeger star;//星制御するやつ
 
@@ -41,7 +39,7 @@ public class Clear_Flag : MonoBehaviour
     void Update()
     {
 
-        if (flag == 0 && GameManeger.GetComponent<Game_Manager>().Is_Clear_Flag == true)
+        if (flag == 0 && GameManeger.Is_Clear_Flag == true)
         {
             //Result.SetActive(true);
             flag = 2;

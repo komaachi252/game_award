@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PauseManeger : MonoBehaviour
 {
+
+    [SerializeField] ExposeClearFlag clearflag;
+
     //フラグ
     //true = ポーズ中
     //false = ポーズじゃない
@@ -44,6 +47,11 @@ public class PauseManeger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (clearflag.Expose_CrearFlag.Is_Clear_Flag == true)
+        {
+            return;
+        }
+
         //===========================================================
         //パッド処理
         //===========================================================
@@ -86,6 +94,7 @@ public class PauseManeger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7"))
             {
+                
                 Pause_flag = true;
             }
 
@@ -96,6 +105,7 @@ public class PauseManeger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7"))
             {
+                FindObjectOfType<Audio_Manager>().Play("enter");
                 Time.timeScale = 1.0f;
                 Pause_flag = false;
             }
@@ -112,6 +122,8 @@ public class PauseManeger : MonoBehaviour
                 {
                     select_flag = 0;
                 }
+
+                FindObjectOfType<Audio_Manager>().Play("select");
             }
             else if (Input.GetKeyDown(KeyCode.S) || pad_flag == 2)
             {
@@ -120,11 +132,12 @@ public class PauseManeger : MonoBehaviour
                 {
                     select_flag = text.Length - 1;
                 }
+                FindObjectOfType<Audio_Manager>().Play("select");
             }
             else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
-
                 Time.timeScale = 1.0f;
+                FindObjectOfType<Audio_Manager>().Play("enter");
                 if (select_flag == 0)//戻る
                 {
                     Pause_flag = false;

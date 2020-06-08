@@ -33,7 +33,13 @@ public class BottomManeger : MonoBehaviour
     public Sprite Bottom_up;//ボタン押してない
     public Sprite Bottom_down;//ボタン押してる
 
-    private int stick_flag = 0;//スティックフラグ
+    //パッドのフラグ
+    //入力フラグ
+    //0 = 未入力
+    //1 = 上
+    //2 = 下
+    //3 = 入力中
+    private int pad_flag = 0;//スティックフラグ
 
 
     // Start is called before the first frame update
@@ -57,7 +63,44 @@ public class BottomManeger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))//左に移動
+        //===========================================================
+        //パッド処理
+        //===========================================================
+        float y_axis = Input.GetAxis("Horizontal2");//スティック
+        float arrow_axis = Input.GetAxis("Horizontal_Arrow");//パッド
+
+        if (y_axis > 0.0f || arrow_axis < 0.0f)//上
+        {
+            if (pad_flag == 0 || pad_flag == 2)
+            {
+                pad_flag = 1;
+            }
+            else if (pad_flag == 1)
+            {
+                pad_flag = 3;
+            }
+        }
+        else if (y_axis < 0.0f || arrow_axis > 0.0f)//下
+        {
+            if (pad_flag == 0 || pad_flag == 1)
+            {
+                pad_flag = 2;
+            }
+            else if (pad_flag == 2)
+            {
+                pad_flag = 3;
+            }
+        }
+        else
+        {
+            pad_flag = 0;
+        }
+
+        //==========================================================
+        //入力処理
+        //==========================================================
+
+        if (Input.GetKeyDown(KeyCode.A) || pad_flag == 1)//左に移動
         {
             now_bottom--;
 
@@ -65,9 +108,11 @@ public class BottomManeger : MonoBehaviour
             {
                 now_bottom = SELECT;
             }
+
+            FindObjectOfType<Audio_Manager>().Play("select");
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) || pad_flag == 2)
         {
             now_bottom++;
 
@@ -75,16 +120,18 @@ public class BottomManeger : MonoBehaviour
             {
                 now_bottom = NEXT;
             }
+            FindObjectOfType<Audio_Manager>().Play("select");
         }
 
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKey(KeyCode.Return) || Input.GetKey("joystick button 0"))
         {
             Dicision2();
         }
 
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp("joystick button 0"))
         {
             Dicision();
+            FindObjectOfType<Audio_Manager>().Play("enter");
         }
 
         Bottom_touch();

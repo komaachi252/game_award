@@ -114,28 +114,27 @@ public class PLAYER : MonoBehaviour
     {
         //int ARROW = 0;
 
-        if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") )
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7"))
         {
             GAME_STOP *= -1;
             if (GAME_STOP == 1)
             {
                 Time.timeScale = 0f;
             }
-            if(GAME_STOP == -1)
+            if (GAME_STOP == -1)
             {
                 Time.timeScale = 1f;
             }
         }
 
-        /*ポーズ画面がコントローラーに対応したら開く
+        //ポーズ画面がコントローラーに対応したら開く
         if(GAME_STOP == 1 && Input.GetKeyDown("joystick button 0"))
         {
             GAME_STOP = -1;
             Time.timeScale = 1f;
-        }
-        */
+        }       
 
-        if(Mathf.Approximately(Time.timeScale,0f))
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
             return;
         }
@@ -418,6 +417,16 @@ public class PLAYER : MonoBehaviour
         else
         {
             posy = (int)(transform.position.y - 0.5f);
+        }
+
+        if (transform.position.y < 0)
+        {
+            Vector3 LIMIT = transform.position;
+            LIMIT.y = 0;
+            transform.position = LIMIT;
+            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            Physics.gravity = new Vector3(0.0f, 0.0f, 0.0f);
+
         }
 
         //縦移動フラグが準備されている場合
@@ -824,13 +833,24 @@ public class PLAYER : MonoBehaviour
             //水ギミック利用
             if (stay_WATER == 1)
             {
-                STAND = 0;
-                STAND_T = 0;
-                STAND_U = 0;
+                if (TYPE == 0)
+                {
+                    STAND = 0;
+                    STAND_T = 0;
+                    STAND_U = 0;
 
-                Physics.gravity = new Vector3(0, 5.0f, 0);
-                MOVE_V = -1;
-                FLOATflag = 1;
+                    Physics.gravity = new Vector3(0, 5.0f, 0);
+                    MOVE_V = -1;
+                    FLOATflag = 1;
+                }
+                /*
+                if(TYPE == 1)
+                {
+                    GAMEOVER = 1;
+                    GAMEOVER_ACT = 90;
+                    AQUA.exchange_s();
+                }   
+                */
             }
 
             if (stay_THORN_BLOCK == 1)
@@ -842,7 +862,7 @@ public class PLAYER : MonoBehaviour
                     AQUA_MOTION.MOTION_RYU();
                 }
 
-                if(TYPE == 2)
+                if (TYPE == 2)
                 {
                     CLOUD_MOTION.MOTION_RYU();
                 }
@@ -934,7 +954,7 @@ public class PLAYER : MonoBehaviour
             GAMEOVER_ACT--;
             if (GAMEOVER_ACT == 0)
             {
-                Game_Fade.Fade_Start(90, true, "GameScene");
+                Game_Fade.Fade_Start(90, true, "GameScene", "PauseScene");
             }
         }
 
@@ -1176,7 +1196,7 @@ public class PLAYER : MonoBehaviour
 
     public void WATER(float TARGET_V)
     {
-        if (TYPE == 0)
+        if (TYPE == 0 || TYPE == 1)
         {
             MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
 
@@ -1193,6 +1213,13 @@ public class PLAYER : MonoBehaviour
 
             AUTOMOVEflag2 = 1;
             stay_WATER = 1;
+
+            if (TYPE == 1)
+            {
+                GAMEOVER = 1;
+                GAMEOVER_ACT = 90;
+                AQUA.exchange_s();
+            }
         }
     }
 
@@ -1362,7 +1389,7 @@ public class PLAYER : MonoBehaviour
                     ICE_Kubiwa_MOTION.CRUSH();
                 }
             }
-
+            /*
             if (other.gameObject.CompareTag("WATER") && GAMEOVER == 0)
             {
                 if (TYPE == 1)
@@ -1371,6 +1398,7 @@ public class PLAYER : MonoBehaviour
                     Game_Fade.Fade_Start(90, true, "GameScene");
                 }
             }
+            */
 
             if (other.gameObject.CompareTag("GEAR") && GAMEOVER == 0)
             {

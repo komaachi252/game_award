@@ -1274,6 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaaa7a5af92e2404ca9e4a6c585a14ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clearflag: {fileID: 11400000, guid: 6fa6c0baa178a5b4aad25643a11ceec2, type: 2}
   Pause_canvas: {fileID: 29733810}
   text:
   - {fileID: 2147131059}
@@ -1528,6 +1529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1914611567}
+  - component: {fileID: 1914611568}
   m_Layer: 5
   m_Name: Mission
   m_TagString: Untagged
@@ -1561,6 +1563,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1914611568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914611566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2cc949708cb84f4dbcdade621570c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image_star:
+  - {fileID: 1681518928}
+  - {fileID: 471978132}
+  - {fileID: 1641190885}
+  sprite_star:
+  - {fileID: 21300000, guid: 0b6bf5ccfa212994e9a5dc7276c406cf, type: 3}
+  - {fileID: 21300000, guid: f721afd6695a7e74991b50fc649fdae4, type: 3}
+  text_Phese: {fileID: 1843759541}
+  phesecount: {fileID: 11400000, guid: 8073b6dd5297dc44c9eb7da53939ac0f, type: 2}
+  pheseset: {fileID: 11400000, guid: 11f39ca2a4cee8e4d86287b297b47e1d, type: 2}
+  help: {fileID: 11400000, guid: c80273b79d043d0428f199e88dfc400c, type: 2}
 --- !u!1 &2054078864
 GameObject:
   m_ObjectHideFlags: 0
