@@ -9,6 +9,10 @@ public class Option_Cursor : MonoBehaviour
     public GameObject[] m_select_bars;  //  選択肢
     bool m_is_pos_set;
     bool m_is_init_pos_y;
+
+    int lock_U = 0;
+    int lock_D = 0;
+
     void Start()
     {
         
@@ -44,6 +48,7 @@ public class Option_Cursor : MonoBehaviour
         }
 
         Cursor_Input();
+        lock_update();
     }
     private void FixedUpdate()
     {
@@ -53,8 +58,33 @@ public class Option_Cursor : MonoBehaviour
 
     void Cursor_Input()
     {
+        float y_axis = Input.GetAxis("Vertical");//上プラス　下マイナス
+
+        int ARROW_U = 0;
+        int ARROW_D = 0;
+
+        if (y_axis > 0.5f && lock_U == 0)
+        {
+            ARROW_U = 1;
+            lock_U = 50;
+        }
+        else if (y_axis < 0.5f)
+        {
+            lock_U = 0;
+        }
+
+        if (y_axis < -0.5f && lock_D == 0)
+        {
+            ARROW_D = 1;
+            lock_D = 50;
+        }
+        else if (y_axis > -0.5f)
+        {
+            lock_D = 0;
+        }
+
         var idx = m_current_index;
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || ARROW_U == 1)
         {
             idx--;
             if (idx < 0)
@@ -63,7 +93,7 @@ public class Option_Cursor : MonoBehaviour
             }
             FindObjectOfType<Audio_Manager>().Play("select");
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || ARROW_D == 1)
         {
             idx++;
             if (idx > 2)
@@ -72,16 +102,16 @@ public class Option_Cursor : MonoBehaviour
             }
             FindObjectOfType<Audio_Manager>().Play("select");
         }
-        if (Input.GetKeyDown(KeyCode.Return) && idx == 0)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 0)
         {
 
         }
-        if (Input.GetKeyDown(KeyCode.Return) && idx == 1)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 1)
         {
             //FindObjectOfType<Audio_Manager>().Play("enter");
             //m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
         }
-        if (Input.GetKeyDown(KeyCode.Return) && idx == 2)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 2)
         {
             FindObjectOfType<Audio_Manager>().Play("cancel");
             m_is_pos_set = false;
@@ -107,5 +137,18 @@ public class Option_Cursor : MonoBehaviour
         //  インデックスに応じてＹ座標を移動
         m_current_index = new_cursor_idx;
         this.gameObject.GetComponent<RectTransform>().position = new Vector3(this.transform.position.x, m_pos_y + m_current_index * -20.0f, this.transform.position.z);
+    }
+
+    void lock_update()
+    {
+        if (lock_D > 0)
+        {
+            lock_D--;
+        }
+
+        if (lock_U > 0)
+        {
+            lock_U--;
+        }
     }
 }
