@@ -34,6 +34,7 @@ public class Goal : MonoBehaviour
         if (col.gameObject.CompareTag("SOLID") || col.gameObject.CompareTag("AQUA") || col.gameObject.CompareTag("CLOUD"))
         {
             FindObjectOfType<Audio_Manager>().Play("game_clear");
+       
             //GameObject.Find(GAME_MANAGER).GetComponent<Game_Manager>().Game_Clear();
             m_teru.GetComponent<Teru>().Rotate_Start();
         }

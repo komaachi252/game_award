@@ -124,4 +124,6 @@ MonoBehaviour:
     type: 3}
   m_push_effect: {fileID: 3699134127002865707, guid: 07688568c692cc94ca1be874e29dbba6,
     type: 3}
+  m_hard_effect: {fileID: 4032463029302519799, guid: 7525f10c638baa54b95893b22f163f3b,
+    type: 3}
   m_is_hot: 0

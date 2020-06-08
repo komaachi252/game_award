@@ -6,7 +6,7 @@ public class Forced_Phase : MonoBehaviour
 {
     public GameObject m_effect;
     public GameObject m_push_effect;
-
+    public GameObject m_hard_effect;
     int m_spawn_frame = 0;
     bool m_is_trriger = false;
     public bool m_is_hot;
@@ -36,6 +36,7 @@ public class Forced_Phase : MonoBehaviour
         if (m_is_trriger)
         {
             Color_Change();
+            
         }
         else if(gameObject.tag != "BLOCK")
         {
@@ -71,51 +72,7 @@ public class Forced_Phase : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        /*
-        if (col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
-        {
-            if (gameObject.tag != "BLOCK")
-            {
-                m_is_trriger = true;
-                if (m_is_hot)
-                {
-                    Material mat = Resources.Load<Material>("Game/Material/hot_2");
-                    m_material = new Material(mat);
-                    FindObjectOfType<Audio_Manager>().Play("heat1");
-                }
-                else
-                {
-                    Material mat = Resources.Load<Material>("Game/Material/cold_2");
-                    m_material = new Material(mat);
-                    FindObjectOfType<Audio_Manager>().Play("frozen");
-                }
-                gameObject.GetComponent<Renderer>().material = m_material;
-                m_current_color = m_material.color;
-                //gameObject.tag = "BLOCK";
-                Create_Effect();
-            }
-        }
-        
-        if (gameObject.tag != "BLOCK")
-        {
-            m_is_trriger = true;
-            if (m_is_hot)
-            {
-                Material mat = Resources.Load<Material>("Game/Material/hot_2");
-                m_material = new Material(mat);
-                FindObjectOfType<Audio_Manager>().Play("heat1");
-            }
-            else
-            {
-                Material mat = Resources.Load<Material>("Game/Material/cold_2");
-                m_material = new Material(mat);
-                FindObjectOfType<Audio_Manager>().Play("frozen");
-            }
-            gameObject.GetComponent<Renderer>().material = m_material;
-            m_current_color = m_material.color;
-            //gameObject.tag = "BLOCK";
-            Create_Effect();
-        }*/
+
     }
 
     void Color_Change()
@@ -130,7 +87,14 @@ public class Forced_Phase : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
+        
+        if (col.gameObject.CompareTag("SOLID") && !m_is_hot)
+        {
+            Instantiate(m_hard_effect, col.gameObject.transform.position, Quaternion.identity);
+            FindObjectOfType<Audio_Manager>().Play("frozen");
+        }
+
+        if (col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
         {
             if (!m_is_stay)
             {

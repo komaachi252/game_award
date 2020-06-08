@@ -18,6 +18,8 @@ public class Rain : MonoBehaviour
 
     public void Set_Enable()
     {
+        FindObjectOfType<Audio_Manager>().Stop("rain1");
+        FindObjectOfType<Back_Ground>().Set_Sun_Shine();
         this.gameObject.SetActive(false);
     }
 }

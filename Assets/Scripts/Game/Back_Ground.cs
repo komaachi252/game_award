@@ -25,4 +25,9 @@ public class Back_Ground : MonoBehaviour
         
     }
 
+    public void Set_Sun_Shine()
+    {
+        this.GetComponentInChildren<Image>().color = new Color(1.0f, 1.0f, 1.0f);
+
+    }
 }
