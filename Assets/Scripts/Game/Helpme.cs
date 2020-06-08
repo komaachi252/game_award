@@ -14,7 +14,6 @@ public class Helpme : MonoBehaviour
     public bool Is_Help
     {
         get { return m_is_help; }
-        set { m_is_help = value; }
     }
     void Start()
     {
@@ -31,7 +30,7 @@ public class Helpme : MonoBehaviour
     {
         //  救出フラグON
         this.gameObject.GetComponent<Image>().sprite = m_another_sprite;
-        Is_Help = true;
+        m_is_help = true;
     }
 
 }
