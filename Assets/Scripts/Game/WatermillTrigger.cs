@@ -5,6 +5,8 @@ using UnityEngine;
 public class WatermillTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public GameObject m_effect;
     bool m_is_colli;
     public bool Is_Colli
     {
@@ -25,14 +27,18 @@ public class WatermillTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.CompareTag("AQUA"))
-        m_is_colli = true;
-        
+        if (col.gameObject.CompareTag("AQUA"))
+        {
+            m_is_colli = true;
+            Instantiate(m_effect, this.gameObject.transform.position, Quaternion.identity);
+        }
     }
 
     private void OnTriggerExit(Collider col)
     {
         if (col.gameObject.CompareTag("AQUA"))
+        {
             m_is_colli = false;
+        }
     }
 }

@@ -28,7 +28,7 @@ public class Back_Ground : MonoBehaviour
     {
         if (!m_sun_shine) return;
         if (m_t >= 1.0f) return;
-        m_t += 0.1f;
+        m_t += 0.05f;
         if (m_t > 1.0f) m_t = 1.0f;
         this.GetComponentInChildren<Image>().color = Color.Lerp(new Color(0.7f, 0.7f, 0.7f), new Color(1.0f, 1.0f, 1.0f), m_t);
     }

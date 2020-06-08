@@ -5,7 +5,7 @@ using UnityEngine;
 public class Help : MonoBehaviour
 {
     // Start is called before the first frame update
-    
+    public GameObject m_effect;
     void Start()
     {
         
@@ -23,6 +23,9 @@ public class Help : MonoBehaviour
         {
             FindObjectOfType<Audio_Manager>().Play("help1");
             GameObject.Find("Helpme").GetComponent<Helpme>().Help();
+            var pos = this.gameObject.transform.position;
+            pos.y -= 0.3f;
+            Instantiate(m_effect, pos, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

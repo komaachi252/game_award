@@ -28,12 +28,12 @@ public class Phase_UI : MonoBehaviour
         // プレイヤーのタグを監視
         if (!GameObject.Find("PLAYER_MASTER").gameObject.tag.Equals(m_player_tag))
         {
-            //Debug.Log(m_player_tag);
+            Debug.Log(m_player_tag);
 
             //  状態変化カウント
             m_phase_cnt++;
             //  回数をカウントUIに設定
-            GameObject.Find("Phase_Count").gameObject.GetComponent<Phase_Count>().Set_Phase_Count(m_phase_cnt);
+            GameObject.Find("Canvas").GetComponent<Phase_Count>().View(m_phase_cnt);
             if(m_player_tag == "AQUA" && GameObject.Find("PLAYER_MASTER").gameObject.tag == "SOLID")
             {
                 GameObject.Find("Icon").GetComponent<NoiseController>().ChangeIcon(true);//水から氷なる時

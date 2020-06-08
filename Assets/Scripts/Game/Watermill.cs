@@ -8,9 +8,9 @@ public class Watermill : MonoBehaviour
     public GameObject m_trigger_right;
     public GameObject m_trigger_left;
 
-    public GameObject m_effect;
     float m_rotate_speed = 0.0f;
     public float ADD_ROTATE_SPEED = 0.01f;
+    int m_effect_frame_cnt;
     public float Rotate_Speed
     {
         get { return m_rotate_speed; }
@@ -18,7 +18,7 @@ public class Watermill : MonoBehaviour
     public const float MAX_SPEED = 3.0f;
     void Start()
     {
-
+        m_effect_frame_cnt = 0;
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class Watermill : MonoBehaviour
     {
         if (m_trigger_right.GetComponent<WatermillTrigger>().Is_Colli)
         {
-            Debug.Log("Right");
+
             FindObjectOfType<Audio_Manager>().Play("splash");
             if (m_rotate_speed < MAX_SPEED)
             {
@@ -37,7 +37,6 @@ public class Watermill : MonoBehaviour
         {
 
             FindObjectOfType<Audio_Manager>().Play("splash");
-            Debug.Log("Left");
             if (m_rotate_speed > -MAX_SPEED)
             {
                 m_rotate_speed -= ADD_ROTATE_SPEED;

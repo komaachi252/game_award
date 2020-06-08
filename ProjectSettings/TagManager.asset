@@ -33,6 +33,7 @@ TagManager:
   - SKY
   - THORN_INV
   - LIFTZOON
+  - SCORE
   layers:
   - Default
   - TransparentFX
