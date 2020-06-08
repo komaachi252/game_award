@@ -116,7 +116,7 @@ public class PLAYER : MonoBehaviour
     {
         //int ARROW = 0;
 
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7"))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") && GOAL == 0)
         {
             GAME_STOP *= -1;
             if (GAME_STOP == 1)
