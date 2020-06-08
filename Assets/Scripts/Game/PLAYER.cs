@@ -8,6 +8,7 @@ public class PLAYER : MonoBehaviour
 {
     //public PLAYERCAMERA PLAYERCAMERA;
     PLAYERCAMERA PLAYERCAMERA;
+    Thorn_Block Thorn_Block;
     Game_Fade Game_Fade;
     GameObject CAMERA;
     GameObject FADE;
@@ -63,6 +64,7 @@ public class PLAYER : MonoBehaviour
     public int Leaf_HIT = 0;        //葉っぱ接触フラグ
     public int SPONGE_HIT = 0;      //スポンジ接触フラグ
     public int GAME_STOP = -1;       //ポーズフラグ
+    public int NOTVIEW = 0;         //見渡し禁止フラグ
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -128,11 +130,11 @@ public class PLAYER : MonoBehaviour
         }
 
         //ポーズ画面がコントローラーに対応したら開く
-        if(GAME_STOP == 1 && Input.GetKeyDown("joystick button 0"))
+        if (GAME_STOP == 1 && Input.GetKeyDown("joystick button 0"))
         {
             GAME_STOP = -1;
             Time.timeScale = 1f;
-        }       
+        }
 
         if (Mathf.Approximately(Time.timeScale, 0f))
         {
@@ -155,7 +157,7 @@ public class PLAYER : MonoBehaviour
             ARROW = 2;
         }
 
-        if ((x_axis_R != 0 || y_axis_R != 0) && VIEWflag == -1)
+        if ((x_axis_R != 0 || y_axis_R != 0) && VIEWflag == -1 && NOTVIEW == 0 && PLAYERCAMERA.GETofset_Z() == -5)
         {
             VIEWflag = 1;
         }
@@ -229,7 +231,7 @@ public class PLAYER : MonoBehaviour
 
         //見渡し関係
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && NOTVIEW == 0 && PLAYERCAMERA.GETofset_Z() == -5)
         {
             VIEWflag *= -1;
             if (VIEWflag == -1)
@@ -1415,7 +1417,8 @@ public class PLAYER : MonoBehaviour
 
             if (other.gameObject.CompareTag("THORN") && GAMEOVER == 0)
             {
-                if (TYPE == 0)
+                Thorn_Block = other.gameObject.GetComponent<Thorn_Block>();
+                if (TYPE == 0 && Thorn_Block.GETpop() == true)
                 {
                     GAMEOVER = 1;
                     GAMEOVER_ACT = 90;
@@ -1431,6 +1434,8 @@ public class PLAYER : MonoBehaviour
             {
                 if (TYPE == 1)
                 {
+                    NOTVIEW = 1;
+                    VIEWflag = -1;
                     PLAYERCAMERA.SETMILLFIND();
                 }
             }
@@ -1450,6 +1455,7 @@ public class PLAYER : MonoBehaviour
         if (other.gameObject.CompareTag("WATERMILL"))
         {
             PLAYERCAMERA.CLAREMILLFIND();
+            NOTVIEW = 0;
         }
 
         if (other.gameObject.CompareTag("LIFTZOON"))

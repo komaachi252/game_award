@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EYE : MonoBehaviour
 {
+    public PLAYERCAMERA PLAYERCAMERA;
     Image image;
     int FLAG = -1;
     int LOCK_F = 0;
@@ -26,7 +27,7 @@ public class EYE : MonoBehaviour
             image.enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && LOCK_F == 0)
+        if (Input.GetKeyDown(KeyCode.F) && LOCK_F == 0 && PLAYERCAMERA.GET_VIEW_OK() == 1)
         {
             FLAG *= -1;
         }
