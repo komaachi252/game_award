@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7355029575483675958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.58, y: 0.91, z: -0.55}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   EmitterScale: 0
   effectAsset: {fileID: 11400000, guid: 3b32187a201b19d489fb4e525d401dcf, type: 2}
   playOnStart: 1
-  isLooping: 0
+  isLooping: 1
 --- !u!114 &6968262033699576048
 MonoBehaviour:
   m_ObjectHideFlags: 0

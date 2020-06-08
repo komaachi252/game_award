@@ -11,11 +11,23 @@ public class FIRE : MonoBehaviour
     int MODE = 0;
     public GameObject m_fire;
     public GameObject m_fire_extinguish;
+    int m_frame_cnt;
+    bool m_is_pop;
+    bool m_is_used;
+    GameObject[] m_fires = new GameObject[2];
     // Start is called before the first frame update
     void Start()
     {
         pos_BASE = transform.position;
+        m_frame_cnt = 0;
+        m_is_pop = false;
+        m_is_used = true;
+        var pos = this.gameObject.transform.position;
+        pos.y -= 0.3f;
+        m_fires[0] = Instantiate(m_fire, pos, Quaternion.identity);
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -50,11 +62,32 @@ public class FIRE : MonoBehaviour
             transform.localScale = size;
             transform.position = pos;
         }
+
+        if (!m_is_used)
+        {
+            var pos = this.gameObject.transform.position;
+            pos.y -= 0.3f;
+
+            Destroy(m_fires[0]);
+            Destroy(m_fires[1]);
+
+            Instantiate(m_fire_extinguish, pos, Quaternion.identity);
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
     {
-        
+        if (m_is_pop) return;
+        m_frame_cnt++;
+        if(m_frame_cnt > 30)
+        {
+            var pos = this.gameObject.transform.position;
+            pos.y -= 0.3f;
+
+            m_fires[1] = Instantiate(m_fire, pos, Quaternion.identity);
+            m_is_pop = true;
+        }
     }
 
     private void OnTriggerEnter(Collider col)
@@ -65,12 +98,16 @@ public class FIRE : MonoBehaviour
             MODE = 1;
             size = new Vector3(1.0f, 1.0f, 1.0f);
             pos = transform.position;
+
+            FindObjectOfType<Audio_Manager>().Play("heat1");
         }
 
         //  水との接触で消滅
         if (col.gameObject.CompareTag("AQUA") && size.y == 1)
         {
-            this.gameObject.SetActive(false);
+            m_is_used = false;
+            FindObjectOfType<Audio_Manager>().Play("extinguish");
+            //this.gameObject.SetActive(false);
         }
     }
 
