@@ -8,13 +8,14 @@ public class Help : MonoBehaviour
     public GameObject m_effect;
     void Start()
     {
-        
+        transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        transform.Translate(0.0f, -0.5f, 0.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(0.0f, -3.0f, 0.0f);
     }
 
     private void OnCollisionEnter(Collision col)

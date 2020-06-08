@@ -77,4 +77,9 @@ public class SOLID : MonoBehaviour
         exchangeflag = 2;
         size = new Vector3(0.0f, 0.0f, 0.0f);
     }
+
+    public void lost()
+    {
+        transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+    }
 }

@@ -24,13 +24,13 @@ public class WaterGate_Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if((col.gameObject.CompareTag("BLOCK") || col.gameObject.CompareTag("DRAIN") || col.gameObject.CompareTag("HOT") || col.gameObject.CompareTag("HARD_HOT")) && col.gameObject.transform != this.gameObject.transform.parent)
+        if((col.gameObject.CompareTag("BLOCK") || col.gameObject.CompareTag("DRAIN") || col.gameObject.CompareTag("HOT") || col.gameObject.CompareTag("HARD_HOT") || col.gameObject.CompareTag("THORN_BLOCK")) && col.gameObject.transform != this.gameObject.transform.parent)
         //Debug.Log("塩田");
         m_is_colli = true;
     }
     private void OnTriggerExit(Collider col)
     {
-        if ((col.gameObject.CompareTag("BLOCK") || col.gameObject.CompareTag("DRAIN") || col.gameObject.CompareTag("HOT") || col.gameObject.CompareTag("HARD_HOT")) && col.gameObject.transform != this.gameObject.transform.parent)
+        if((col.gameObject.CompareTag("BLOCK") || col.gameObject.CompareTag("DRAIN") || col.gameObject.CompareTag("HOT") || col.gameObject.CompareTag("HARD_HOT") || col.gameObject.CompareTag("THORN_BLOCK")) && col.gameObject.transform != this.gameObject.transform.parent)
         //Debug.Log("絵杭");
         m_is_colli = false;
     }

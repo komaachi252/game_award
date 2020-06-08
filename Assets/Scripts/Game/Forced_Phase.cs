@@ -87,12 +87,13 @@ public class Forced_Phase : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        
+        /*
         if (col.gameObject.CompareTag("SOLID") && !m_is_hot)
         {
             Instantiate(m_hard_effect, col.gameObject.transform.position, Quaternion.identity);
             FindObjectOfType<Audio_Manager>().Play("frozen");
         }
+        */
 
         if (col.gameObject.tag == "SOLID" || col.gameObject.tag == "AQUA" || col.gameObject.tag == "CLOUD")
         {

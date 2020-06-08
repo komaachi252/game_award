@@ -30,6 +30,9 @@ public class PLAYER : MonoBehaviour
     Rigidbody rb;
     Collider boxcollider;
     Collider capcollider;
+    public GameObject m_hard_COLD;
+    public GameObject m_hard_HOT;
+    public GameObject m_BRAKE;
     public int posx = 0;
     public int posy = 0;
     public int B_posx = 0;
@@ -63,8 +66,9 @@ public class PLAYER : MonoBehaviour
     public int FADECONT = 0;        //フェードアウトカウント
     public int Leaf_HIT = 0;        //葉っぱ接触フラグ
     public int SPONGE_HIT = 0;      //スポンジ接触フラグ
-    public int GAME_STOP = -1;       //ポーズフラグ
+    public int GAME_STOP = -1;      //ポーズフラグ
     public int NOTVIEW = 0;         //見渡し禁止フラグ
+    int HARD_COLD_COUNT = 0;        //凍結エフェクト追撃カウント
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -769,7 +773,9 @@ public class PLAYER : MonoBehaviour
                 else if (TYPE == 2)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    Instantiate(m_hard_HOT, transform.position, Quaternion.identity);
+                    CLOUD.lost();
                 }
             }
 
@@ -798,7 +804,10 @@ public class PLAYER : MonoBehaviour
                 else if (TYPE == 0)
                 {
                     GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
+                    GAMEOVER_ACT = 90;
+                    Instantiate(m_hard_COLD, transform.position, Quaternion.identity);
+                    FindObjectOfType<Audio_Manager>().Play("frozen");
+                    HARD_COLD_COUNT = 181;
                 }
             }
 
@@ -960,17 +969,15 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        /*
-        if (GAMEOVER == 1)
+        if (HARD_COLD_COUNT > 0)
         {
-            FADECONT++;
-
-            if (FADECONT == 91)
+            HARD_COLD_COUNT--;
+            if (HARD_COLD_COUNT % 30 == 0)
             {
-                SceneManager.LoadScene("GameScene"); //移動先のシーン名　（リスタート）
+                Instantiate(m_hard_COLD, transform.position, Quaternion.identity);
+                FindObjectOfType<Audio_Manager>().Play("frozen");
             }
         }
-        */
 
         B_posx = posx;
         B_posy = posy;
@@ -1373,9 +1380,11 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     GAMEOVER_ACT = 90;
-                    CLOUD_MOTION.CRUSH();
+                    //CLOUD_MOTION.CRUSH();
                     rb.velocity = new Vector3(0.0f, -0.0f, 0.0f);
                     Physics.gravity = new Vector3(0.0f, 0.0f, 0.0f);
+                    Instantiate(m_hard_HOT, transform.position, Quaternion.identity);
+                    CLOUD.lost();
                 }
             }
 
@@ -1385,22 +1394,15 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     GAMEOVER_ACT = 90;
-                    tag = "Untagged";
-                    ICE_ATAMA_MOTION.CRUSH();
-                    ICE_Doutai_MOTION.CRUSH();
-                    ICE_Kubiwa_MOTION.CRUSH();
+                    //tag = "Untagged";
+                    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    //ICE_ATAMA_MOTION.CRUSH();
+                    //ICE_Doutai_MOTION.CRUSH();
+                    //ICE_Kubiwa_MOTION.CRUSH();
+                    Instantiate(m_BRAKE, transform.position, Quaternion.identity);
+                    SOLID.lost();
                 }
             }
-            /*
-            if (other.gameObject.CompareTag("WATER") && GAMEOVER == 0)
-            {
-                if (TYPE == 1)
-                {
-                    GAMEOVER = 1;
-                    Game_Fade.Fade_Start(90, true, "GameScene");
-                }
-            }
-            */
 
             if (other.gameObject.CompareTag("GEAR") && GAMEOVER == 0)
             {
@@ -1408,10 +1410,13 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     GAMEOVER_ACT = 90;
-                    tag = "Untagged";
-                    ICE_ATAMA_MOTION.CRUSH();
-                    ICE_Doutai_MOTION.CRUSH();
-                    ICE_Kubiwa_MOTION.CRUSH();
+                    //tag = "Untagged";
+                    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    //ICE_ATAMA_MOTION.CRUSH();
+                    //ICE_Doutai_MOTION.CRUSH();
+                    //ICE_Kubiwa_MOTION.CRUSH();
+                    Instantiate(m_BRAKE, transform.position, Quaternion.identity);
+                    SOLID.lost();
                 }
             }
 
@@ -1422,11 +1427,13 @@ public class PLAYER : MonoBehaviour
                 {
                     GAMEOVER = 1;
                     GAMEOVER_ACT = 90;
-                    tag = "Untagged";
-                    //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-                    ICE_ATAMA_MOTION.CRUSH();
-                    ICE_Doutai_MOTION.CRUSH();
-                    ICE_Kubiwa_MOTION.CRUSH();
+                    //tag = "Untagged";
+                    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    //ICE_ATAMA_MOTION.CRUSH();
+                    //ICE_Doutai_MOTION.CRUSH();
+                    //ICE_Kubiwa_MOTION.CRUSH();
+                    Instantiate(m_BRAKE, transform.position, Quaternion.identity);
+                    SOLID.lost();
                 }
             }
 

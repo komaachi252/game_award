@@ -222,6 +222,11 @@ MonoBehaviour:
   HIT_RU: {fileID: 5306336778851947771}
   HIT_LT: {fileID: 7815424538255254410}
   HIT_LU: {fileID: 3027995964702956961}
+  m_hard_COLD: {fileID: 4032463029302519799, guid: 7525f10c638baa54b95893b22f163f3b,
+    type: 3}
+  m_hard_HOT: {fileID: 8234111802299209920, guid: 1feda07197af6204e90b1f513b02eeaf,
+    type: 3}
+  m_BRAKE: {fileID: 3724540392223727065, guid: 187692a1b41c779408d395552e7ef8bf, type: 3}
   posx: 0
   posy: 0
   B_posx: 0
@@ -256,6 +261,7 @@ MonoBehaviour:
   Leaf_HIT: 0
   SPONGE_HIT: 0
   GAME_STOP: -1
+  NOTVIEW: 0
   MOVE_NOW: 0
   STAND: 0
   STAND_T: 0
@@ -644,18 +650,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6169225089653705767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5461551046429828022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b44a59702f619a4a874d08153b6c8a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5122494054797331113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +663,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PLAYER: {fileID: 559887081260174395}
+--- !u!114 &6169225089653705767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461551046429828022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b44a59702f619a4a874d08153b6c8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &6657168384211263088
 MeshRenderer:
   m_ObjectHideFlags: 0
