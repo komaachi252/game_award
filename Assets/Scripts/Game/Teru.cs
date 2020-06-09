@@ -40,7 +40,6 @@ public class Teru : MonoBehaviour
         var target = Quaternion.Euler(new Vector3(0, 0, m_target_rotate));
         var now_rot = transform.rotation;
         //  自角度と目標角度を比較
-        Debug.Log(Quaternion.Angle(now_rot, target));
         if (Quaternion.Angle(now_rot, target) <= 90)
         {
             //  目標角度にする

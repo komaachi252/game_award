@@ -32,11 +32,12 @@ public class Game_BGM : MonoBehaviour
     public void Stop_BGM()
     {
         FindObjectOfType<Audio_Manager>().Stop(m_bgm_name);
+        FindObjectOfType<Audio_Manager>().Stop("rain1");
+
     }
 
     void OnDestroy()
     {
-        FindObjectOfType<Audio_Manager>().Stop(m_bgm_name);
-        FindObjectOfType<Audio_Manager>().Stop("rain");
+ //       FindObjectOfType<Audio_Manager>().Stop(m_bgm_name);
     }
 }

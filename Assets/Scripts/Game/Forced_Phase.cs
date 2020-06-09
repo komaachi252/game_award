@@ -8,7 +8,7 @@ public class Forced_Phase : MonoBehaviour
     public GameObject m_push_effect;
     public GameObject m_hard_effect;
     int m_spawn_frame = 0;
-    bool m_is_trriger = false;
+    bool m_is_trigger = false;
     public bool m_is_hot;
     Color m_current_color;
     Color m_break_color = new Color(0.9f, 0.9f, 0.9f);
@@ -33,7 +33,7 @@ public class Forced_Phase : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (m_is_trriger)
+        if (m_is_trigger)
         {
             Color_Change();
             
@@ -81,7 +81,7 @@ public class Forced_Phase : MonoBehaviour
         m_t += 0.01f;
         if(m_t > 1.0f)
         {
-            m_is_trriger = false;
+            m_is_trigger = false;
         }
     }
 
@@ -121,7 +121,7 @@ public class Forced_Phase : MonoBehaviour
         if (!GameObject.Find("PLAYER_MASTER")) return;
         if (GameObject.Find("PLAYER_MASTER").gameObject.tag != m_tag_name)
         {
-            m_is_trriger = true;
+            m_is_trigger = true;
             if (m_is_hot)
             {
                 Material mat = Resources.Load<Material>("Game/Material/hot_2");

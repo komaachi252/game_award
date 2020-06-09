@@ -48,7 +48,8 @@ public class Game_Fade : MonoBehaviour
             if (m_is_fade_out)
             {
                 SceneManager.LoadScene(m_next_scene);
-                SceneManager.LoadScene(m_addition_scene, LoadSceneMode.Additive);
+                if(m_addition_scene != "NONE")
+                    SceneManager.LoadScene(m_addition_scene, LoadSceneMode.Additive);
             }
         }
         if (m_is_fade_out)
