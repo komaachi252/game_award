@@ -110,14 +110,9 @@ public class JUGEMOVE : MonoBehaviour
         return transform.position.y;
     }
 
-    /*void OnDrawGizmos()
+    public Vector3 GET_JUGE_POS()
     {
-        Vector3 POS = transform.position;
-        POS.x += 1;
-        POS.y += 0.5f;
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(POS, new Vector3(0.9f,0.2f,0.9f));
+        return transform.position;
     }
-    */
 }
 
