@@ -25,6 +25,11 @@ public class PauseManeger : MonoBehaviour
     //2 = WorldSelect
     int select_flag;
 
+    //フラグ
+    //0 = 入力できない
+    //1 = 入力できる
+    int Key_flag;
+
     [SerializeField] Game_Fade fade;
 
     //パッドのフラグ
@@ -42,6 +47,7 @@ public class PauseManeger : MonoBehaviour
         Pause_canvas.SetActive(false);
 
         select_flag = 0;
+        Key_flag = 1;
     }
 
     // Update is called once per frame
@@ -52,38 +58,7 @@ public class PauseManeger : MonoBehaviour
             return;
         }
 
-        //===========================================================
-        //パッド処理
-        //===========================================================
-        float y_axis = Input.GetAxis("Vertical");//スティック
-        float arrow_axis = Input.GetAxis("Vertical_Arrow");//パッド
-
-        if (y_axis > 0.0f || arrow_axis < 0.0f)//上
-        {
-            if (pad_flag == 0 || pad_flag == 2)
-            {
-                pad_flag = 1;
-            }
-            else if (pad_flag == 1)
-            {
-                pad_flag = 3;
-            }
-        }
-        else if (y_axis < 0.0f || arrow_axis > 0.0f)//下
-        {
-            if (pad_flag == 0 || pad_flag == 1)
-            {
-                pad_flag = 2;
-            }
-            else if (pad_flag == 2)
-            {
-                pad_flag = 3;
-            }
-        }
-        else
-        {
-            pad_flag = 0;
-        }
+        
         
 
 
@@ -103,6 +78,12 @@ public class PauseManeger : MonoBehaviour
         }
         else if (Pause_flag == true)//ポーズしてる
         {
+
+            if (Key_flag == 0)
+            {
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick button 1"))
             {
                 FindObjectOfType<Audio_Manager>().Play("enter");
@@ -111,6 +92,42 @@ public class PauseManeger : MonoBehaviour
             }
 
             Pause_canvas.SetActive(true);
+
+
+            //===========================================================
+            //パッド処理
+            //===========================================================
+            float y_axis = Input.GetAxis("Vertical");//スティック
+            float arrow_axis = Input.GetAxis("Vertical_Arrow");//パッド
+
+            if (y_axis > 0.0f || arrow_axis < 0.0f)//上
+            {
+                if (pad_flag == 0 || pad_flag == 2)
+                {
+                    pad_flag = 1;
+                }
+                else if (pad_flag == 1)
+                {
+                    pad_flag = 3;
+                }
+            }
+            else if (y_axis < 0.0f || arrow_axis > 0.0f)//下
+            {
+                if (pad_flag == 0 || pad_flag == 1)
+                {
+                    pad_flag = 2;
+                }
+                else if (pad_flag == 2)
+                {
+                    pad_flag = 3;
+                }
+            }
+            else
+            {
+                pad_flag = 0;
+            }
+
+
 
             //===========================================================
             //ポーズ中
@@ -152,6 +169,7 @@ public class PauseManeger : MonoBehaviour
                 {
                     fade.Fade_Start(20, true, "WorldScene");
                 }
+                Key_flag = 0;
             }
 
             select.position = new Vector3(select.position.x, text[select_flag].position.y, 0.0f);
