@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StarManeger : MonoBehaviour
 {
     [SerializeField] ExposePheseCount exphese;//変化回数貰う
+    [SerializeField] SaveData Star_Data;//星情報を扱うやつ
 
     public GameObject[] gameobject_star;
     private Animator[] anime_star;
@@ -74,7 +75,7 @@ public class StarManeger : MonoBehaviour
     //======================================================
     private void Star_ID_Set()
     {
-        Phese_num = starphese.Get_StarPhese(StageController.Get_stage());
+        Phese_num = starphese.Get_StarPhese(StageController.Get_Index());
         text_star[1].text = "変化回数　" + Phese_num + "回";
     }
 
@@ -90,10 +91,12 @@ public class StarManeger : MonoBehaviour
                 {
                     anime_star[1].SetTrigger("Anime");
                     star_flag[1] = TRUE;
+                    Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 1;
                 }
                 else
                 {
                     star_flag[1] = FALSE;
+                    Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 0;
                 }
                 flag = 2;
             }
@@ -107,10 +110,12 @@ public class StarManeger : MonoBehaviour
                 {
                     anime_star[2].SetTrigger("Anime");
                     star_flag[2] = TRUE;
+                    Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 1;
                 }
                 else if (help.Expose_Helpme.Is_Help == false)
                 {
                     star_flag[2] = FALSE;
+                    Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 0;
                 }
                 
                 flag = 3;
@@ -135,6 +140,7 @@ public class StarManeger : MonoBehaviour
 
         anime_star[0].SetTrigger("Anime");
         star_flag[0] = TRUE;
+        Star_Data.Star_SaveData[StageController.Get_Index(), 0] = 1;
         flag = 1;
     }
 

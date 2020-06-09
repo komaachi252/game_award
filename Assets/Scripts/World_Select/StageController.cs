@@ -92,11 +92,10 @@ public class StageController : MonoBehaviour
 
         if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
         {
-            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("GameScene");
             SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
         }
-
-        if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
+        else if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
         {
             SceneManager.LoadScene("TitleScene");
         }
@@ -128,8 +127,7 @@ public class StageController : MonoBehaviour
             }
             
         }
-
-        if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
+        else if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
         {
             if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
             {
@@ -146,6 +144,7 @@ public class StageController : MonoBehaviour
             
         }
 
+
         if (Input.GetKeyDown("joystick button 0"))//決定A
         {
             if (select_flag == 0)//ワールド選択の時
@@ -159,8 +158,7 @@ public class StageController : MonoBehaviour
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
         }
-
-        if (Input.GetKeyDown("joystick button 2"))//戻るX
+        else if (Input.GetKeyDown("joystick button 2"))//戻るX
         {
             if (select_flag == 1)//ステージ選択の時
             {
@@ -175,6 +173,8 @@ public class StageController : MonoBehaviour
 
             FindObjectOfType<Audio_Manager>().Play("cancel");
         }
+
+
 
         
     }
@@ -200,8 +200,7 @@ public class StageController : MonoBehaviour
             FindObjectOfType<Audio_Manager>().Play("select");
 
         }
-
-        if (Input.GetKeyDown(KeyCode.W))//上
+        else if (Input.GetKeyDown(KeyCode.W))//上
         {
             if (select_flag == 0 && next_world > 0)//ワールド選択画面
             {
@@ -230,8 +229,7 @@ public class StageController : MonoBehaviour
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
         }
-
-        if (Input.GetKeyDown(KeyCode.Z))//決定してたら一個前に戻る
+        else if (Input.GetKeyDown(KeyCode.Z))//決定してたら一個前に戻る
         {
             if (select_flag == 1)//ステージ選択の時
             {
@@ -244,6 +242,10 @@ public class StageController : MonoBehaviour
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
             }
             FindObjectOfType<Audio_Manager>().Play("cancel");
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))//エスケープキーで終了処理
+        {
+            Application.Quit();
         }
     }
 

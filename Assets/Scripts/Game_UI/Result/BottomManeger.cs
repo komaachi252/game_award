@@ -194,6 +194,8 @@ public class BottomManeger : MonoBehaviour
 
             fade.Fade_Start(20, true, "GameScene", "PauseScene");
         }
+
+        
     }
 
     private void Dicision2()

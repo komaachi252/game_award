@@ -10,6 +10,7 @@ public class Bgmkun : MonoBehaviour
          FindObjectOfType<Audio_Manager>().Stop("Title");
          FindObjectOfType<Audio_Manager>().Stop("Result");
          FindObjectOfType<Audio_Manager>().Stop("rain1");
+         FindObjectOfType<Audio_Manager>().Stop("");
          FindObjectOfType<Audio_Manager>().Play("select_world");
     }
 

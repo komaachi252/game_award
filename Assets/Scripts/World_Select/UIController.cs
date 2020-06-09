@@ -16,9 +16,17 @@ public class UIController : MonoBehaviour
     private Text Select_mode;//今ワールドかステージ選択なのかを示すテキスト
 
     public GameObject sample_staworld;//選択UIサンプル
+
+
+    [SerializeField] Sprite[] Star_Sprite;//星テクスチャ
     
     private GameObject[] CreateUI;//複製したUI
     private Text[] UI_Text;//複製したUIのテキスト
+    private GameObject[] World_Star;//ワールドの星が親になってるオブジェクト
+    private GameObject[] Stage_Star;//ステージの星が親になってるオブジェクト
+
+    [SerializeField] SaveData star;//星の取得状況確認
+    int[] world_starcount;
 
     //フラグ
     //0 = 未選択
@@ -58,6 +66,24 @@ public class UIController : MonoBehaviour
         GameObject stagecont = GameObject.Find("StageController");//ステージコントローラーオブジェをもらう
         stagecon = stagecont.GetComponent<StageController>();//ステージコントローラーのスクリプトをもらう
 
+
+        //=====================================================
+        //星の状態準備
+        //=====================================================
+        world_starcount = new int[5];
+
+        for (int i = 0; i < 50; i++)//ワールド数
+        {
+            for (int l = 0; l < 3; l++)//星
+            {
+
+                if (star.Star_SaveData[i, l] == 1)//星が付いてた場合
+                {
+                    world_starcount[i / 10]++;//カウントする
+                }
+            }
+        }
+
         //=====================================================
         //テキスト情報受け取る&座標調整
         //=====================================================
@@ -80,6 +106,8 @@ public class UIController : MonoBehaviour
 
         CreateUI = new GameObject[max_num];//生成
         UI_Text = new Text[max_num];
+        World_Star = new GameObject[max_num];
+        Stage_Star = new GameObject[max_num];
         flag = new int[max_num];
 
         for (int i = 0; i < CreateUI.Length; i++)//とりあえず配列の数分生成
@@ -90,12 +118,17 @@ public class UIController : MonoBehaviour
             UI_Text[i] = CreateUI[i].transform.GetChild(0).transform.GetComponent<Text>();//テキスト受け取る
             UI_Text[i].text = "WORLD " + (i + 1);
 
+            World_Star[i] = CreateUI[i].transform.Find("World_Star").gameObject;//ワールドの星が入ってる子供貰う
+            Stage_Star[i] = CreateUI[i].transform.Find("Stage_Star").gameObject;//ステージの星が入ってる子供貰う
+
             flag[i] = 0;
 
             if (i >= World_Stage_Nm.GET_WORLD_NUM())//ワールド数を超えてた場合
             {
                 CreateUI[i].SetActive(false);
             }
+
+            Star_World(i);
         }
 
         sample_staworld.SetActive(false);//コピー元非表示
@@ -109,6 +142,9 @@ public class UIController : MonoBehaviour
         up = 0;
         down = 6;
         move_max = 75.0f + 20.0f;
+
+        
+        
 
     }
 
@@ -180,7 +216,8 @@ public class UIController : MonoBehaviour
                             {
                                 CreateUI[j].SetActive(true);
                                 UI_Text[j].text = "WORLD " + (j + 1);
-                                
+
+                                Star_World(j);
 
                                 if (j >= World_Stage_Nm.GET_WORLD_NUM())//ワールド数を超えてた場合
                                 {
@@ -197,6 +234,8 @@ public class UIController : MonoBehaviour
                                 CreateUI[j].SetActive(true);
 
                                 UI_Text[j].text = "STAGE " + (j + 1);
+
+                                Star_Stage(j, now_world);
 
                                 if (j >= World_Stage_Nm.GET_STAGE_NUM(now_stage))//ワールド数を超えてた場合
                                 {
@@ -221,7 +260,6 @@ public class UIController : MonoBehaviour
                     //一定の場所にたどり着いたら
                     if (CreateUI[i].transform.localPosition.x <= RIGHT_MAX && Select.transform.localPosition.x <= 433.0f)
                     {
-
                         //位置リセット
                         for (int j = 0; j < CreateUI.Length; j++)
                         {
@@ -256,6 +294,7 @@ public class UIController : MonoBehaviour
 
                 for (int i = 0; i < flag.Length; i++)
                 {
+
                     if (flag[i] == 2)//選択中に移動
                     {
                         CreateUI[i].transform.localPosition = CreateUI[i].transform.localPosition - new Vector3(SPEED * Time.deltaTime, 0.0f, 0.0f);
@@ -286,7 +325,6 @@ public class UIController : MonoBehaviour
             }
             else if (now_select == 1)//ステージ選択
             {
-
                 if (flag[now_stage] == 0)//未選択の時
                 {
                     flag[now_stage] = 2;
@@ -294,6 +332,7 @@ public class UIController : MonoBehaviour
 
                 for (int i = 0; i < flag.Length; i++)
                 {
+
                     if (flag[i] == 2)//選択中に移動
                     {
                         CreateUI[i].transform.localPosition = CreateUI[i].transform.localPosition - new Vector3(SPEED * Time.deltaTime, 0.0f, 0.0f);
@@ -405,6 +444,55 @@ public class UIController : MonoBehaviour
                     }
                 }
             }
+        }
+
+    }
+
+    //星の制御ワールドバージョン
+    void Star_World(int Array_num)
+    {
+        World_Star[Array_num].SetActive(true);//表示
+        Stage_Star[Array_num].SetActive(false);//非表示
+
+
+
+        if (world_starcount.Length <= Array_num)//ワールド数超えたら
+        {
+            return;
+        }
+        World_Star[Array_num].transform.GetChild(1).GetComponent<Text>().text = "x" + world_starcount[Array_num].ToString();
+    }
+
+    void Star_Stage(int Array_num, int now_world)
+    {
+        World_Star[Array_num].SetActive(false);//非表示
+        Stage_Star[Array_num].SetActive(true);//表示
+
+        if (star.Star_SaveData[Array_num + (now_world * 10),0] == 0)
+        {
+            Stage_Star[Array_num].transform.GetChild(0).GetComponent<Image>().sprite = Star_Sprite[0];
+        }
+        else if (star.Star_SaveData[Array_num + (now_world * 10), 0] == 1)
+        {
+            Stage_Star[Array_num].transform.GetChild(0).GetComponent<Image>().sprite = Star_Sprite[1];
+        }
+
+        if (star.Star_SaveData[Array_num + (now_world * 10), 1] == 0)
+        {
+            Stage_Star[Array_num].transform.GetChild(1).GetComponent<Image>().sprite = Star_Sprite[0];
+        }
+        else if (star.Star_SaveData[Array_num + (now_world * 10), 1] == 1)
+        {
+            Stage_Star[Array_num].transform.GetChild(1).GetComponent<Image>().sprite = Star_Sprite[1];
+        }
+
+        if (star.Star_SaveData[Array_num + (now_world * 10), 2] == 0)
+        {
+            Stage_Star[Array_num].transform.GetChild(2).GetComponent<Image>().sprite = Star_Sprite[0];
+        }
+        else if (star.Star_SaveData[Array_num + (now_world * 10), 2] == 1)
+        {
+            Stage_Star[Array_num].transform.GetChild(2).GetComponent<Image>().sprite = Star_Sprite[1];
         }
 
     }

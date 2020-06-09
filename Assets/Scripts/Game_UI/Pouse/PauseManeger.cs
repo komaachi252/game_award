@@ -134,7 +134,9 @@ public class PauseManeger : MonoBehaviour
                 }
                 FindObjectOfType<Audio_Manager>().Play("select");
             }
-            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+
+
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 Time.timeScale = 1.0f;
                 FindObjectOfType<Audio_Manager>().Play("enter");
