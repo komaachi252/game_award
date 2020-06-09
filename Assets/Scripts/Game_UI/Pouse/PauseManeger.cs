@@ -103,7 +103,7 @@ public class PauseManeger : MonoBehaviour
         }
         else if (Pause_flag == true)//ポーズしてる
         {
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7"))
+            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick button 1"))
             {
                 FindObjectOfType<Audio_Manager>().Play("enter");
                 Time.timeScale = 1.0f;

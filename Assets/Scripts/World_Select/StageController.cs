@@ -145,7 +145,7 @@ public class StageController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown("joystick button 0"))//決定A
+        if (Input.GetKeyDown("joystick button 0"))//決定
         {
             if (select_flag == 0)//ワールド選択の時
             {
@@ -158,7 +158,7 @@ public class StageController : MonoBehaviour
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
         }
-        else if (Input.GetKeyDown("joystick button 2"))//戻るX
+        else if (Input.GetKeyDown("joystick button 1"))//戻る
         {
             if (select_flag == 1)//ステージ選択の時
             {
