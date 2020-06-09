@@ -270,6 +270,8 @@ public class UIController : MonoBehaviour
                         change_flag = 1;//画面内
 
                         old_select = now_select;//状態を同じにする
+
+                        stagecon.key_flag = 1;
                     }
 
                 }
