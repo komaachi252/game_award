@@ -29,6 +29,7 @@ public class WatermillTrigger : MonoBehaviour
     {
         if (col.gameObject.CompareTag("AQUA"))
         {
+            FindObjectOfType<Audio_Manager>().Play("splash");
             m_is_colli = true;
             Instantiate(m_effect, this.gameObject.transform.position, Quaternion.identity);
         }

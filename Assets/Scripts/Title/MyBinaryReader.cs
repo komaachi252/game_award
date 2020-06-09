@@ -19,6 +19,8 @@ public class MyBinaryReader : MonoBehaviour
     void Awake()
     {
         (m_bgm_volume, m_se_volume) = Load();
+        FindObjectOfType<Audio_Manager>().Set_Volume(true, m_bgm_volume);
+        FindObjectOfType<Audio_Manager>().Set_Volume(false, m_se_volume);
         Debug.Log(m_bgm_volume + "は" + m_se_volume);
     }
 

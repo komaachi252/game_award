@@ -27,7 +27,6 @@ public class Watermill : MonoBehaviour
         if (m_trigger_right.GetComponent<WatermillTrigger>().Is_Colli)
         {
 
-            FindObjectOfType<Audio_Manager>().Play("splash");
             if (m_rotate_speed < MAX_SPEED)
             {
                 m_rotate_speed += ADD_ROTATE_SPEED;
@@ -36,7 +35,6 @@ public class Watermill : MonoBehaviour
         else if (m_trigger_left.GetComponent<WatermillTrigger>().Is_Colli)
         {
 
-            FindObjectOfType<Audio_Manager>().Play("splash");
             if (m_rotate_speed > -MAX_SPEED)
             {
                 m_rotate_speed -= ADD_ROTATE_SPEED;
@@ -45,7 +43,6 @@ public class Watermill : MonoBehaviour
         else if(Mathf.Abs(m_rotate_speed) > 0.0f)
         {
 
-            FindObjectOfType<Audio_Manager>().Stop("splash");
             m_rotate_speed *= 0.98f;
         }
         Rotate();
