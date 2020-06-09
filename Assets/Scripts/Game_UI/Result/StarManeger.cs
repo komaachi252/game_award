@@ -86,18 +86,12 @@ public class StarManeger : MonoBehaviour
         {
             if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[0] == FALSE)//状態確認
             {
-                
-                if (Phese_num <= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
+                if (star_flag[1] == TRUE)
                 {
                     anime_star[1].SetTrigger("Anime");
-                    star_flag[1] = TRUE;
-                    Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 1;
                 }
-                else
-                {
-                    star_flag[1] = FALSE;
-                    Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 0;
-                }
+                
+                
                 flag = 2;
             }
         }
@@ -106,17 +100,12 @@ public class StarManeger : MonoBehaviour
         {
             if (anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[1] == FALSE)//状態確認
             {
-                if (help.Expose_Helpme.Is_Help == true)
+                if (star_flag[2] == TRUE)
                 {
                     anime_star[2].SetTrigger("Anime");
-                    star_flag[2] = TRUE;
-                    Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 1;
                 }
-                else if (help.Expose_Helpme.Is_Help == false)
-                {
-                    star_flag[2] = FALSE;
-                    Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 0;
-                }
+                
+                
                 
                 flag = 3;
             }
@@ -142,6 +131,28 @@ public class StarManeger : MonoBehaviour
         star_flag[0] = TRUE;
         Star_Data.Star_SaveData[StageController.Get_Index(), 0] = 1;
         flag = 1;
+
+        if (Phese_num <= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
+        {
+
+            star_flag[1] = TRUE;
+            Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 1;
+        }
+        else
+        {
+            star_flag[1] = FALSE;
+        }
+
+        if (help.Expose_Helpme.Is_Help == true)//仲間を救出したら
+        {
+
+            star_flag[2] = TRUE;
+            Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 1;
+        }
+        else if (help.Expose_Helpme.Is_Help == false)
+        {
+            star_flag[2] = FALSE;
+        }
     }
 
 
