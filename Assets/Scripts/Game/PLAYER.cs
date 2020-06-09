@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PLAYER : MonoBehaviour
 {
-    //public PLAYERCAMERA PLAYERCAMERA;
     PLAYERCAMERA PLAYERCAMERA;
     Thorn_Block Thorn_Block;
     Game_Fade Game_Fade;
@@ -177,7 +176,7 @@ public class PLAYER : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0")) && MOVE_NOW == 0 && exchangecount == 0 && VIEWflag == -1)
         {
             Debug.Log("入力");
-            if (stay_HOT == 1)
+            if (stay_HOT == 1 && STAND == 1)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -194,7 +193,7 @@ public class PLAYER : MonoBehaviour
                 AUTOMOVEflag2 = 1;
             }
 
-            if (stay_COLD == 1)
+            if (stay_COLD == 1 && STAND == 1)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -242,6 +241,7 @@ public class PLAYER : MonoBehaviour
             {
                 VIEWBACK = 30;
             }
+            PLAYERCAMERA.CAMERA_F_KEY();
         }
 
         if (Input.GetKeyDown("joystick button 0") && VIEWflag == 1)
@@ -1367,6 +1367,7 @@ public class PLAYER : MonoBehaviour
         {
             GOAL = 1;
             PLAYERCAMERA.F_LOCK();
+            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
 

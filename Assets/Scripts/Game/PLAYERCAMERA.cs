@@ -105,7 +105,7 @@ public class PLAYERCAMERA : MonoBehaviour
             EYE.CHANGE_FLAG();
             NoiseController.CHANGE_CANVAS();
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0 && count == 0 && GOAL == 0 && MILLFIND == 0 && offset_z == -5)
         {
             MODE_L *= -1;
@@ -142,6 +142,7 @@ public class PLAYERCAMERA : MonoBehaviour
 
             NoiseController.CHANGE_CANVAS();
         }
+        */
 
 
         if (count == 0 && MODE_L == -1 && BACKcount == 0)
@@ -480,6 +481,48 @@ public class PLAYERCAMERA : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public void CAMERA_F_KEY()
+    {
+        MODE_L *= -1;
+
+        if (MODE_L == -1)
+        {
+            BACKcount = 30;
+            Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
+            TARGETPOS.y += 1.1f + offset_y;
+
+            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+            {
+                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+            }
+
+            if (TARGETPOS.x < 4.6f)
+            {
+                TARGETPOS.x = 4.6f;
+            }
+
+            if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
+            {
+                TARGETPOS.y = MapLoader.Get_Map_Height() - 3.1f;
+            }
+
+            if (TARGETPOS.y < 2.1f)
+            {
+                TARGETPOS.y = 2.1f;
+            }
+
+            BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
+            BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
+        }
+
+        LEFTARROW.CHANGE_FLAG();
+        RIGHTARROW.CHANGE_FLAG();
+        UPARROW.CHANGE_FLAG();
+        DOWNARROW.CHANGE_FLAG();
+        EYE.CHANGE_FLAG();
+        NoiseController.CHANGE_CANVAS();
     }
 }
 
