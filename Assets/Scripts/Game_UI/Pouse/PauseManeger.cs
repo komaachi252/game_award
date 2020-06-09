@@ -79,6 +79,7 @@ public class PauseManeger : MonoBehaviour
             {
                 FindObjectOfType<Audio_Manager>().Play("enter");
                 Pause_flag = true;
+                Key_flag = 1;
             }
 
             Pause_canvas.SetActive(false);
@@ -87,7 +88,7 @@ public class PauseManeger : MonoBehaviour
         else if (Pause_flag == true)//ポーズしてる
         {
 
-            if (Key_flag == 0 || Key_flag == 2)
+            if (Key_flag == 0)
             {
                 return;
             }

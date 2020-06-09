@@ -76,7 +76,7 @@ public class StarManeger : MonoBehaviour
     private void Star_ID_Set()
     {
         Phese_num = starphese.Get_StarPhese(StageController.Get_Index());
-        text_star[1].text = "変化回数　" + Phese_num + "回";
+        text_star[1].text = "変化回数　" + Phese_num + "回以下";
     }
 
     // Update is called once per frame
@@ -132,7 +132,7 @@ public class StarManeger : MonoBehaviour
         Star_Data.Star_SaveData[StageController.Get_Index(), 0] = 1;
         flag = 1;
 
-        if (Phese_num <= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
+        if (Phese_num >= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
         {
 
             star_flag[1] = TRUE;
