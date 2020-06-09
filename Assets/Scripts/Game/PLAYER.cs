@@ -1143,7 +1143,7 @@ public class PLAYER : MonoBehaviour
     public void SET_stay_WALL_R()
     {
         stay_WALL_R = 1;
-        DOWNPOS_R = JUGEMOVE.GET_JUGEPOS() + 0.1f;
+        DOWNPOS_R = JUGEMOVE.GET_JUGEPOS() + 0.09f;
     }
 
     public void CLEAR_stay_WALL_R()
@@ -1154,7 +1154,7 @@ public class PLAYER : MonoBehaviour
     public void SET_stay_WALL_L()
     {
         stay_WALL_L = 1;
-        DOWNPOS_L = JUGEMOVE.GET_JUGEPOS() - 0.1f;
+        DOWNPOS_L = JUGEMOVE.GET_JUGEPOS() - 0.09f;
     }
 
     public void CLEAR_stay_WALL_L()

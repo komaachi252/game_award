@@ -11,6 +11,8 @@ public class Watermill : MonoBehaviour
     float m_rotate_speed = 0.0f;
     public float ADD_ROTATE_SPEED = 0.01f;
     int m_effect_frame_cnt;
+
+    int splsh_count = 0;
     public float Rotate_Speed
     {
         get { return m_rotate_speed; }
@@ -26,7 +28,11 @@ public class Watermill : MonoBehaviour
     {
         if (m_trigger_right.GetComponent<WatermillTrigger>().Is_Colli)
         {
-
+            if (splsh_count == 0)
+            {
+                FindObjectOfType<Audio_Manager>().Play("splash");
+                splsh_count = 170;
+            }
             if (m_rotate_speed < MAX_SPEED)
             {
                 m_rotate_speed += ADD_ROTATE_SPEED;
@@ -34,18 +40,33 @@ public class Watermill : MonoBehaviour
         }
         else if (m_trigger_left.GetComponent<WatermillTrigger>().Is_Colli)
         {
-
+            if (splsh_count == 0)
+            {
+                FindObjectOfType<Audio_Manager>().Play("splash");
+                splsh_count = 170;
+            }
             if (m_rotate_speed > -MAX_SPEED)
             {
                 m_rotate_speed -= ADD_ROTATE_SPEED;
             }
         }
-        else if(Mathf.Abs(m_rotate_speed) > 0.0f)
+        else if (Mathf.Abs(m_rotate_speed) > 0.0f)
         {
-
+            Debug.Log(m_rotate_speed);
+            FindObjectOfType<Audio_Manager>().Stop("splash");
+            splsh_count = 0;
             m_rotate_speed *= 0.98f;
+            if (Mathf.Abs(m_rotate_speed) < 0.5f)
+            {
+                m_rotate_speed = 0;
+            }
         }
         Rotate();
+
+        if (splsh_count > 0)
+        {
+            splsh_count--;
+        }
     }
 
     void Rotate()
@@ -53,3 +74,4 @@ public class Watermill : MonoBehaviour
         this.transform.Rotate(new Vector3(0, 0, m_rotate_speed));
     }
 }
+
