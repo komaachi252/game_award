@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class StageController : MonoBehaviour
 {
-    public static readonly int START_WORLD = 0;//初期ワールド　0スタート
-    public static readonly int START_STAGE = 0;//初期ステージ　0スタート
-
     private const float INPUT_COOLTIME = 0.3f;
 
     public GameObject obje_feed;
@@ -31,7 +28,7 @@ public class StageController : MonoBehaviour
     //フラグ
     //0 = キー入力できない
     //1 = キー入力できる
-    private int key_flag;
+    public int key_flag { get; set; }
 
     private float input_cooltime;//入力クールタイム
 
@@ -53,7 +50,7 @@ public class StageController : MonoBehaviour
         next_stage = now_stage;
         next_world = now_world;
 
-        key_flag = 1;
+        key_flag = 0;
 
         script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
 
@@ -158,6 +155,7 @@ public class StageController : MonoBehaviour
             if (select_flag == 0)//ワールド選択の時
             {
                 select_flag = 1;
+                key_flag = 0;
             }
             else if (select_flag == 1)//ステージ選択の時
             {
@@ -173,6 +171,7 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 0;
                 next_stage = 0;
+                key_flag = 0;
             }
             else if (select_flag == 0)//ワールド選択の時
             {
@@ -230,6 +229,7 @@ public class StageController : MonoBehaviour
             if (select_flag == 0)//ワールド選択の時
             {
                 select_flag = 1;
+                key_flag = 0;
             }
             else if (select_flag == 1)//ステージ選択の時
             {
@@ -246,6 +246,7 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 0;
                 next_stage = 0;
+                key_flag = 0;
             }
             else if (select_flag == 0)
             {
@@ -257,6 +258,7 @@ public class StageController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape))//エスケープキーで終了処理
         {
+            key_flag = 0;
             Application.Quit();
         }
     }

@@ -28,6 +28,7 @@ public class PauseManeger : MonoBehaviour
     //フラグ
     //0 = 入力できない
     //1 = 入力できる
+    //2 = 移動中
     int Key_flag;
 
     [SerializeField] Game_Fade fade;
@@ -40,6 +41,10 @@ public class PauseManeger : MonoBehaviour
     //3 = 入力中
     int pad_flag;
 
+    float move_flame;//移動フレーム時間
+    float move_speed;//移動速度
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +53,14 @@ public class PauseManeger : MonoBehaviour
 
         select_flag = 0;
         Key_flag = 1;
+
+        move_flame = 1.0f;
+        select.localPosition = new Vector3(select.localPosition.x, text[select_flag].localPosition.y, 0.0f);
+        
     }
+
+    
+    
 
     // Update is called once per frame
     void Update()
@@ -58,10 +70,6 @@ public class PauseManeger : MonoBehaviour
             return;
         }
 
-        
-        
-
-
         //===========================================================
         //ポーズするかしないか
         //===========================================================
@@ -69,7 +77,7 @@ public class PauseManeger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7"))
             {
-                
+                FindObjectOfType<Audio_Manager>().Play("enter");
                 Pause_flag = true;
             }
 
@@ -79,14 +87,14 @@ public class PauseManeger : MonoBehaviour
         else if (Pause_flag == true)//ポーズしてる
         {
 
-            if (Key_flag == 0)
+            if (Key_flag == 0 || Key_flag == 2)
             {
                 return;
             }
 
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick button 1"))
             {
-                FindObjectOfType<Audio_Manager>().Play("enter");
+                FindObjectOfType<Audio_Manager>().Play("cancel");
                 Time.timeScale = 1.0f;
                 Pause_flag = false;
             }
@@ -156,30 +164,38 @@ public class PauseManeger : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 Time.timeScale = 1.0f;
-                FindObjectOfType<Audio_Manager>().Play("enter");
+                
                 if (select_flag == 0)//戻る
                 {
+                    FindObjectOfType<Audio_Manager>().Play("cancel");
                     Pause_flag = false;
                 }
                 else if (select_flag == 1)//リスタート
                 {
+                    FindObjectOfType<Audio_Manager>().Play("enter");
+
                     fade.Fade_Start(20, true, "GameScene", "PauseScene");
+
+
                 }
                 else if (select_flag == 2)//ワールド選択に戻る
                 {
+                    FindObjectOfType<Audio_Manager>().Play("enter");
+
                     fade.Fade_Start(20, true, "WorldScene");
+
                 }
                 Key_flag = 0;
             }
 
-            select.position = new Vector3(select.position.x, text[select_flag].position.y, 0.0f);
-
-
-            
-            
-
+            select.localPosition = new Vector3(select.localPosition.x, text[select_flag].localPosition.y, 0.0f);
         }
+    }
+
+    void FixedUpdate()
+    {
 
         
+
     }
 }
