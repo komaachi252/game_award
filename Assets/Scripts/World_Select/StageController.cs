@@ -28,6 +28,11 @@ public class StageController : MonoBehaviour
     //3 = タイトルに戻る
     public static int select_flag;//今ステージ選択中かワールド選択中か
 
+    //フラグ
+    //0 = キー入力できない
+    //1 = キー入力できる
+    private int key_flag;
+
     private float input_cooltime;//入力クールタイム
 
     //スタートより早く呼ばれるらしい
@@ -48,6 +53,8 @@ public class StageController : MonoBehaviour
         next_stage = now_stage;
         next_world = now_world;
 
+        key_flag = 1;
+
         script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
 
         script_feed.Start_Feed(0, 300.0f);//フェード開始
@@ -59,26 +66,31 @@ public class StageController : MonoBehaviour
 
         input_cooltime += Time.deltaTime;//クールタイムカウント
 
+
+
+        if (key_flag == 1)
+        {
+            //===============================================
+            //キーボード入力処理
+            //===============================================
+            Key_input();
+
+
+            //===============================================
+            //パッド入力処理
+            //===============================================
+            pad_input();
+
+            //===============================================
+            //その他いろいろ
+            //===============================================
+            now_world = next_world;
+            now_stage = next_stage;
+        }
+       
+
+
         
-
-
-        //===============================================
-        //キーボード入力処理
-        //===============================================
-        Key_input();
-
-
-        //===============================================
-        //パッド入力処理
-        //===============================================
-        pad_input();
-
-
-        //===============================================
-        //その他いろいろ
-        //===============================================
-        now_world = next_world;
-        now_stage = next_stage;
 
         if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
         {
@@ -151,6 +163,7 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 2;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
         }
@@ -165,6 +178,7 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 3;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
             }
 
             FindObjectOfType<Audio_Manager>().Play("cancel");
@@ -221,6 +235,7 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 2;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
 
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
@@ -236,6 +251,7 @@ public class StageController : MonoBehaviour
             {
                 select_flag = 3;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
             }
             FindObjectOfType<Audio_Manager>().Play("cancel");
         }
