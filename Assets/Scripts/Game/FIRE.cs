@@ -9,6 +9,7 @@ public class FIRE : MonoBehaviour
     public Vector3 pos_BASE;
     int CHANGE = 0;
     int MODE = 0;
+    int safe = 0;
     public GameObject m_fire;
     public GameObject m_fire_extinguish;
     int m_frame_cnt;
@@ -18,13 +19,16 @@ public class FIRE : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pos = transform.position;
         pos_BASE = transform.position;
+        pos_BASE.y -= 0.3f;
         m_frame_cnt = 0;
         m_is_pop = false;
         m_is_used = true;
-        var pos = this.gameObject.transform.position;
+        var f_pos = this.gameObject.transform.position;
         pos.y -= 0.3f;
-        m_fires[0] = Instantiate(m_fire, pos, Quaternion.identity);
+        m_fires[0] = Instantiate(m_fire, f_pos, Quaternion.identity);
+        size = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
 
@@ -34,8 +38,8 @@ public class FIRE : MonoBehaviour
     {
         if(MODE == 1)
         {
-            size.y -= 0.01f;
-            pos.y -= 0.005f;
+            size.y -= 0.005f;
+            pos.y -= 0.0025f;
 
             if(size.y<0.001f)
             {
@@ -43,25 +47,33 @@ public class FIRE : MonoBehaviour
                 MODE = 0;
             }
 
-            transform.localScale = size;
-            transform.position = pos;
+            //transform.localScale = size;
+            //transform.position = pos;
         }
 
         if (MODE == 2)
         {
-            size.y += 0.02f;
-            pos.y += 0.01f;
+            size.y += 0.01f;
+            pos.y += 0.005f;
 
-            if (size.y > 1)
+            if (size.y > 0.5f)
             {
-                size.y = 1;
+                size.y = 0.5f;
                 pos = pos_BASE;
                 MODE = 0;
             }
 
-            transform.localScale = size;
-            transform.position = pos;
+            //transform.localScale = size;
+            //transform.position = pos;
         }
+
+        m_fires[0].transform.localScale = size;
+        m_fires[0].transform.position = pos;
+        if (m_is_pop)
+        {
+            m_fires[1].transform.localScale = size;
+            m_fires[1].transform.position = pos;
+        }     
 
         if (!m_is_used)
         {
@@ -96,14 +108,14 @@ public class FIRE : MonoBehaviour
         if (col.gameObject.CompareTag("SOLID"))
         {
             MODE = 1;
-            size = new Vector3(1.0f, 1.0f, 1.0f);
-            pos = transform.position;
+            size = new Vector3(0.5f, 0.5f, 0.5f);
+            safe = 1;
 
             FindObjectOfType<Audio_Manager>().Play("heat1");
         }
 
         //  水との接触で消滅
-        if (col.gameObject.CompareTag("AQUA") && size.y == 1)
+        if (col.gameObject.CompareTag("AQUA") && safe == 0)
         {
             m_is_used = false;
             FindObjectOfType<Audio_Manager>().Play("extinguish");
@@ -116,8 +128,8 @@ public class FIRE : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))     //加熱属性から離れた時
         {
             MODE = 2;
-            size = new Vector3(1.0f, 0.001f, 1.0f);
-            //pos = transform.position;
+            size = new Vector3(0.5f, 0.001f, 0.5f);
+            safe = 0;
         }
     }
 }
