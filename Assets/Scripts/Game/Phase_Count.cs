@@ -35,7 +35,6 @@ public class Phase_Count : MonoBehaviour
             digit = digit / 10;
             number.Add(score);
         }
-        Debug.Log(score);
         GameObject.Find("ScoreImage").GetComponent<Image>().sprite = numimage[number[0]];
         for (int i = 1; i < number.Count; i++)
         {
