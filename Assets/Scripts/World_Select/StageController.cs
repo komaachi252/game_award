@@ -19,54 +19,44 @@ public class StageController : MonoBehaviour
     public int next_stage;//次に選択されているワールド
     private static int now_stage;//現在選択してるステージ
 
-    private int one_read;//最初に一回だけ呼ばれるようにするフラグ
+    public static int one_read;//最初に一回だけ呼ばれるようにするフラグ
 
     //フラグ
     //0 = ワールド
     //1 = ステージ
     //2 = ゲームシーンに移動
     //3 = タイトルに戻る
-    private int select_flag;//今ステージ選択中かワールド選択中か
+    public static int select_flag;//今ステージ選択中かワールド選択中か
 
     private float input_cooltime;//入力クールタイム
 
     //スタートより早く呼ばれるらしい
     void Awake()
     {
-        if (one_read == 0)//一回だけ実行
-        {
-            //初期化
-            next_world = START_WORLD;
-            now_world = START_WORLD;
-
-
-            next_stage = START_STAGE;
-            now_stage = START_STAGE;
-
-            select_flag = 0;
-        }
+        
     }
 
     //これに入ってるオブジェクトが破壊されるタイミングで呼ばれるらしい
     void OnDestroy()
     {
-        one_read = 1;//一回きりフラグ
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
-        select_flag = 0;//ワールド選択から始める
+        next_stage = now_stage;
+        next_world = now_world;
 
         script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
 
-        script_feed.Start_Feed(0, 250.0f);//フェード開始
+        script_feed.Start_Feed(0, 300.0f);//フェード開始
     }
 
     // Update is called once per frame
     void Update()
     {
+
         input_cooltime += Time.deltaTime;//クールタイムカウント
 
         
@@ -92,12 +82,18 @@ public class StageController : MonoBehaviour
 
         if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
         {
+            select_flag = 1;
+
             SceneManager.LoadScene("GameScene");
             SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
+
+            
         }
         else if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
         {
+            select_flag = 0;
             SceneManager.LoadScene("TitleScene");
+            
         }
 
     }

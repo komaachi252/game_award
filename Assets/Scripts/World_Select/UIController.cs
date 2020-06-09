@@ -137,7 +137,7 @@ public class UIController : MonoBehaviour
         //フラグ準備
         //=====================================================
         old_select = -1;
-        change_flag = 0;
+        change_flag = 2;
 
         up = 0;
         down = 6;
