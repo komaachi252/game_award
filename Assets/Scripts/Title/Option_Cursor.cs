@@ -21,6 +21,7 @@ public class Option_Cursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.gameObject.transform.parent.gameObject.transform.localScale.x < 1.0f) return;
         //  一度だけ呼び、Y座標を取得する
         if(!m_is_init_pos_y && this.gameObject.transform.parent.gameObject.transform.localScale.x == 1.0f)
         {

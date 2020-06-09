@@ -22,6 +22,9 @@ public class Drain : MonoBehaviour
         if (col.gameObject.CompareTag("AQUA") && !col.gameObject.GetComponent<BoxCollider>().isTrigger)
         {
             FindObjectOfType<Audio_Manager>().Play("drain");
+            var pos = this.gameObject.transform.position;
+            pos.y += 1.0f;
+            Instantiate(m_splash, pos, Quaternion.identity);
         }
     }
 }
