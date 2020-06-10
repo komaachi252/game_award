@@ -9,6 +9,7 @@ public class StageController : MonoBehaviour
 
     public GameObject obje_feed;
     Feed script_feed;//フェード
+    Game_Fade fade;
 
     public int next_world;//次に選択されてるワールド
     private static int now_world;//現在選択してるワールド
@@ -53,8 +54,9 @@ public class StageController : MonoBehaviour
         key_flag = 0;
 
         script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
+        fade = obje_feed.GetComponent<Game_Fade>();
 
-        script_feed.Start_Feed(0, 300.0f);//フェード開始
+        fade.Fade_Start(20, false);
     }
 
     // Update is called once per frame
@@ -98,10 +100,10 @@ public class StageController : MonoBehaviour
 
             
         }
-        else if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
+        else if (select_flag == 3)//シーン移動処理
         {
             select_flag = 0;
-            SceneManager.LoadScene("TitleScene");
+            fade.Fade_Start(20, true, "Title_Scene");
             
         }
 
