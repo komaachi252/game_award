@@ -9,7 +9,7 @@ public class SaveData : MonoBehaviour
     //1 = 星ついてる
     public int[,] Star_SaveData { get; set; }//星の受け取り
 
-    public void Star_SaveWrite()
+    public bool Star_SaveWrite()
     {
         string String_StarData = "";//星の情報まとめる文字列
 
@@ -23,9 +23,13 @@ public class SaveData : MonoBehaviour
         PlayerPrefs.SetString("StarData", String_StarData);//ここで保存
         PlayerPrefs.Save();//保存
         Debug.Log("セーブしました　↓中身\n" + String_StarData);
+
+        return true;
     }
 
-    public void Star_SaveRoad()
+    //true = セーブデータある
+    //false = セーブデータない
+    public bool Star_SaveRoad()
     {
 
         string String_StarData = PlayerPrefs.GetString("StarData");//星の情報貰う;
@@ -34,7 +38,7 @@ public class SaveData : MonoBehaviour
 
         if (String_StarData == "")
         {
-            return;//空っぽの時は終わる
+            return false;//空っぽの時は終わる
         }
 
         string[] Split_StarData = String_StarData.Split(',');//これできれいに分割できるらしい　めっちゃ便利
@@ -56,6 +60,8 @@ public class SaveData : MonoBehaviour
         //{
         //    Debug.Log(i + "番目　" + Star_SaveData[i, 0] + " " + Star_SaveData[i, 1] + " " + Star_SaveData[i, 2]);
         //}
+
+        return true;
     }
 
     // Start is called before the first frame update
@@ -80,7 +86,7 @@ public class SaveData : MonoBehaviour
     }
 
     //セーブデータ削除
-    void DataReset()
+    public void DataReset()
     {
         PlayerPrefs.DeleteKey("StarData");
     }
