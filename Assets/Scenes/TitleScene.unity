@@ -2953,6 +2953,11 @@ PrefabInstance:
       propertyPath: sounds.Array.data[29].loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 488724906435708657, guid: a0951a89999c4cb40b255df8ef65fa81,
+        type: 3}
+      propertyPath: sounds.Array.data[11].loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 488724906435708662, guid: a0951a89999c4cb40b255df8ef65fa81,
         type: 3}
       propertyPath: m_Name
