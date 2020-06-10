@@ -57,6 +57,7 @@ public class StageController : MonoBehaviour
         fade = obje_feed.GetComponent<Game_Fade>();
 
         fade.Fade_Start(20, false);
+        //script_feed.Start_Feed(0, 500);
     }
 
     // Update is called once per frame
@@ -100,10 +101,10 @@ public class StageController : MonoBehaviour
 
             
         }
-        else if (select_flag == 3)//シーン移動処理
+        else if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
         {
             select_flag = 0;
-            fade.Fade_Start(20, true, "Title_Scene");
+            SceneManager.LoadScene("TitleScene");
             
         }
 
