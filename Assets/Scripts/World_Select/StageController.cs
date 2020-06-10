@@ -9,7 +9,6 @@ public class StageController : MonoBehaviour
 
     public GameObject obje_feed;
     Feed script_feed;//フェード
-    Game_Fade fade;
 
     public int next_world;//次に選択されてるワールド
     private static int now_world;//現在選択してるワールド
@@ -54,10 +53,6 @@ public class StageController : MonoBehaviour
         key_flag = 0;
 
         script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
-        fade = obje_feed.GetComponent<Game_Fade>();
-
-        fade.Fade_Start(20, false);
-        //script_feed.Start_Feed(0, 500);
     }
 
     // Update is called once per frame
@@ -163,7 +158,7 @@ public class StageController : MonoBehaviour
             else if (select_flag == 1)//ステージ選択の時
             {
                 select_flag = 2;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
+                script_feed.Start_Feed(1, 30.0f);//フェード開始
                 key_flag = 0;
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
@@ -179,7 +174,7 @@ public class StageController : MonoBehaviour
             else if (select_flag == 0)//ワールド選択の時
             {
                 select_flag = 3;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
+                script_feed.Start_Feed(1, 30.0f);//フェード開始
                 key_flag = 0;
             }
 
@@ -237,7 +232,7 @@ public class StageController : MonoBehaviour
             else if (select_flag == 1)//ステージ選択の時
             {
                 select_flag = 2;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
+                script_feed.Start_Feed(1, 30.0f);//フェード開始
                 key_flag = 0;
 
             }
@@ -254,7 +249,7 @@ public class StageController : MonoBehaviour
             else if (select_flag == 0)
             {
                 select_flag = 3;
-                script_feed.Start_Feed(1, 270.0f);//フェード開始
+                script_feed.Start_Feed(1, 30.0f);//フェード開始
                 key_flag = 0;
             }
             FindObjectOfType<Audio_Manager>().Play("cancel");

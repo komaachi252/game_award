@@ -25,10 +25,12 @@ public class Feed : MonoBehaviour
     {
         image = this.gameObject.GetComponent<Image>();//イメージ貰う
         alfa = image.color.a;
+
+        Start_Feed(0, 60.0f);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (flag == 1)
         {
@@ -69,10 +71,10 @@ public class Feed : MonoBehaviour
         if (feed_mode == 1)//フェードアウト
         {
             flag = 2;//フラグをセット
-            alfa = 0;
+            alfa = 0.0f;
         }
 
-        speed = (255 / feed_speed) * Time.deltaTime;//フェード速度をセット
+        speed = (1.0f / feed_speed);//フェード速度をセット
 
 
     }

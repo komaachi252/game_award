@@ -316,6 +316,7 @@ public class UIController : MonoBehaviour
                         {
                             CreateUI[i].transform.localPosition = new Vector3(RIGHT_MAX, CreateUI[i].transform.localPosition.y, CreateUI[i].transform.localPosition.z);
                             flag[i] = 0;
+                            
                         }
                     }
 
@@ -392,8 +393,6 @@ public class UIController : MonoBehaviour
                     {
                         CreateUI[i].SetActive(false);
                     }
-
-                    
                 }
 
                 if (scroll_flag == 1)//上移動

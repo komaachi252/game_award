@@ -84,7 +84,7 @@ public class StarManeger : MonoBehaviour
     {
         if (flag == 1)//星1アニメーション中
         {
-            if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[0] == FALSE)//状態確認
+            if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("Star_Big") || star_flag[0] == FALSE)//状態確認
             {
                 if (star_flag[1] == TRUE)
                 {
@@ -98,7 +98,7 @@ public class StarManeger : MonoBehaviour
 
         if (flag == 2)//星2アニメーション中
         {
-            if (anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[1] == FALSE)//状態確認
+            if (anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("Star_Big") || star_flag[1] == FALSE)//状態確認
             {
                 if (star_flag[2] == TRUE)
                 {
@@ -114,7 +114,7 @@ public class StarManeger : MonoBehaviour
 
         if (flag == 3)//星3アニメーション中
         {
-            if (anime_star[2].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[2] == FALSE)//状態確認
+            if (anime_star[2].GetCurrentAnimatorStateInfo(0).IsName("Star_Big") || star_flag[2] == FALSE)//状態確認
             {
                 
                 flag = 4;
