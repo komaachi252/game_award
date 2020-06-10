@@ -38,13 +38,13 @@ public class MissionManeger : MonoBehaviour
         //=========================================
         //星02(変化回数)
         //=========================================
-        if (phesecount.Phese_cnt.Phase_Cnt >= pheseset.Get_StarPhese(StageController.Get_stage()))
+        if (phesecount.Phese_cnt.Phase_Cnt <= pheseset.Get_StarPhese(StageController.Get_Index()))
         {
             image_star[1].sprite = sprite_star[1];//星明るくする
             
         }
 
-        text_Phese.text = phesecount.Phese_cnt.Phase_Cnt.ToString() + " / " + pheseset.Get_StarPhese(StageController.Get_stage());
+        text_Phese.text = phesecount.Phese_cnt.Phase_Cnt.ToString() + " / " + pheseset.Get_StarPhese(StageController.Get_Index());
 
         //=========================================
         //星03(仲間救出)
