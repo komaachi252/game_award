@@ -153,6 +153,8 @@ public class StarManeger : MonoBehaviour
         {
             star_flag[2] = FALSE;
         }
+
+        Star_Data.Star_SaveWrite();//セーブ
     }
 
 

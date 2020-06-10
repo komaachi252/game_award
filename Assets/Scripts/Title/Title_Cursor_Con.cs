@@ -15,6 +15,8 @@ public class Title_Cursor_Con : MonoBehaviour
     public GameObject m_option_menu;
     bool m_is_wait; // 使用可能か？
 
+    [SerializeField] SaveData stardata;//星の取得状況
+
     int lock_R = 0;
     int lock_L = 0;
     int lock_U = 0;
@@ -33,6 +35,10 @@ public class Title_Cursor_Con : MonoBehaviour
         FindObjectOfType< Audio_Manager>().Play("Title");
         //  NewGameから、セーブデータがあれば1からでもよい
         m_current_cursor_idx = 0;
+        if (stardata.Star_SaveRoad() == true)//セーブデータあったらコンテから
+        {
+            m_current_cursor_idx = 1;
+        }
         //  初期Ｙ座標を保持しておく
         m_init_pos_y = this.transform.position.y;
         m_init_pos_x = this.transform.position.x;
@@ -42,6 +48,9 @@ public class Title_Cursor_Con : MonoBehaviour
         {
             bar.GetComponent<Title_Select_Bar>().Set_Index(m_current_cursor_idx);
         }
+
+        //開幕移動しておく
+        this.transform.position = new Vector3(m_init_pos_x + 97.0f * (m_current_cursor_idx % 2), m_init_pos_y - 20.0f * (m_current_cursor_idx / 2), this.transform.position.z);
     }
 
     // Update is called once per frame
@@ -150,6 +159,7 @@ public class Title_Cursor_Con : MonoBehaviour
         {
             FindObjectOfType<Audio_Manager>().Play("enter");
             m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
+            stardata.DataReset();//星の情報セーブデータ削除
             m_is_wait = true;
         }
         if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 1)  //  CONTINUE

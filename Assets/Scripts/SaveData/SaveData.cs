@@ -64,8 +64,7 @@ public class SaveData : MonoBehaviour
         return true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Star_SaveData = new int[50, 3];//生成
 
@@ -78,11 +77,17 @@ public class SaveData : MonoBehaviour
 
         Star_SaveRoad();//ロード
     }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
     
     //終了時に呼ばれる
     void OnDestroy()
     {
-        Star_SaveWrite();//今のデータを書き込む
+        //Star_SaveWrite();//今のデータを書き込む
     }
 
     //セーブデータ削除
