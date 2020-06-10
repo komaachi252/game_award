@@ -52,7 +52,7 @@ public class Watermill : MonoBehaviour
         }
         else if (Mathf.Abs(m_rotate_speed) > 0.0f)
         {
-            Debug.Log(m_rotate_speed);
+            //Debug.Log(m_rotate_speed);
             FindObjectOfType<Audio_Manager>().Stop("splash");
             splsh_count = 0;
             m_rotate_speed *= 0.98f;

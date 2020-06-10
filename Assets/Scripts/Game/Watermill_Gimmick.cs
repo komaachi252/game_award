@@ -11,6 +11,7 @@ public class Watermill_Gimmick : MonoBehaviour
 
     const float MAX_DISTANCE = 4.0f;
     float m_total_dist = 0.0f;
+    bool m_is_move;  //  動かされているか？
     //bool m_is_max_dist = false;
     enum Gate_Phase
     {
@@ -19,8 +20,8 @@ public class Watermill_Gimmick : MonoBehaviour
     };
     void Start()
     {
-        //m_watermill = GameObject.FindGameObjectWithTag("Watermill");
         this.gameObject.GetComponent<Transform>().transform.Translate(0, -0.5f, 0);
+        m_is_move = false;
     }
 
     // Update is called once per frame
@@ -45,7 +46,11 @@ public class Watermill_Gimmick : MonoBehaviour
         {
             move_dist += watermill.GetComponent<Watermill>().Rotate_Speed * 0.01f;
         }
-
+        if(!m_is_move && Mathf.Abs(move_dist) > 0.0f)
+        {
+            m_is_move = true;
+        }
+        
         if (move_dist > 0.0f && m_trigger_up.GetComponent<WaterGate_Trigger>().Is_Colli)
         {
             Debug.Log(move_dist + "up");
@@ -57,24 +62,21 @@ public class Watermill_Gimmick : MonoBehaviour
             return;
         }
 
-
-        /*
-        if(Mathf.Abs(m_total_dist) + Mathf.Abs(move_dist) > MAX_DISTANCE)
+        Debug.Log(move_dist);
+        if(move_dist == 0.0f)
         {
-            if(m_total_dist > 0.0f) {
-                move_dist = MAX_DISTANCE - m_total_dist;
-            }
-            else
+            var pos_y = Mathf.CeilToInt(this.gameObject.transform.position.y + 0.5f);
+            Debug.Log(pos_y);
+            if (pos_y > this.gameObject.transform.position.y + 0.5f)
             {
-                move_dist = -MAX_DISTANCE + m_total_dist;
+                move_dist += 0.01f;
             }
-
-            m_is_max_dist = true;
 
         }
-        */
-        m_total_dist += move_dist;
+
         this.transform.Translate(0.0f, move_dist, 0.0f);
+
+
     }
 
     void Set_Watermill()
