@@ -36,6 +36,7 @@ public class AnimeManeger : MonoBehaviour
         }
         else if (flag == 3)//ゲームクリアアニメスタート
         {
+            FindObjectOfType<Audio_Manager>().Play("stage_clear");
             clear.Start_anime();//アニメーション開始
             flag = 4;
         }

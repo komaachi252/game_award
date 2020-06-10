@@ -88,6 +88,7 @@ public class StarManeger : MonoBehaviour
             {
                 if (star_flag[1] == TRUE)
                 {
+                    FindObjectOfType<Audio_Manager>().Play("star");
                     anime_star[1].SetTrigger("Anime");
                 }
                 
@@ -102,6 +103,7 @@ public class StarManeger : MonoBehaviour
             {
                 if (star_flag[2] == TRUE)
                 {
+                    FindObjectOfType<Audio_Manager>().Play("star");
                     anime_star[2].SetTrigger("Anime");
                 }
                 
@@ -126,7 +128,7 @@ public class StarManeger : MonoBehaviour
     //星のアニメーションを再生する
     public void Star_AnimeStart()
     {
-
+        FindObjectOfType<Audio_Manager>().Play("star");
         anime_star[0].SetTrigger("Anime");
         star_flag[0] = TRUE;
         Star_Data.Star_SaveData[StageController.Get_Index(), 0] = 1;
