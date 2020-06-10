@@ -41,6 +41,7 @@ public class Phase_Count : MonoBehaviour
             //複製
             RectTransform scoreimage = (RectTransform)Instantiate(GameObject.Find("ScoreImage")).transform;
             scoreimage.SetParent(this.transform, false);
+            scoreimage.SetSiblingIndex(3);
             scoreimage.localPosition = new Vector2(
                 scoreimage.localPosition.x - scoreimage.sizeDelta.x * i,
                 scoreimage.localPosition.y);

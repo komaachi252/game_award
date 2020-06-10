@@ -194,7 +194,7 @@ public class MapLoader : MonoBehaviour
         m_is_create = true;
 
         //  フェードイン開始
-        m_fade.GetComponent<Game_Fade>().Fade_Start();
+        m_fade.GetComponent<Game_Fade>().Fade_Start(90);
 
         return true;
     }

@@ -162,7 +162,7 @@ public class Title_Cursor_Con : MonoBehaviour
             stardata.DataReset();//星の情報セーブデータ削除
             m_is_wait = true;
         }
-        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 1)  //  CONTINUE
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 1 && stardata.Star_SaveRoad() == true)  //  CONTINUE
         {
             FindObjectOfType<Audio_Manager>().Play("enter");
             m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
