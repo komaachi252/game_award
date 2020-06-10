@@ -31,7 +31,10 @@ public class Phase_UI : MonoBehaviour
             Debug.Log(m_player_tag);
 
             //  状態変化カウント
-            m_phase_cnt++;
+            if (m_phase_cnt < 99)
+            {
+                m_phase_cnt++;
+            }
             //  回数をカウントUIに設定
             GameObject.Find("Canvas").GetComponent<Phase_Count>().View(m_phase_cnt);
             if(m_player_tag == "AQUA" && GameObject.Find("PLAYER_MASTER").gameObject.tag == "SOLID")
