@@ -5,7 +5,7 @@ using UnityEngine;
 public class Leaf_Controller : MonoBehaviour
 {
     // Start is called before the first frame update
-    
+
     public const int ICE_ROTATE = 64;  //  ICEの時の回転角度
     public const int AQUA_ROTATE = 40;  //  AQUAの時の回転角度
     public const int CLOUD_ROTATE = -40;  //  CLOUDの時の回転角度
@@ -13,8 +13,8 @@ public class Leaf_Controller : MonoBehaviour
     public const int INV_AQUA_ROTATE = -AQUA_ROTATE;
     public const int INV_CLOUD_ROTATE = -CLOUD_ROTATE;
 
-   
-    public float m_move_speed = 0.3f;  //  回転速度
+
+    public float m_move_speed = 0.4f;  //  回転速度
     public float m_return_speed = -0.3f; //  戻る回転速度
     public float m_target_rotate;  //  目標角度
     public bool m_is_rotate = false;  //  回転判定
@@ -38,7 +38,8 @@ public class Leaf_Controller : MonoBehaviour
     void Update()
     {
         //  回転状態の判定
-        if (m_is_rotate){
+        if (m_is_rotate)
+        {
             var target = Quaternion.Euler(new Vector3(0, 0, m_target_rotate));
             var now_rot = transform.rotation;
             //  自角度と目標角度を比較
@@ -51,15 +52,20 @@ public class Leaf_Controller : MonoBehaviour
             {
                 transform.Rotate(new Vector3(0, 0, m_move_speed));
             }
-        }else{
+        }
+        else
+        {
             //  元に戻す回転
             var target = Quaternion.Euler(new Vector3(0, 0, 0));
             var now_rot = transform.rotation;
-            if (Quaternion.Angle(now_rot, target) <= 1){
+            if (Quaternion.Angle(now_rot, target) <= 1)
+            {
                 transform.rotation = target;
-            }else{
+            }
+            else
+            {
                 transform.Rotate(new Vector3(0, 0, m_return_speed));
-                
+
             }
         }
     }
@@ -140,3 +146,4 @@ public class Leaf_Controller : MonoBehaviour
         }
     }
 }
+

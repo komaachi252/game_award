@@ -30,7 +30,7 @@ public class PLAYERCAMERA : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        count = 3;
+        count = 2;
     }
 
     // Update is called once per frame
@@ -384,7 +384,7 @@ public class PLAYERCAMERA : MonoBehaviour
     {
         MILLFIND = 1;
 
-        if(MODE_L == 1)
+        if (MODE_L == 1)
         {
             MODE_L = -1;
             BACKcount = 30;
@@ -475,7 +475,7 @@ public class PLAYERCAMERA : MonoBehaviour
 
     public int GET_VIEW_OK()
     {
-        if(MILLFIND ==0 && offset_z == -5)
+        if (MILLFIND == 0 && offset_z == -5)
         {
             return 1;
         }
