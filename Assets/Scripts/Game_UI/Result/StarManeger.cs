@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StarManeger : MonoBehaviour
 {
     [SerializeField] ExposePheseCount exphese;//変化回数貰う
+    [SerializeField] SaveData Star_Data;//星情報を扱うやつ
 
     public GameObject[] gameobject_star;
     private Animator[] anime_star;
@@ -74,8 +75,8 @@ public class StarManeger : MonoBehaviour
     //======================================================
     private void Star_ID_Set()
     {
-        Phese_num = starphese.Get_StarPhese(StageController.Get_stage());
-        text_star[1].text = "変化回数　" + Phese_num + "回";
+        Phese_num = starphese.Get_StarPhese(StageController.Get_Index());
+        text_star[1].text = "変化回数　" + Phese_num + "回以下";
     }
 
     // Update is called once per frame
@@ -85,16 +86,12 @@ public class StarManeger : MonoBehaviour
         {
             if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[0] == FALSE)//状態確認
             {
-                
-                if (Phese_num <= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
+                if (star_flag[1] == TRUE)
                 {
                     anime_star[1].SetTrigger("Anime");
-                    star_flag[1] = TRUE;
                 }
-                else
-                {
-                    star_flag[1] = FALSE;
-                }
+                
+                
                 flag = 2;
             }
         }
@@ -103,15 +100,12 @@ public class StarManeger : MonoBehaviour
         {
             if (anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("End") || star_flag[1] == FALSE)//状態確認
             {
-                if (help.Expose_Helpme.Is_Help == true)
+                if (star_flag[2] == TRUE)
                 {
                     anime_star[2].SetTrigger("Anime");
-                    star_flag[2] = TRUE;
                 }
-                else if (help.Expose_Helpme.Is_Help == false)
-                {
-                    star_flag[2] = FALSE;
-                }
+                
+                
                 
                 flag = 3;
             }
@@ -135,7 +129,30 @@ public class StarManeger : MonoBehaviour
 
         anime_star[0].SetTrigger("Anime");
         star_flag[0] = TRUE;
+        Star_Data.Star_SaveData[StageController.Get_Index(), 0] = 1;
         flag = 1;
+
+        if (Phese_num >= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
+        {
+
+            star_flag[1] = TRUE;
+            Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 1;
+        }
+        else
+        {
+            star_flag[1] = FALSE;
+        }
+
+        if (help.Expose_Helpme.Is_Help == true)//仲間を救出したら
+        {
+
+            star_flag[2] = TRUE;
+            Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 1;
+        }
+        else if (help.Expose_Helpme.Is_Help == false)
+        {
+            star_flag[2] = FALSE;
+        }
     }
 
 

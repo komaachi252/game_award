@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class StageController : MonoBehaviour
 {
-    public static readonly int START_WORLD = 0;//初期ワールド　0スタート
-    public static readonly int START_STAGE = 0;//初期ステージ　0スタート
-
     private const float INPUT_COOLTIME = 0.3f;
 
     public GameObject obje_feed;
@@ -19,86 +16,93 @@ public class StageController : MonoBehaviour
     public int next_stage;//次に選択されているワールド
     private static int now_stage;//現在選択してるステージ
 
-    private int one_read;//最初に一回だけ呼ばれるようにするフラグ
+    public static int one_read;//最初に一回だけ呼ばれるようにするフラグ
 
     //フラグ
     //0 = ワールド
     //1 = ステージ
     //2 = ゲームシーンに移動
     //3 = タイトルに戻る
-    private int select_flag;//今ステージ選択中かワールド選択中か
+    public static int select_flag;//今ステージ選択中かワールド選択中か
+
+    //フラグ
+    //0 = キー入力できない
+    //1 = キー入力できる
+    public int key_flag { get; set; }
 
     private float input_cooltime;//入力クールタイム
 
     //スタートより早く呼ばれるらしい
     void Awake()
     {
-        if (one_read == 0)//一回だけ実行
-        {
-            //初期化
-            next_world = START_WORLD;
-            now_world = START_WORLD;
-
-
-            next_stage = START_STAGE;
-            now_stage = START_STAGE;
-
-            select_flag = 0;
-        }
+        
     }
 
     //これに入ってるオブジェクトが破壊されるタイミングで呼ばれるらしい
     void OnDestroy()
     {
-        one_read = 1;//一回きりフラグ
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        next_stage = now_stage;
+        next_world = now_world;
 
-        select_flag = 0;//ワールド選択から始める
+        key_flag = 0;
 
         script_feed = obje_feed.GetComponent<Feed>();//フェードのスクリプト貰う
 
-        script_feed.Start_Feed(0, 250.0f);//フェード開始
+        script_feed.Start_Feed(0, 300.0f);//フェード開始
     }
 
     // Update is called once per frame
     void Update()
     {
+
         input_cooltime += Time.deltaTime;//クールタイムカウント
+
+
+
+        if (key_flag == 1)
+        {
+            //===============================================
+            //キーボード入力処理
+            //===============================================
+            Key_input();
+
+
+            //===============================================
+            //パッド入力処理
+            //===============================================
+            pad_input();
+
+            //===============================================
+            //その他いろいろ
+            //===============================================
+            now_world = next_world;
+            now_stage = next_stage;
+        }
+       
+
 
         
 
-
-        //===============================================
-        //キーボード入力処理
-        //===============================================
-        Key_input();
-
-
-        //===============================================
-        //パッド入力処理
-        //===============================================
-        pad_input();
-
-
-        //===============================================
-        //その他いろいろ
-        //===============================================
-        now_world = next_world;
-        now_stage = next_stage;
-
         if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
         {
-            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
-            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
-        }
+            select_flag = 1;
 
-        if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
+            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("PauseScene", LoadSceneMode.Additive);
+
+            
+        }
+        else if (select_flag == 3 && script_feed.Feed_State() == false)//シーン移動処理
         {
+            select_flag = 0;
             SceneManager.LoadScene("TitleScene");
+            
         }
 
     }
@@ -128,8 +132,7 @@ public class StageController : MonoBehaviour
             }
             
         }
-
-        if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
+        else if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
         {
             if (select_flag == 0 && input_cooltime >= INPUT_COOLTIME && next_world < World_Stage_Nm.GET_WORLD_NUM() - 1)//ワールド選択画面
             {
@@ -146,35 +149,41 @@ public class StageController : MonoBehaviour
             
         }
 
-        if (Input.GetKeyDown("joystick button 0"))//決定A
+
+        if (Input.GetKeyDown("joystick button 0"))//決定
         {
             if (select_flag == 0)//ワールド選択の時
             {
                 select_flag = 1;
+                key_flag = 0;
             }
             else if (select_flag == 1)//ステージ選択の時
             {
                 select_flag = 2;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
         }
-
-        if (Input.GetKeyDown("joystick button 2"))//戻るX
+        else if (Input.GetKeyDown("joystick button 1"))//戻る
         {
             if (select_flag == 1)//ステージ選択の時
             {
                 select_flag = 0;
                 next_stage = 0;
+                key_flag = 0;
             }
             else if (select_flag == 0)//ワールド選択の時
             {
                 select_flag = 3;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
             }
 
             FindObjectOfType<Audio_Manager>().Play("cancel");
         }
+
+
 
         
     }
@@ -200,8 +209,7 @@ public class StageController : MonoBehaviour
             FindObjectOfType<Audio_Manager>().Play("select");
 
         }
-
-        if (Input.GetKeyDown(KeyCode.W))//上
+        else if (Input.GetKeyDown(KeyCode.W))//上
         {
             if (select_flag == 0 && next_world > 0)//ワールド選択画面
             {
@@ -221,29 +229,37 @@ public class StageController : MonoBehaviour
             if (select_flag == 0)//ワールド選択の時
             {
                 select_flag = 1;
+                key_flag = 0;
             }
             else if (select_flag == 1)//ステージ選択の時
             {
                 select_flag = 2;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
 
             }
             FindObjectOfType<Audio_Manager>().Play("enter");
         }
-
-        if (Input.GetKeyDown(KeyCode.Z))//決定してたら一個前に戻る
+        else if (Input.GetKeyDown(KeyCode.Z))//決定してたら一個前に戻る
         {
             if (select_flag == 1)//ステージ選択の時
             {
                 select_flag = 0;
                 next_stage = 0;
+                key_flag = 0;
             }
             else if (select_flag == 0)
             {
                 select_flag = 3;
                 script_feed.Start_Feed(1, 270.0f);//フェード開始
+                key_flag = 0;
             }
             FindObjectOfType<Audio_Manager>().Play("cancel");
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))//エスケープキーで終了処理
+        {
+            key_flag = 0;
+            Application.Quit();
         }
     }
 

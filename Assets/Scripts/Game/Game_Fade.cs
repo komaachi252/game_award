@@ -23,6 +23,8 @@ public class Game_Fade : MonoBehaviour
         m_is_fade_out = false;
         m_frame_cnt = 0;
         m_fade_frame = 0;
+
+        
     }
 
     // Update is called once per frame

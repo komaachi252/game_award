@@ -7,6 +7,9 @@ public class AQUA : MonoBehaviour
     int exchangeflag = 0;
     int exchangecount = 0;
     Vector3 size;
+    Vector3 pos;
+    int SPONG_DETH = 0;
+    int MOVE_V = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,28 @@ public class AQUA : MonoBehaviour
                 transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
             }
         }
+
+        if (SPONG_DETH == 1)
+        {
+            size.y -= 0.05f;
+            if(MOVE_V == 1)
+            {
+                pos.y -= 0.001f;
+            }
+            if (MOVE_V == -1)
+            {
+                pos.y += 0.005f;
+            }
+
+            if (size.y < 0.001f)
+            {
+                size.y = 0.001f;
+                SPONG_DETH = 0;
+            }
+
+            transform.localScale = size;
+            transform.position = pos;
+        }
     }
 
     public void exchange_s()
@@ -76,6 +101,15 @@ public class AQUA : MonoBehaviour
     {
         exchangeflag = 2;
         size = new Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+    public void DETH_S(Vector3 POSITON, int V)
+    {
+        SPONG_DETH = 1;
+        size = new Vector3(10.0f, 10.0f, 10.0f);
+        pos = POSITON;
+        pos.y -= 0.5f;
+        MOVE_V = V;
     }
 }
 

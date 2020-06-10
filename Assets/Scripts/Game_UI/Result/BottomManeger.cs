@@ -25,9 +25,11 @@ public class BottomManeger : MonoBehaviour
     private Image[] image_Next = new Image[2];
 
     //ボタンフラグ
+    //-1 ＝　ボタン受け付けない
     //0　＝　ワールド選択画面に移動
     //1　＝　同じステージをもう一度やる
     //2　＝　次のステージにすすむ
+    
     private int now_bottom = 0;
 
     public Sprite Bottom_up;//ボタン押してない
@@ -63,6 +65,11 @@ public class BottomManeger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (now_bottom == -1)
+        {
+            return;
+        }
+
         //===========================================================
         //パッド処理
         //===========================================================
@@ -125,6 +132,7 @@ public class BottomManeger : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Return) || Input.GetKey("joystick button 0"))
         {
+
             Dicision2();
         }
 
@@ -194,6 +202,10 @@ public class BottomManeger : MonoBehaviour
 
             fade.Fade_Start(20, true, "GameScene", "PauseScene");
         }
+
+        now_bottom = -1;
+
+        
     }
 
     private void Dicision2()

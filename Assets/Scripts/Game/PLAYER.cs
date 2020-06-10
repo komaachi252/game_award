@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PLAYER : MonoBehaviour
 {
-    //public PLAYERCAMERA PLAYERCAMERA;
     PLAYERCAMERA PLAYERCAMERA;
     Thorn_Block Thorn_Block;
     Game_Fade Game_Fade;
@@ -91,6 +90,7 @@ public class PLAYER : MonoBehaviour
     public int stay_FIRE = 0;     //炎接触フラグ
     public int stay_DRAIN = 0;    //ドレイン接触フラグ
     public int stay_LIFTZOON = 0;   //リフトゾーン侵入フラグ
+    public int stay_SPONGE = 0; //スポンジ接触フラグ
 
     int exchangecount = 0;  //状態変化演出カウント
 
@@ -134,7 +134,7 @@ public class PLAYER : MonoBehaviour
         }
 
         //ポーズ画面がコントローラーに対応したら開く
-        if (GAME_STOP == 1 && Input.GetKeyDown("joystick button 0"))
+        if (GAME_STOP == 1 && Input.GetKeyDown("joystick button 0") || Input.GetKeyDown("joystick button 1"))
         {
             GAME_STOP = -1;
             Time.timeScale = 1f;
@@ -177,7 +177,7 @@ public class PLAYER : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0")) && MOVE_NOW == 0 && exchangecount == 0 && VIEWflag == -1)
         {
             Debug.Log("入力");
-            if (stay_HOT == 1)
+            if (stay_HOT == 1 && STAND == 1)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -194,7 +194,7 @@ public class PLAYER : MonoBehaviour
                 AUTOMOVEflag2 = 1;
             }
 
-            if (stay_COLD == 1)
+            if (stay_COLD == 1 && STAND == 1)
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -242,6 +242,7 @@ public class PLAYER : MonoBehaviour
             {
                 VIEWBACK = 30;
             }
+            PLAYERCAMERA.CAMERA_F_KEY();
         }
 
         if (Input.GetKeyDown("joystick button 0") && VIEWflag == 1)
@@ -271,7 +272,7 @@ public class PLAYER : MonoBehaviour
             }
         }
 
-        if (AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0)
+        if (AUTOMOVEflag == 0 && AUTOMOVEflag2 == 0 && AUTOMOVEflag3 == 0 && GOAL == 0)
         {
             if (rb.velocity.x > 0)
             {
@@ -870,7 +871,8 @@ public class PLAYER : MonoBehaviour
                 GAMEOVER_ACT = 90;
                 if (TYPE == 1)
                 {
-                    AQUA_MOTION.MOTION_RYU();
+                    //AQUA_MOTION.MOTION_RYU();
+                    AQUA.DETH_S(JUGEMOVE.GET_JUGE_POS(), MOVE_V);
                 }
 
                 if (TYPE == 2)
@@ -896,6 +898,13 @@ public class PLAYER : MonoBehaviour
                 GAMEOVER = 1;
                 GAMEOVER_ACT = 90;
                 AQUA_MOTION.MOTION_RYU();
+            }
+
+            if (stay_SPONGE == 1)
+            {
+                GAMEOVER = 1;
+                GAMEOVER_ACT = 90;
+                AQUA.DETH_S(JUGEMOVE.GET_JUGE_POS(), MOVE_V);
             }
         }
 
@@ -1297,8 +1306,21 @@ public class PLAYER : MonoBehaviour
     {
         if (TYPE == 1)
         {
-            GAMEOVER = 1;
-            Game_Fade.Fade_Start(90, true, "GameScene");
+            //GAMEOVER = 1;
+            //Game_Fade.Fade_Start(90, true, "GameScene");
+            MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
+
+            if (transform.position.x > MOVEPOS)
+            {
+                MOVE_D = -1;
+            }
+            else
+            {
+                MOVE_D = 1;
+            }
+
+            AUTOMOVEflag2 = 1;
+            stay_SPONGE = 1;
         }
 
         if (TYPE == 0)
@@ -1367,6 +1389,7 @@ public class PLAYER : MonoBehaviour
         {
             GOAL = 1;
             PLAYERCAMERA.F_LOCK();
+            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
 

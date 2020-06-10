@@ -26,11 +26,12 @@ public class EYE : MonoBehaviour
         {
             image.enabled = false;
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.F) && LOCK_F == 0 && PLAYERCAMERA.GET_VIEW_OK() == 1)
         {
             FLAG *= -1;
         }
+        */
     }
 
     public void CHANGE_FLAG()

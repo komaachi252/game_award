@@ -63,9 +63,9 @@ public class Clear_Flag : MonoBehaviour
             SceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);//リザルトシーンを読み込む(加算)
         }
 
-        if (Input.GetKeyDown(KeyCode.L))//Lでクリアにする
-        {
-            GameManeger.GetComponent<Game_Manager>().Game_Clear();
-        }
+        //if (Input.GetKeyDown(KeyCode.L))//Lでクリアにする
+        //{
+        //    GameManeger.GetComponent<Game_Manager>().Game_Clear();
+        //}
     }
 }
