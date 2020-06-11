@@ -129,6 +129,7 @@ public class PLAYER : MonoBehaviour
             {
                 return;
             }
+            PLAYERCAMERA.SET_START();
         }
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") && GOAL == 0)
@@ -263,7 +264,6 @@ public class PLAYER : MonoBehaviour
         {
             VIEWflag = -1;
             VIEWBACK = 30;
-
         }
 
         if (MOVE_NOW > 0)
