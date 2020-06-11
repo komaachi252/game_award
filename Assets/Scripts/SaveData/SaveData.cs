@@ -18,6 +18,7 @@ public class SaveData : MonoBehaviour
             String_StarData = String_StarData + Star_SaveData[i, 0].ToString() + ",";//星1
             String_StarData = String_StarData + Star_SaveData[i, 1].ToString() + ",";//星2
             String_StarData = String_StarData + Star_SaveData[i, 2].ToString() + ",";//星3
+            String_StarData = String_StarData + Star_SaveData[i, 3].ToString() + ",";//星4
         }
 
         PlayerPrefs.SetString("StarData", String_StarData);//ここで保存
@@ -66,13 +67,14 @@ public class SaveData : MonoBehaviour
 
     void Awake()
     {
-        Star_SaveData = new int[50, 3];//生成
+        Star_SaveData = new int[50, 4];//生成
 
         for (int i = 0; i < 50; i++)//初期化
         {
             Star_SaveData[i, 0] = 0;
             Star_SaveData[i, 1] = 0;
             Star_SaveData[i, 2] = 0;
+            Star_SaveData[i, 3] = 0;
         }
 
         Star_SaveRoad();//ロード

@@ -27,7 +27,6 @@ public class UIController : MonoBehaviour
 
     [SerializeField] SaveData star;//星の取得状況確認
     int[] world_starcount;//星の取得数
-    int[] world_three_starcount;//星3個取得数
 
     //フラグ
     //0 = 未選択
@@ -75,24 +74,17 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < 50; i++)//ワールド数
         {
-            int three = 0;
-            for (int l = 0; l < 3; l++)//星
+            for (int l = 0; l < 4; l++)//星
             {
 
                 if (star.Star_SaveData[i, l] == 1)//星が付いてた場合
                 {
                     world_starcount[i / 10]++;//カウントする
-                    three++;
                 }
-                
-                
-            }
-
-            if (three == 3)//星3個取得してたら
-            {
-                world_three_starcount[i / 10]++;
             }
         }
+
+
 
         //=====================================================
         //テキスト情報受け取る&座標調整
@@ -472,9 +464,27 @@ public class UIController : MonoBehaviour
             return;
         }
         //World_Star[Array_num].transform.GetChild(1).GetComponent<Text>().text = "x" + world_starcount[Array_num].ToString();
-        World_Star[Array_num].transform.GetChild(1).GetComponent<Text>().text = "100%";
 
-        //World_Star[Array_num].transform.GetChild(3).GetComponent<Text>().text = "x" + world_three_starcount[Array_num].ToString();
+        //星の取得率
+        float rate = (world_starcount[Array_num] / 40.0f) * 100;//比率計算％
+        rate = (int)rate;//少数切り捨て
+        World_Star[Array_num].transform.GetChild(1).GetComponent<Text>().text = rate.ToString() + "%";
+
+        //王冠
+        if (rate == 100.0f)//パーセントが100になったら
+        {
+            World_Star[Array_num].transform.GetChild(4).gameObject.SetActive(true);
+        }
+        else
+        {
+            World_Star[Array_num].transform.GetChild(4).gameObject.SetActive(false);
+        }
+
+        //星を3個取得してる数
+        int three_star = world_starcount[Array_num] / 4;
+        World_Star[Array_num].transform.GetChild(3).GetComponent<Text>().text = "x" + three_star.ToString();
+
+        
     }
 
     void Star_Stage(int Array_num, int now_world)
