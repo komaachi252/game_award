@@ -44,7 +44,7 @@ public class MissionManeger : MonoBehaviour
             
         }
 
-        text_Phese.text = phesecount.Phese_cnt.Phase_Cnt.ToString() + " / " + pheseset.Get_StarPhese(StageController.Get_Index());
+        text_Phese.text = phesecount.Phese_cnt.Phase_Cnt.ToString() + " / " + pheseset.Get_StarPhese(StageController.Get_Index()) + "以下";
 
         //=========================================
         //星03(仲間救出)

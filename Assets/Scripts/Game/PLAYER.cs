@@ -776,7 +776,8 @@ public class PLAYER : MonoBehaviour
                     GAMEOVER = 1;
                     GAMEOVER_ACT = 90;
                     Instantiate(m_hard_HOT, transform.position, Quaternion.identity);
-                    CLOUD.lost();
+                    //CLOUD.lost();
+                    CLOUD.OVERHEAT();                    
                 }
             }
 
@@ -984,7 +985,7 @@ public class PLAYER : MonoBehaviour
             if (HARD_COLD_COUNT % 30 == 0)
             {
                 Instantiate(m_hard_COLD, transform.position, Quaternion.identity);
-                FindObjectOfType<Audio_Manager>().Play("frozen");
+                FindObjectOfType<Audio_Manager>().Play("hard_frozen");
             }
         }
 
@@ -1424,6 +1425,7 @@ public class PLAYER : MonoBehaviour
                     //ICE_Kubiwa_MOTION.CRUSH();
                     Instantiate(m_BRAKE, transform.position, Quaternion.identity);
                     SOLID.lost();
+                    FindObjectOfType<Audio_Manager>().Play("hammer");
                 }
             }
 
@@ -1440,6 +1442,7 @@ public class PLAYER : MonoBehaviour
                     //ICE_Kubiwa_MOTION.CRUSH();
                     Instantiate(m_BRAKE, transform.position, Quaternion.identity);
                     SOLID.lost();
+                    FindObjectOfType<Audio_Manager>().Play("hammer");
                 }
             }
 
@@ -1457,6 +1460,7 @@ public class PLAYER : MonoBehaviour
                     //ICE_Kubiwa_MOTION.CRUSH();
                     Instantiate(m_BRAKE, transform.position, Quaternion.identity);
                     SOLID.lost();
+                    FindObjectOfType<Audio_Manager>().Play("hammer");
                 }
             }
 

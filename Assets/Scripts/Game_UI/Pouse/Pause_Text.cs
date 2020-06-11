@@ -5,19 +5,20 @@ using UnityEngine.UI;
 
 public class Pause_Text : MonoBehaviour
 {
-
+    int stage;
+    int world;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        stage = (StageController.Get_Index() - (StageController.Get_world() * 10)) + 1;
+        world = StageController.Get_world() + 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        int stage = StageController.Get_Index() - (StageController.Get_world() * 10) + 1;
-        int world = StageController.Get_world() + 1;
+        
 
         this.GetComponent<Text>().text = "WORLD " + world.ToString() + "-" + stage.ToString();
     }
