@@ -42,7 +42,7 @@ public class Title_Cursor_Con : MonoBehaviour
         //  初期Ｙ座標を保持しておく
         m_init_pos_y = this.transform.position.y;
         m_init_pos_x = this.transform.position.x;
-        m_fade.GetComponent<Game_Fade>().Fade_Start();
+        m_fade.GetComponent<Game_Fade>().Fade_Start(50);
         m_is_wait = false;
         foreach(var bar in m_select_bars)
         {

@@ -38,7 +38,7 @@ public class Map_Decorator : MonoBehaviour
                 if(i > 0)
                 {
                     if (map_data.Map_data[i - 1, j] == 6 || map_data.Map_data[i - 1, j] == 9 || map_data.Map_data[i - 1, j] == 19
-                        || map_data.Map_data[i - 1, j] == 4 || map_data.Map_data[i - 1, j] == 28) continue;
+                        || map_data.Map_data[i - 1, j] == 4 || map_data.Map_data[i - 1, j] == 28 || map_data.Map_data[i - 1, j] == 5) continue;
                 }
                 if (map_data.Map_data[i, j] == 1)
                 {
