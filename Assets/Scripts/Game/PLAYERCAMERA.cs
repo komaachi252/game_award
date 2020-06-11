@@ -78,14 +78,14 @@ public class PLAYERCAMERA : MonoBehaviour
                 Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
                 TARGETPOS.y += 1.1f + offset_y;
 
-                if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+                if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.7f)
                 {
-                    TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+                    TARGETPOS.x = MapLoader.Get_Map_Width() - 4.7f;
                 }
 
-                if (TARGETPOS.x < 4.6f)
+                if (TARGETPOS.x < 4.7f)
                 {
-                    TARGETPOS.x = 4.6f;
+                    TARGETPOS.x = 4.7f;
                 }
 
                 if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
@@ -117,14 +117,14 @@ public class PLAYERCAMERA : MonoBehaviour
             pos.y = pos.y + 1.1f + offset_y;
             pos.z = offset_z;
 
-            if (pos.x > MapLoader.Get_Map_Width() - 4.6f)
+            if (pos.x > MapLoader.Get_Map_Width() - 4.7f)
             {
-                pos.x = MapLoader.Get_Map_Width() - 4.6f;
+                pos.x = MapLoader.Get_Map_Width() - 4.7f;
             }
 
-            if (pos.x < 4.6f)
+            if (pos.x < 4.7f)
             {
-                pos.x = 4.6f;
+                pos.x = 4.7f;
             }
 
             if (pos.y > MapLoader.Get_Map_Height() - 3.1f)
@@ -272,14 +272,14 @@ public class PLAYERCAMERA : MonoBehaviour
                 pos.y -= 0.1f;
             }
 
-            if (pos.x > MapLoader.Get_Map_Width() - 4.6f)
+            if (pos.x > MapLoader.Get_Map_Width() - 4.7f)
             {
-                pos.x = MapLoader.Get_Map_Width() - 4.6f;
+                pos.x = MapLoader.Get_Map_Width() - 4.7f;
             }
 
-            if (pos.x < 4.6f)
+            if (pos.x < 4.7f)
             {
-                pos.x = 4.6f;
+                pos.x = 4.7f;
             }
 
             if (pos.y > MapLoader.Get_Map_Height() - 3.1f)
