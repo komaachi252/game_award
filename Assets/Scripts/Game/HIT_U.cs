@@ -7,6 +7,7 @@ public class HIT_U : MonoBehaviour
     public PLAYER PLAYER;
     Thorn_Block Thorn_Block;
     Collider Collider;
+    Forced_Phase Forced_Phase;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,11 @@ public class HIT_U : MonoBehaviour
     {
         Debug.Log("着地");
         Collider.isTrigger = false;
+    }
+
+    public void USE()
+    {
+        Forced_Phase.USE();
     }
 
 
@@ -64,12 +70,14 @@ public class HIT_U : MonoBehaviour
 
         if (other.gameObject.CompareTag("HARD_HOT"))
         {
-            PLAYER.HARDHOT();
+            PLAYER.HARDHOT(2);
+            Forced_Phase = other.gameObject.GetComponent<Forced_Phase>();
         }
 
         if (other.gameObject.CompareTag("HARD_COLD"))
         {
-            PLAYER.HARDCOLD();
+            PLAYER.HARDCOLD(2);
+            Forced_Phase = other.gameObject.GetComponent<Forced_Phase>();
         }
 
         if (other.gameObject.CompareTag("SPONGE"))

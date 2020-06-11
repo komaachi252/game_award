@@ -332,12 +332,12 @@ public class PLAYERCAMERA : MonoBehaviour
     public int check_H()
     {
         pos = transform.position;
-        if (pos.x == (float)(MapLoader.Get_Map_Width() - 4.6f))
+        if (pos.x == (float)(MapLoader.Get_Map_Width() - 4.7f))
         {
             return 1;
         }
 
-        if (pos.x == 4.6f)
+        if (pos.x == 4.7f)
         {
             return 2;
         }
@@ -356,14 +356,14 @@ public class PLAYERCAMERA : MonoBehaviour
             Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
             TARGETPOS.y += 1.1f + offset_y;
 
-            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.7f)
             {
-                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.7f;
             }
 
-            if (TARGETPOS.x < 4.6f)
+            if (TARGETPOS.x < 4.7f)
             {
-                TARGETPOS.x = 4.6f;
+                TARGETPOS.x = 4.7f;
             }
 
             if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
@@ -409,14 +409,14 @@ public class PLAYERCAMERA : MonoBehaviour
         Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
         TARGETPOS.y += 1.1f + offset_y;
 
-        if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+        if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.7f)
         {
-            TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+            TARGETPOS.x = MapLoader.Get_Map_Width() - 4.7f;
         }
 
-        if (TARGETPOS.x < 4.6f)
+        if (TARGETPOS.x < 4.7f)
         {
-            TARGETPOS.x = 4.6f;
+            TARGETPOS.x = 4.7f;
         }
 
         if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
@@ -458,14 +458,14 @@ public class PLAYERCAMERA : MonoBehaviour
             Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
             TARGETPOS.y += 1.1f + offset_y;
 
-            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.7f)
             {
-                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.7f;
             }
 
-            if (TARGETPOS.x < 4.6f)
+            if (TARGETPOS.x < 4.7f)
             {
-                TARGETPOS.x = 4.6f;
+                TARGETPOS.x = 4.7f;
             }
 
             if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)

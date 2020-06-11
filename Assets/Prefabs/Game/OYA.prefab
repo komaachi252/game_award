@@ -217,6 +217,7 @@ MonoBehaviour:
   CLOUD_MOTION: {fileID: 5616641076505856792}
   CLOUD: {fileID: 7965742697533795532}
   JUGEMOVE: {fileID: 1607154312596780857}
+  HIT_T: {fileID: 4756925704459897671}
   HIT_U: {fileID: 75336900194950187}
   HIT_RT: {fileID: 322674318277602903}
   HIT_RU: {fileID: 5306336778851947771}
@@ -251,6 +252,7 @@ MonoBehaviour:
   DOWNPOS_R: 0
   FLOATflag: 0
   MUTEKI: 0
+  START_Diray: 0
   VIEWflag: -1
   VIEWBACK: 0
   GAMEOVER: 0
@@ -283,6 +285,7 @@ MonoBehaviour:
   stay_FIRE: 0
   stay_DRAIN: 0
   stay_LIFTZOON: 0
+  stay_SPONGE: 0
 --- !u!65 &8249742290531316596
 BoxCollider:
   m_ObjectHideFlags: 0

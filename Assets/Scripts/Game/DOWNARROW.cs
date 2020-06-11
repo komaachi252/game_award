@@ -10,6 +10,7 @@ public class DOWNARROW : MonoBehaviour
     int count = 0;
     int FLAG = -1;
     int LOCK_F = 0;
+    float a = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,28 @@ public class DOWNARROW : MonoBehaviour
     {
         if (FLAG == 1)
         {
+            image.enabled = true;
+            if (PLAYERCAMERA.check_V() == 2)
+            {
+                image.enabled = false;
+            }
+            count++;
+            if(count < 51)
+            {
+                a += 0.02f;
+            }
+            if(count > 101)
+            {
+                a -= 0.02f;
+            }
+            if(count>150)
+            {
+                count = 0;
+            }
+
+            image.color = new Vector4(1.0f,1.0f,1.0f,a);
+
+            /*
             count++;
             if (count < 61)
             {
@@ -39,6 +62,7 @@ public class DOWNARROW : MonoBehaviour
             {
                 count = 0;
             }
+            */
         }
         else
         {
@@ -58,7 +82,8 @@ public class DOWNARROW : MonoBehaviour
         if (LOCK_F == 0)
         {
             FLAG *= -1;
-            count = 0;
+            count = 50;
+            a = 1.0f;
         }
     }
 
