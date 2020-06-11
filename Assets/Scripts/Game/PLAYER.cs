@@ -129,6 +129,7 @@ public class PLAYER : MonoBehaviour
             {
                 return;
             }
+            PLAYERCAMERA.SET_START();
         }
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") && GOAL == 0)
@@ -263,7 +264,6 @@ public class PLAYER : MonoBehaviour
         {
             VIEWflag = -1;
             VIEWBACK = 30;
-
         }
 
         if (MOVE_NOW > 0)
@@ -888,7 +888,6 @@ public class PLAYER : MonoBehaviour
                 {
                     //AQUA_MOTION.MOTION_RYU();
                     AQUA.DETH_S(JUGEMOVE.GET_JUGE_POS(), MOVE_V);
-                    Debug.LogWarning("ｓｊへいｈｒｆにしぇｂｒｇｎ");
                     FindObjectOfType<Audio_Manager>().Play("splash");
                 }
 

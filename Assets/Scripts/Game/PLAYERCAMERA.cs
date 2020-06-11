@@ -26,6 +26,7 @@ public class PLAYERCAMERA : MonoBehaviour
     public float offset_y = 0;
     public float offset_z = -5;
     public int offset_x_MAX = 0;
+    int START = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -54,64 +55,25 @@ public class PLAYERCAMERA : MonoBehaviour
             }
         }
 
-        //見渡し状態でなくRスティックがいじられたら
-        if ((x_axis_R != 0 || y_axis_R != 0) && MODE_L == -1 && BACKcount == 0 && count == 0 && GOAL == 0 && MILLFIND == 0 && offset_z == -5)
+        if (START == 1)
         {
-            MODE_L = 1;
-
-            LEFTARROW.CHANGE_FLAG();
-            RIGHTARROW.CHANGE_FLAG();
-            UPARROW.CHANGE_FLAG();
-            DOWNARROW.CHANGE_FLAG();
-            EYE.CHANGE_FLAG();
-            NoiseController.CHANGE_CANVAS();
-        }
-
-        //見渡し中にアクションボタンが押されたら
-        if (Input.GetKeyDown("joystick button 0") && MODE_L == 1 && BACKcount == 0)
-        {
-            MODE_L = -1;
-            BACKcount = 30;
-            Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
-            TARGETPOS.y += 1.1f + offset_y;
-
-            if (TARGETPOS.x > MapLoader.Get_Map_Width() - 4.6f)
+            //見渡し状態でなくRスティックがいじられたら
+            if ((x_axis_R != 0 || y_axis_R != 0) && MODE_L == -1 && BACKcount == 0 && count == 0 && GOAL == 0 && MILLFIND == 0 && offset_z == -5)
             {
-                TARGETPOS.x = MapLoader.Get_Map_Width() - 4.6f;
+                MODE_L = 1;
+
+                LEFTARROW.CHANGE_FLAG();
+                RIGHTARROW.CHANGE_FLAG();
+                UPARROW.CHANGE_FLAG();
+                DOWNARROW.CHANGE_FLAG();
+                EYE.CHANGE_FLAG();
+                NoiseController.CHANGE_CANVAS();
             }
 
-            if (TARGETPOS.x < 4.6f)
+            //見渡し中にアクションボタンが押されたら
+            if (Input.GetKeyDown("joystick button 1") && MODE_L == 1 && BACKcount == 0)
             {
-                TARGETPOS.x = 4.6f;
-            }
-
-            if (TARGETPOS.y > MapLoader.Get_Map_Height() - 3.1f)
-            {
-                TARGETPOS.y = MapLoader.Get_Map_Height() - 3.1f;
-            }
-
-            if (TARGETPOS.y < 2.1f)
-            {
-                TARGETPOS.y = 2.1f;
-            }
-
-            BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
-            BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
-
-            LEFTARROW.CHANGE_FLAG();
-            RIGHTARROW.CHANGE_FLAG();
-            UPARROW.CHANGE_FLAG();
-            DOWNARROW.CHANGE_FLAG();
-            EYE.CHANGE_FLAG();
-            NoiseController.CHANGE_CANVAS();
-        }
-        /*
-        if (Input.GetKeyDown(KeyCode.F) && BACKcount == 0 && count == 0 && GOAL == 0 && MILLFIND == 0 && offset_z == -5)
-        {
-            MODE_L *= -1;
-
-            if (MODE_L == -1)
-            {
+                MODE_L = -1;
                 BACKcount = 30;
                 Vector3 TARGETPOS = PLAYER.GETPLAYERPOS();
                 TARGETPOS.y += 1.1f + offset_y;
@@ -138,12 +100,15 @@ public class PLAYERCAMERA : MonoBehaviour
 
                 BACKMOVE_x = (TARGETPOS.x - pos.x) / 30;
                 BACKMOVE_y = (TARGETPOS.y - pos.y) / 30;
+
+                LEFTARROW.CHANGE_FLAG();
+                RIGHTARROW.CHANGE_FLAG();
+                UPARROW.CHANGE_FLAG();
+                DOWNARROW.CHANGE_FLAG();
+                EYE.CHANGE_FLAG();
+                NoiseController.CHANGE_CANVAS();
             }
-
-            NoiseController.CHANGE_CANVAS();
         }
-        */
-
 
         if (count == 0 && MODE_L == -1 && BACKcount == 0)
         {
@@ -523,6 +488,11 @@ public class PLAYERCAMERA : MonoBehaviour
         DOWNARROW.CHANGE_FLAG();
         EYE.CHANGE_FLAG();
         NoiseController.CHANGE_CANVAS();
+    }
+
+    public void SET_START()
+    {
+        START = 1;
     }
 }
 
