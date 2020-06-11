@@ -119,9 +119,33 @@ public class StarManeger : MonoBehaviour
             if (anime_star[2].GetCurrentAnimatorStateInfo(0).IsName("Star_Big") || star_flag[2] == FALSE)//状態確認
             {
                 
+
                 flag = 4;
+
             }
         }
+
+        if (flag == 4)
+        {
+
+            if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("Idle1") && anime_star[1].GetCurrentAnimatorStateInfo(0).IsName("Idle1") && anime_star[2].GetCurrentAnimatorStateInfo(0).IsName("Idle1"))
+            {
+                if (star_flag[0] == TRUE && star_flag[1] == TRUE && star_flag[2] == TRUE)//星3個取得してたら
+                {
+                    FindObjectOfType<Audio_Manager>().Play("star_rainbow");
+                    anime_star[0].SetTrigger("Rainbow_Anime");
+                    anime_star[1].SetTrigger("Rainbow_Anime");
+                    anime_star[2].SetTrigger("Rainbow_Anime");
+
+                }
+            }
+
+            if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("Star_Rainbow_Big"))
+            {
+                flag = 5;
+            }
+        }
+        
 
     }
 
@@ -134,14 +158,11 @@ public class StarManeger : MonoBehaviour
         Star_Data.Star_SaveData[StageController.Get_Index(), 0] = 1;
         flag = 1;
 
-        int three_star = 1;//星3個取得したか
-
         if (Phese_num >= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
         {
 
             star_flag[1] = TRUE;
             Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 1;
-            three_star++;
         }
         else
         {
@@ -153,14 +174,13 @@ public class StarManeger : MonoBehaviour
 
             star_flag[2] = TRUE;
             Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 1;
-            three_star++;
         }
         else if (help.Expose_Helpme.Is_Help == false)
         {
             star_flag[2] = FALSE;
         }
 
-        if (three_star == 3)//星3個取得してたら
+        if (star_flag[0] == TRUE && star_flag[1] == TRUE && star_flag[2] == TRUE)//星3個取得してたら
         {
             Star_Data.Star_SaveData[StageController.Get_Index(), 3] = 1;
         }
@@ -172,7 +192,7 @@ public class StarManeger : MonoBehaviour
     //星がアニメーションしたかしてないか
     public bool Active_AnimeStar()
     {
-        if (flag == 4)
+        if (flag == 5)
         {
             return false;
         }
