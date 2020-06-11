@@ -55,6 +55,8 @@ public class SaveData : MonoBehaviour
 
             Star_SaveData[i, 2] = int.Parse(Split_StarData[split_count]);//星3
             split_count++;
+
+            Star_SaveData[i, 3] = int.Parse(Split_StarData[split_count]);//星3
         }
 
         //for (int i = 0; i < Star_SaveData.Length; i++)
