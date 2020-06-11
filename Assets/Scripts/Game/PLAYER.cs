@@ -888,6 +888,7 @@ public class PLAYER : MonoBehaviour
                 {
                     //AQUA_MOTION.MOTION_RYU();
                     AQUA.DETH_S(JUGEMOVE.GET_JUGE_POS(), MOVE_V);
+                    Debug.LogWarning("ｓｊへいｈｒｆにしぇｂｒｇｎ");
                     FindObjectOfType<Audio_Manager>().Play("splash");
                 }
 
