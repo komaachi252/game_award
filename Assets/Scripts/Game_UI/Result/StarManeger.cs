@@ -134,11 +134,14 @@ public class StarManeger : MonoBehaviour
         Star_Data.Star_SaveData[StageController.Get_Index(), 0] = 1;
         flag = 1;
 
+        int three_star = 1;//星3個取得したか
+
         if (Phese_num >= exphese.Phese_cnt.Phase_Cnt)//変化回数制限になってたら
         {
 
             star_flag[1] = TRUE;
             Star_Data.Star_SaveData[StageController.Get_Index(), 1] = 1;
+            three_star++;
         }
         else
         {
@@ -150,10 +153,16 @@ public class StarManeger : MonoBehaviour
 
             star_flag[2] = TRUE;
             Star_Data.Star_SaveData[StageController.Get_Index(), 2] = 1;
+            three_star++;
         }
         else if (help.Expose_Helpme.Is_Help == false)
         {
             star_flag[2] = FALSE;
+        }
+
+        if (three_star == 3)//星3個取得してたら
+        {
+            Star_Data.Star_SaveData[StageController.Get_Index(), 3] = 1;
         }
 
         Star_Data.Star_SaveWrite();//セーブ
