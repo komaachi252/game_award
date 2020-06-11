@@ -492,6 +492,14 @@ public class UIController : MonoBehaviour
         World_Star[Array_num].SetActive(false);//非表示
         Stage_Star[Array_num].SetActive(true);//表示
 
+        if (star.Star_SaveData[Array_num + (now_world * 10),3] == 1)//星3個取得してたら
+        {
+            Stage_Star[Array_num].transform.GetChild(0).GetComponent<Image>().sprite = Star_Sprite[2];
+            Stage_Star[Array_num].transform.GetChild(1).GetComponent<Image>().sprite = Star_Sprite[2];
+            Stage_Star[Array_num].transform.GetChild(2).GetComponent<Image>().sprite = Star_Sprite[2];
+            return;
+        }
+
         if (star.Star_SaveData[Array_num + (now_world * 10),0] == 0)
         {
             Stage_Star[Array_num].transform.GetChild(0).GetComponent<Image>().sprite = Star_Sprite[0];
