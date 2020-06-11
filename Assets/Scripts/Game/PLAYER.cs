@@ -56,6 +56,7 @@ public class PLAYER : MonoBehaviour
     public float DOWNPOS_R = 0;     //水滴落下準備位置
     public int FLOATflag = 0;       //水上移動フラグ
     public int MUTEKI = 0;          //無敵フラグ
+    public int START_Diray;         //フェード完了待ち時間
     public int VIEWflag = -1;       //見渡しフラグ
     public int VIEWBACK = 0;        //見渡し復元カウント
     public int GAMEOVER = 0;        //ゲームオーバー判定フラグ
@@ -68,6 +69,7 @@ public class PLAYER : MonoBehaviour
     public int GAME_STOP = -1;      //ポーズフラグ
     public int NOTVIEW = 0;         //見渡し禁止フラグ
     int HARD_COLD_COUNT = 0;        //凍結エフェクト追撃カウント
+    int PAUSE_MASK = 0;             //ポーズマスク
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -113,12 +115,21 @@ public class PLAYER : MonoBehaviour
         capcollider = this.gameObject.GetComponent<CapsuleCollider>();
         Physics.gravity = new Vector3(0, -9.8f, 0);
         MUTEKI = 6;
+        START_Diray = 75;
     }
 
     // Update is called once per frame
     void Update()
     {
         //int ARROW = 0;
+        if (START_Diray > 0)
+        {
+            START_Diray--;
+            if (START_Diray > 0)
+            {
+                return;
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") && GOAL == 0)
         {
@@ -127,18 +138,21 @@ public class PLAYER : MonoBehaviour
             {
                 Time.timeScale = 0f;
             }
-            if (GAME_STOP == -1)
+            else if (GAME_STOP == -1)
             {
                 Time.timeScale = 1f;
             }
+            PAUSE_MASK = 1;
         }
 
         //ポーズ画面がコントローラーに対応したら開く
-        if (GAME_STOP == 1 && Input.GetKeyDown("joystick button 0") || Input.GetKeyDown("joystick button 1"))
+        if (GAME_STOP == 1 && Input.GetKeyDown("joystick button 0") || Input.GetKeyDown("joystick button 1") && PAUSE_MASK == 0)
         {
             GAME_STOP = -1;
             Time.timeScale = 1f;
         }
+
+        PAUSE_MASK = 0;
 
         if (Mathf.Approximately(Time.timeScale, 0f))
         {
@@ -245,7 +259,7 @@ public class PLAYER : MonoBehaviour
             PLAYERCAMERA.CAMERA_F_KEY();
         }
 
-        if (Input.GetKeyDown("joystick button 0") && VIEWflag == 1)
+        if (Input.GetKeyDown("joystick button 1") && VIEWflag == 1)
         {
             VIEWflag = -1;
             VIEWBACK = 30;
@@ -777,7 +791,7 @@ public class PLAYER : MonoBehaviour
                     GAMEOVER_ACT = 90;
                     Instantiate(m_hard_HOT, transform.position, Quaternion.identity);
                     //CLOUD.lost();
-                    CLOUD.OVERHEAT();                    
+                    CLOUD.OVERHEAT();
                 }
             }
 
@@ -874,6 +888,7 @@ public class PLAYER : MonoBehaviour
                 {
                     //AQUA_MOTION.MOTION_RYU();
                     AQUA.DETH_S(JUGEMOVE.GET_JUGE_POS(), MOVE_V);
+                    FindObjectOfType<Audio_Manager>().Play("splash");
                 }
 
                 if (TYPE == 2)
@@ -906,6 +921,7 @@ public class PLAYER : MonoBehaviour
                 GAMEOVER = 1;
                 GAMEOVER_ACT = 90;
                 AQUA.DETH_S(JUGEMOVE.GET_JUGE_POS(), MOVE_V);
+                FindObjectOfType<Audio_Manager>().Play("splash");
             }
         }
 
