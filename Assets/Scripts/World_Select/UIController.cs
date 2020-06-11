@@ -52,6 +52,7 @@ public class UIController : MonoBehaviour
     //2 = 下移動
     private int scroll_flag;
     private float move_max;//移動幅
+    float speed_move;
 
     private StageController stagecon;//ステージコントローラー
 
@@ -144,9 +145,10 @@ public class UIController : MonoBehaviour
         up = 0;
         down = 6;
         move_max = 75.0f + 20.0f;
+        speed_move = 0.09f;
 
-        
-        
+
+
 
     }
 
@@ -372,20 +374,29 @@ public class UIController : MonoBehaviour
             //=====================================================
             if (now_select == 1)//ステージ選択
             {
-                if (down <= now_stage && scroll_flag == 0)//上移動
-                {
-                    scroll_flag = 1;
-                    move_max = 75.0f + 20.0f;
-                    
-                }
 
-                if (up > now_stage && scroll_flag == 0)
+                if (scroll_flag == 0)
                 {
-                    scroll_flag = 2;
-                    move_max = 0.0f;
-                    down--;//一番下をずらす
-                    up--;
+                    if (down <= now_stage)//上移動
+                    {
+                        scroll_flag = 1;
+                        move_max = 75.0f + 20.0f;
+                    }
+                    else if (up > now_stage)
+                    {
+                        scroll_flag = 2;
+                        move_max = 0.0f;
+                        down--;//一番下をずらす
+                        up--;
+                    }
+                    else
+                    {
+                        speed_move = 0.2f;
+                    }
                 }
+                
+
+                
 
                 for (int i = 0; i < CreateUI.Length; i++)
                 {
@@ -400,7 +411,7 @@ public class UIController : MonoBehaviour
                 if (scroll_flag == 1)//上移動
                 {
 
-                    float speed = ((75.0f + 20.0f) / 0.2f) * Time.deltaTime;
+                    float speed = ((75.0f + 20.0f) / speed_move) * Time.deltaTime;
 
                     for (int i = 0; i < CreateUI.Length; i++)
                     {
@@ -416,7 +427,6 @@ public class UIController : MonoBehaviour
                         down++;//一番下をずらす
                         up++;
 
-
                         for (int j = up; j < CreateUI.Length; j++)
                         {
                             CreateUI[j].transform.localPosition = new Vector3(CreateUI[j].transform.localPosition.x, 217.0f - ((75.0f + 20.0f) * (j - up)), 0.0f);
@@ -427,7 +437,7 @@ public class UIController : MonoBehaviour
                 if (scroll_flag == 2)//下移動
                 {
 
-                    float speed = ((75.0f + 20.0f) / 0.2f) * Time.deltaTime;
+                    float speed = ((75.0f + 20.0f) / speed_move) * Time.deltaTime;
 
                     for (int i = 0; i < CreateUI.Length; i++)
                     {

@@ -43,6 +43,9 @@ public class PauseManeger : MonoBehaviour
 
     float move_flame;//移動フレーム時間
     float move_speed;//移動速度
+
+    //使用開始フラグ
+    int START;
     
 
     // Start is called before the first frame update
@@ -56,7 +59,7 @@ public class PauseManeger : MonoBehaviour
 
         move_flame = 1.0f;
         select.localPosition = new Vector3(select.localPosition.x, text[select_flag].localPosition.y, 0.0f);
-        
+        START = 0;  //使用不能状態
     }
 
     
@@ -66,6 +69,11 @@ public class PauseManeger : MonoBehaviour
     void Update()
     {
         if (clearflag.Expose_CrearFlag.Is_Clear_Flag == true)
+        {
+            return;
+        }
+
+        if(START == 0)
         {
             return;
         }
@@ -198,5 +206,10 @@ public class PauseManeger : MonoBehaviour
 
         
 
+    }
+
+    public void SET_START()
+    {
+        START = 1;
     }
 }

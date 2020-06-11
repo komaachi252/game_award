@@ -8,9 +8,11 @@ public class PLAYER : MonoBehaviour
 {
     PLAYERCAMERA PLAYERCAMERA;
     Thorn_Block Thorn_Block;
+    PauseManeger PauseManeger;
     Game_Fade Game_Fade;
     GameObject CAMERA;
     GameObject FADE;
+    GameObject PAUSE;
     public SOLID SOLID;
     public AQUA AQUA;
     public AQUA_MOTION AQUA_MOTION;
@@ -106,6 +108,9 @@ public class PLAYER : MonoBehaviour
         CAMERA = GameObject.Find("Main Camera");
         PLAYERCAMERA = CAMERA.GetComponent<PLAYERCAMERA>();
 
+        PAUSE = GameObject.Find("PauseManaeger");
+        PauseManeger = PAUSE.GetComponent<PauseManeger>();
+
         FADE = GameObject.Find("Fade");
         Game_Fade = FADE.GetComponent<Game_Fade>();
 
@@ -130,6 +135,7 @@ public class PLAYER : MonoBehaviour
                 return;
             }
             PLAYERCAMERA.SET_START();
+            PauseManeger.SET_START();
         }
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 7") && GOAL == 0)
@@ -894,6 +900,7 @@ public class PLAYER : MonoBehaviour
                 if (TYPE == 2)
                 {
                     CLOUD_MOTION.MOTION_RYU();
+                    FindObjectOfType<Audio_Manager>().Play("bacumu");
                 }
             }
 
