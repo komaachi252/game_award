@@ -7,6 +7,7 @@ public class Goal : MonoBehaviour
     // Start is called before the first frame update
     public const string GAME_MANAGER = "Game_Manager";
     public GameObject m_teru;
+    public GameObject m_effect;
     bool once = false;
     void Start()
     {
@@ -37,6 +38,7 @@ public class Goal : MonoBehaviour
        
             //GameObject.Find(GAME_MANAGER).GetComponent<Game_Manager>().Game_Clear();
             m_teru.GetComponent<Teru>().Rotate_Start();
+            Instantiate(m_effect, this.gameObject.transform.position, Quaternion.identity);
         }
     }
 }

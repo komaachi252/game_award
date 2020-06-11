@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_teru: {fileID: 4666218806068986455}
+  m_effect: {fileID: 951050947394146633, guid: 111699b2db204504fab708f61249b827, type: 3}
 --- !u!135 &5076965760549680719
 SphereCollider:
   m_ObjectHideFlags: 0
