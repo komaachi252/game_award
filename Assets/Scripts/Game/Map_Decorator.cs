@@ -33,11 +33,20 @@ public class Map_Decorator : MonoBehaviour
         {
             for (int j = 0; j < map_data.Width; j++)
             {
-                if (map_data.Map_data[i, j] == 0) continue;
+                if (map_data.Map_data[i, j] != 1) continue;
 
+                if(i > 0)
+                {
+                    if (map_data.Map_data[i - 1, j] == 6 || map_data.Map_data[i - 1, j] == 9 || map_data.Map_data[i - 1, j] == 19
+                        || map_data.Map_data[i - 1, j] == 4 || map_data.Map_data[i - 1, j] == 28) continue;
+                }
                 if (map_data.Map_data[i, j] == 1)
                 {
                     if (m_world_index == 2 && j == 0) continue;
+                    if(m_world_index == 2 && i > 0)
+                    {
+                        if (map_data.Map_data[i - 1, j] == 1) continue;
+                    }
                     if (m_world_index == 2 && j == map_data.Width - 1) continue;
                     pop_cnt++;
                     //seed_num++;
