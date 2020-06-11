@@ -138,9 +138,15 @@ public class StarManeger : MonoBehaviour
                     anime_star[2].SetTrigger("Rainbow_Anime");
 
                 }
+
             }
 
             if (anime_star[0].GetCurrentAnimatorStateInfo(0).IsName("Star_Rainbow_Big"))
+            {
+                flag = 5;
+            }
+
+            if (star_flag[0] == FALSE || star_flag[1] == FALSE || star_flag[2] == FALSE)
             {
                 flag = 5;
             }
