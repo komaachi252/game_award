@@ -26,7 +26,8 @@ public class UIController : MonoBehaviour
     private GameObject[] Stage_Star;//ステージの星が親になってるオブジェクト
 
     [SerializeField] SaveData star;//星の取得状況確認
-    int[] world_starcount;
+    int[] world_starcount;//星の取得数
+    int[] world_three_starcount;//星3個取得数
 
     //フラグ
     //0 = 未選択
@@ -74,13 +75,22 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < 50; i++)//ワールド数
         {
+            int three = 0;
             for (int l = 0; l < 3; l++)//星
             {
 
                 if (star.Star_SaveData[i, l] == 1)//星が付いてた場合
                 {
                     world_starcount[i / 10]++;//カウントする
+                    three++;
                 }
+                
+                
+            }
+
+            if (three == 3)//星3個取得してたら
+            {
+                world_three_starcount[i / 10]++;
             }
         }
 
@@ -461,7 +471,10 @@ public class UIController : MonoBehaviour
         {
             return;
         }
-        World_Star[Array_num].transform.GetChild(1).GetComponent<Text>().text = "x" + world_starcount[Array_num].ToString();
+        //World_Star[Array_num].transform.GetChild(1).GetComponent<Text>().text = "x" + world_starcount[Array_num].ToString();
+        World_Star[Array_num].transform.GetChild(1).GetComponent<Text>().text = "100%";
+
+        //World_Star[Array_num].transform.GetChild(3).GetComponent<Text>().text = "x" + world_three_starcount[Array_num].ToString();
     }
 
     void Star_Stage(int Array_num, int now_world)
