@@ -168,6 +168,10 @@ public class Title_Cursor_Con : MonoBehaviour
             m_fade.GetComponent<Game_Fade>().Fade_Start(20, true, "WorldScene");
             m_is_wait = true;
         }
+        else if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 1 && stardata.Star_SaveRoad() == false)
+        {
+            FindObjectOfType<Audio_Manager>().Play("botton_notpress");
+        }
         if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0")) && idx == 2)  //  OPTION
         {
             FindObjectOfType<Audio_Manager>().Play("enter");
