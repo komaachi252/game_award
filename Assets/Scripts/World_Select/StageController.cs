@@ -61,7 +61,13 @@ public class StageController : MonoBehaviour
 
         input_cooltime += Time.deltaTime;//クールタイムカウント
 
-
+        if (key_flag == 1)
+        {
+            //===============================================
+            //パッド入力処理
+            //===============================================
+            pad_input();
+        }
 
         if (key_flag == 1)
         {
@@ -69,23 +75,15 @@ public class StageController : MonoBehaviour
             //キーボード入力処理
             //===============================================
             Key_input();
-
-
-            //===============================================
-            //パッド入力処理
-            //===============================================
-            pad_input();
-
-            //===============================================
-            //その他いろいろ
-            //===============================================
-            now_world = next_world;
-            now_stage = next_stage;
         }
-       
+
+        //===============================================
+        //その他いろいろ
+        //===============================================
+        now_world = next_world;
+        now_stage = next_stage;
 
 
-        
 
         if (select_flag == 2 && script_feed.Feed_State() == false)//シーン移動処理
         {
@@ -130,7 +128,7 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if (next_world < 1 || next_stage < 1)
+            else if (next_world == 0 || next_stage == 0)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
 
@@ -152,7 +150,7 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if (next_world > World_Stage_Nm.GET_WORLD_NUM() - 2 || next_stage > World_Stage_Nm.GET_STAGE_NUM(now_world) - 2)
+            else if (next_world == 4 || next_stage == 9)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
 
@@ -219,12 +217,10 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if(next_world > World_Stage_Nm.GET_WORLD_NUM() - 2 || next_stage > World_Stage_Nm.GET_STAGE_NUM(now_world) - 2)
+            else if(next_world == 4 || next_stage == 9)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
-                
             }
-
 
         }
         else if (Input.GetKeyDown(KeyCode.W))//上
@@ -243,10 +239,9 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if (next_world < 1 || next_stage < 1)
+            else if (next_world == 0 || next_stage == 0)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
-                
             }
         }
 
