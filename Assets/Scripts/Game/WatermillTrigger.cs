@@ -43,7 +43,7 @@ public class WatermillTrigger : MonoBehaviour
             wave_count++;
             if(wave_count==20)
             {
-                FindObjectOfType<Audio_Manager>().Play("splash");
+                //FindObjectOfType<Audio_Manager>().Play("splash");
                 Instantiate(m_effect, this.gameObject.transform.position, Quaternion.identity);
                 wave_count = 0;
             }

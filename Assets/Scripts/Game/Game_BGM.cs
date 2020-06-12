@@ -22,11 +22,13 @@ public class Game_BGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(Input.GetKeyDown(KeyCode.G))
         {
             FindObjectOfType<Audio_Manager>().Stop(m_bgm_name);
             SceneManager.LoadScene("WorldScene");
         }
+        */
     }
 
     public void Stop_BGM()
