@@ -8,6 +8,7 @@ public class WatermillTrigger : MonoBehaviour
 
     public GameObject m_effect;
     bool m_is_colli;
+    int wave_count = 0;
     public bool Is_Colli
     {
         get { return m_is_colli; }
@@ -35,11 +36,26 @@ public class WatermillTrigger : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider col)
+    {
+        if (col.gameObject.CompareTag("AQUA"))
+        {
+            wave_count++;
+            if(wave_count==20)
+            {
+                FindObjectOfType<Audio_Manager>().Play("splash");
+                Instantiate(m_effect, this.gameObject.transform.position, Quaternion.identity);
+                wave_count = 0;
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider col)
     {
         if (col.gameObject.CompareTag("AQUA"))
         {
             m_is_colli = false;
+            wave_count = 0;
         }
     }
 }

@@ -9,6 +9,7 @@ public class PLAYER : MonoBehaviour
     PLAYERCAMERA PLAYERCAMERA;
     Thorn_Block Thorn_Block;
     PauseManeger PauseManeger;
+    
     Game_Fade Game_Fade;
     GameObject CAMERA;
     GameObject FADE;
@@ -22,6 +23,7 @@ public class PLAYER : MonoBehaviour
     public CLOUD_MOTION CLOUD_MOTION;
     public CLOUD CLOUD;
     public JUGEMOVE JUGEMOVE;
+    public HIT_T HIT_T;
     public HIT_U HIT_U;
     public HIT_RT HIT_RT;
     public HIT_RU HIT_RU;
@@ -72,6 +74,7 @@ public class PLAYER : MonoBehaviour
     public int NOTVIEW = 0;         //見渡し禁止フラグ
     int HARD_COLD_COUNT = 0;        //凍結エフェクト追撃カウント
     int PAUSE_MASK = 0;             //ポーズマスク
+    int BLOCK_D = 0;                //接触した強制ブロックの方向　１上　２下
 
     public int MOVE_NOW = 0;
     public int STAND = 0;       //接地フラグ
@@ -790,6 +793,15 @@ public class PLAYER : MonoBehaviour
                         AQUA.exchange_s();
                         CLOUD.exchange_b();
                     }
+
+                    if(BLOCK_D == 1)
+                    {
+                        HIT_T.USE();
+                    }
+                    else if(BLOCK_D == 2)
+                    {
+                        HIT_U.USE();
+                    }
                 }
                 else if (TYPE == 2)
                 {
@@ -821,6 +833,15 @@ public class PLAYER : MonoBehaviour
                     {
                         CLOUD.exchange_s();
                         AQUA.exchange_b();
+                    }
+
+                    if (BLOCK_D == 1)
+                    {
+                        HIT_T.USE();
+                    }
+                    else if (BLOCK_D == 2)
+                    {
+                        HIT_U.USE();
                     }
                 }
                 else if (TYPE == 0)
@@ -1200,7 +1221,7 @@ public class PLAYER : MonoBehaviour
         stay_WATER = 0;
     }
 
-    public void HARDHOT()
+    public void HARDHOT(int HIT)
     {
         Debug.Log(transform.position);
         MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -1216,9 +1237,10 @@ public class PLAYER : MonoBehaviour
 
         AUTOMOVEflag2 = 1;
         stay_HARDHOT = 1;
+        BLOCK_D = HIT;
     }
 
-    public void HARDCOLD()
+    public void HARDCOLD(int HIT)
     {
         Debug.Log(transform.position);
         MOVEPOS = JUGEMOVE.GET_JUGEPOS();   //目標地点Xを判定マスと同じにする
@@ -1234,6 +1256,7 @@ public class PLAYER : MonoBehaviour
 
         AUTOMOVEflag2 = 1;
         stay_HARDCOLD = 1;
+        BLOCK_D = HIT;
     }
 
     public void WATER(float TARGET_V)

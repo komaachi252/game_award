@@ -25,10 +25,13 @@ public class Forced_Phase : MonoBehaviour
 
     private void Update()
     {
+        //プレイヤーから呼ぶようにしたよ
+        /*
         if (m_is_stay)
         {
-            Trans_Check();
+            //Trans_Check();
         }
+        */
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -143,6 +146,31 @@ public class Forced_Phase : MonoBehaviour
             Debug.Log(m_tag_name + "がでる");
             m_is_stay = false;
         }
+    }
+
+    public void USE()
+    {
+        m_is_trigger = true;
+        if (m_is_hot)
+        {
+            Material mat = Resources.Load<Material>("Game/Material/hot_2");
+            m_material = new Material(mat);
+            FindObjectOfType<Audio_Manager>().Play("heat1");
+        }
+        else
+        {
+            Material mat = Resources.Load<Material>("Game/Material/cold_2");
+            m_material = new Material(mat);
+            FindObjectOfType<Audio_Manager>().Play("frozen");
+        }
+        gameObject.GetComponent<Renderer>().material = m_material;
+        m_current_color = m_material.color;
+        gameObject.tag = "BLOCK";
+        Create_Effect();
+
+        m_tag_name = GameObject.Find("PLAYER_MASTER").gameObject.tag;
+        Debug.Log(m_tag_name + "がでる");
+        m_is_stay = false;
     }
 }
 
