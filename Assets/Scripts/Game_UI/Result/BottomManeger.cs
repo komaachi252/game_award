@@ -132,14 +132,15 @@ public class BottomManeger : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Return) || Input.GetKey("joystick button 0"))
         {
+            
 
             Dicision2();
-        }
 
-        if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp("joystick button 0"))
+        }
+        else if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp("joystick button 0"))
         {
             Dicision();
-            FindObjectOfType<Audio_Manager>().Play("enter");
+
         }
 
         Bottom_touch();
@@ -187,25 +188,36 @@ public class BottomManeger : MonoBehaviour
         if (SELECT == now_bottom)
         {
             fade.Fade_Start(20, true, "WorldScene");
-            
+            now_bottom = -1;
+            FindObjectOfType<Audio_Manager>().Play("enter");
         }
-
-        if (RETURN == now_bottom)
+        else if (RETURN == now_bottom)
         {
             Time.timeScale = 1.0f;
             fade.Fade_Start(20, true, "GameScene", "PauseScene");
+            now_bottom = -1;
+            FindObjectOfType<Audio_Manager>().Play("enter");
         }
-
-        if (NEXT == now_bottom)
+        else if(NEXT == now_bottom)
         {
-            StageController.Set_nextstage();
+            if (StageController.Get_Index() < 49)
+            {
+                StageController.Set_nextstage();
 
-            fade.Fade_Start(20, true, "GameScene", "PauseScene");
+                fade.Fade_Start(20, true, "GameScene", "PauseScene");
+                now_bottom = -1;
+                FindObjectOfType<Audio_Manager>().Play("enter");
+            }
+            
         }
 
-        now_bottom = -1;
 
         
+
+
+
+
+
     }
 
     private void Dicision2()
@@ -230,11 +242,21 @@ public class BottomManeger : MonoBehaviour
 
         if (NEXT == now_bottom)
         {
-            image_Next[0].sprite = Bottom_down;
+            if (StageController.Get_Index() < 49)
+            {
+                image_Next[0].sprite = Bottom_down;
+            }
+            else
+            {
+                FindObjectOfType<Audio_Manager>().Play("botton_notpress");
+            }
         }
         else
         {
             image_Next[0].sprite = Bottom_up;
         }
+
+        
+        
     }
 }
