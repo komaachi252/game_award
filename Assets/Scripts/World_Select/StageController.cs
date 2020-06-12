@@ -128,10 +128,9 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if (next_world == 0 || next_stage == 0)
+            else if ((next_world == 0 || next_stage == 0) && input_cooltime >= INPUT_COOLTIME)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
-
             }
         }
         else if (y_axis < 0.0f || arrow_axis > 0)//スティックが下
@@ -150,7 +149,7 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if (next_world == 4 || next_stage == 9)
+            else if ((next_world == 4 || next_stage == 9) && input_cooltime >= INPUT_COOLTIME)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
 
@@ -217,9 +216,10 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if(next_world == 4 || next_stage == 9)
+            else if((next_world == 4 || next_stage == 9) && input_cooltime >= INPUT_COOLTIME)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
+                input_cooltime = 0;
             }
 
         }
@@ -239,9 +239,10 @@ public class StageController : MonoBehaviour
                 FindObjectOfType<Audio_Manager>().Play("select");
                 key_flag = 0;
             }
-            else if (next_world == 0 || next_stage == 0)
+            else if ((next_world == 0 || next_stage == 0) && input_cooltime >= INPUT_COOLTIME)
             {
                 FindObjectOfType<Audio_Manager>().Play("botton_notpress");
+                input_cooltime = 0;
             }
         }
 

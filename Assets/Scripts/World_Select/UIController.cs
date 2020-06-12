@@ -396,9 +396,6 @@ public class UIController : MonoBehaviour
                         speed_move = 0.2f;
                     }
                 }
-                
-
-                
 
                 for (int i = 0; i < CreateUI.Length; i++)
                 {
