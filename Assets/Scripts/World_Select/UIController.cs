@@ -309,6 +309,7 @@ public class UIController : MonoBehaviour
                         {
                             CreateUI[i].transform.localPosition = new Vector3(LEFT_MAX, CreateUI[i].transform.localPosition.y, CreateUI[i].transform.localPosition.z);
                             flag[i] = 1;
+                            stagecon.key_flag = 1;
                         }
                     }
 
@@ -348,6 +349,7 @@ public class UIController : MonoBehaviour
                         {
                             CreateUI[i].transform.localPosition = new Vector3(LEFT_MAX, CreateUI[i].transform.localPosition.y, CreateUI[i].transform.localPosition.z);
                             flag[i] = 1;
+                            stagecon.key_flag = 1;
                         }
                     }
 
