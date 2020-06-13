@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 1}
     m_Floats:
     - _Alpha: 1
-    - _Amount: -0.000000010927847
+    - _Amount: 0.11953809
     - _Cutoff: 1
     - _Glossiness: 0
     - _Metallic: 1

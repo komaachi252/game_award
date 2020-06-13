@@ -98,7 +98,7 @@ public class Map_Decorator : MonoBehaviour
             if(seed == 0)
             {
                 create_index = 4;
-                q = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+               // q = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             }
             if (seed == 1)
             {
@@ -107,7 +107,7 @@ public class Map_Decorator : MonoBehaviour
             if(seed == 2)
             {
                 create_index = 6;
-                q = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+                q = Quaternion.Euler(0.0f, -90.0f, 0.0f);
             }
 
             trans.y += 1.18f;
