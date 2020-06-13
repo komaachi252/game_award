@@ -1548,4 +1548,9 @@ public class PLAYER : MonoBehaviour
     {
         return MOVE_D;
     }
+
+    public int GET_TYPE()
+    {
+        return TYPE;
+    }
 }
