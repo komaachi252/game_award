@@ -42,9 +42,16 @@ public class MissionManeger : MonoBehaviour
         {
             image_star[1].sprite = sprite_star[1];//星明るくする
             
-        }
+        };
 
-        text_Phese.text = phesecount.Phese_cnt.Phase_Cnt.ToString() + " / " + pheseset.Get_StarPhese(StageController.Get_Index()) + "以下";
+        if (phesecount.Phese_cnt.Phase_Cnt >= 99)//変化回数99回超えたら
+        {
+            text_Phese.text = "99" + " / " + pheseset.Get_StarPhese(StageController.Get_Index());
+        }
+        else
+        {
+            text_Phese.text = phesecount.Phese_cnt.Phase_Cnt.ToString() + " / " + pheseset.Get_StarPhese(StageController.Get_Index());
+        }
 
         //=========================================
         //星03(仲間救出)
