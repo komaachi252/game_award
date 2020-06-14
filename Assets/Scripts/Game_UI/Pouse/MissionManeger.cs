@@ -41,8 +41,12 @@ public class MissionManeger : MonoBehaviour
         if (phesecount.Phese_cnt.Phase_Cnt <= pheseset.Get_StarPhese(StageController.Get_Index()))
         {
             image_star[1].sprite = sprite_star[1];//星明るくする
-            
-        };
+
+        }
+        else
+        {
+            image_star[1].sprite = sprite_star[0];//星明るくする
+        }
 
         if (phesecount.Phese_cnt.Phase_Cnt >= 99)//変化回数99回超えたら
         {
